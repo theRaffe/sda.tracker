@@ -15,8 +15,8 @@ class SdaTrackerDao:
         cur.execute("select * from cat_artifact")
         rows = cur.fetchall()
         for row in rows:
-            key = row["id_artifact"]
-            value_key = row["path_directory"]
+            key = row["path_directory"]
+            value_key = row["id_artifact"]
             dict_artifact[key] = value_key
 
         return dict_artifact
