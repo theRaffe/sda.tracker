@@ -2,9 +2,12 @@ import sqlite3 as lite
 import sys
 
 __author__ = 'macbook'
+
+
 class SdaTrackerDao:
     'Class for accessing to sqlite database'
     conn = None
+
     def __init__(self, connectionFile):
         self.conn = lite.connect(connectionFile)
 
@@ -16,7 +19,17 @@ class SdaTrackerDao:
         rows = cur.fetchall()
         for row in rows:
             key = row["path_directory"]
-            value_key = row["id_artifact"]
+            value_key = row["code_artifact"]
             dict_artifact[key] = value_key
 
         return dict_artifact
+
+    def get_ticket(self, id_ticket):
+        return self.get_ticket(id_ticket, 0)
+
+    def get_ticket(self, id_ticket, id_status):
+        self.conn.row_factory = lite.Row
+        cur = self.conn.cursor()
+        cur.execute("select * from ticket_board where id_ticket = :id_ticket and id_status = :id_status",
+                    {"id_ticket": id_ticket, "id_status": id_status})
+        return cur.fetchone()

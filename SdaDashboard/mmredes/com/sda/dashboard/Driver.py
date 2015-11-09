@@ -98,7 +98,7 @@ if __name__ == '__main__':
             else:
                 ls_branch_artifact = []
             for artifact in list_artifact:
-                dict = {'artifact': artifact, 'email': email, 'technology': type_tech}
+                dict = {'artifact': artifact, 'email': email, 'type_tech': type_tech}
                 ls_branch_artifact.append(dict)
             dict_branch[branch] = ls_branch_artifact
 
