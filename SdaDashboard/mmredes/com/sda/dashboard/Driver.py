@@ -89,16 +89,16 @@ if __name__ == '__main__':
                 list_token = file_path.split('/')
                 if len(list_token) > 1:
                     path_directory = list_token[0]
-                    artifact = dict_artifact[path_directory]
-                    if artifact not in list_artifact:
-                        list_artifact.append(artifact)
+                    id_artifact = dict_artifact[path_directory]
+                    if id_artifact not in list_artifact:
+                        list_artifact.append(id_artifact)
             print(list_artifact)
             if branch in dict_branch:
                 ls_branch_artifact = dict_branch[branch]
             else:
                 ls_branch_artifact = []
-            for artifact in list_artifact:
-                dict = {'artifact': artifact, 'email': email, 'type_tech': type_tech}
+            for id_artifact in list_artifact:
+                dict = {'id_artifact': id_artifact, 'email': email, 'id_type_tech': type_tech}
                 ls_branch_artifact.append(dict)
             dict_branch[branch] = ls_branch_artifact
 
