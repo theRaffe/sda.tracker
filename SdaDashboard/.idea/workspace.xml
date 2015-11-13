@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" />
+    <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="updating process_ticket_db method">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" afterPath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/scriptTables.sql" afterPath="$PROJECT_DIR$/../db.sda.tracker/scriptTables.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SdaDashboard.iws" />
@@ -42,8 +40,8 @@
       <file leaf-file-name="SdaTrackerDao.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7123288">
-              <caret line="74" column="84" selection-start-line="74" selection-start-column="84" selection-end-line="74" selection-end-column="84" />
+            <state vertical-scroll-proportion="0.1780822">
+              <caret line="67" column="29" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="29" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -414,7 +412,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447154670868</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="updating process_ticket_db method">
+      <created>1447313537071</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1447313537071</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -455,7 +459,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding dao for sqlite" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding dao for sqlite" />
+    <MESSAGE value="updating process_ticket_db method" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating process_ticket_db method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -524,8 +529,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7123288">
-          <caret line="74" column="84" selection-start-line="74" selection-start-column="84" selection-end-line="74" selection-end-column="84" />
+        <state vertical-scroll-proportion="0.1780822">
+          <caret line="67" column="29" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="29" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>

@@ -69,12 +69,16 @@ class SdaTrackerDao:
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute(
-            "select id_ticket, code_environment, code_status, datetime(date_requested,'unixepoch','localtime') date_requested, user_request"
+            "select id_ticket,"
+            "code_environment, "
+            "code_status, "
+            "datetime(date_requested,'unixepoch','localtime') date_requested, "
+            "user_request "
             "from ticket_board "
             "inner join cat_environment on cat_environment.id_environment = ticket_board.id_environment"
             "inner join cat_status on cat_status.id_status = ticket_board.id_status"
-            " where ticket_board.id_ticket = :id_branch", {"id_branch": id_ticket})
-        row = cur.fetchone()
+            " where ticket_board.id_ticket = :id_ticket", {"id_ticket": id_ticket})
+        return cur.fetchone()
 
     def insert_ticket_board(self, dict_ticket_board):
         cur = self.conn.cursor()
