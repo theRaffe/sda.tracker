@@ -8,6 +8,7 @@ class PersistentController:
     dao_object = None
 
     def __init__(self, config_file = "./board.cfg"):
+        print("config_file", config_file)
         config = ConfigParser.RawConfigParser()
         config.read(config_file)
         connection_file = config.get('DatabaseSection', 'database.file')
