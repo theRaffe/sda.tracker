@@ -11,6 +11,7 @@ class RepositoryListener:
     config_file = ''
     type_tech = None
     CONST_IS_BEHIND = 'branch is behind'
+    id_branch = None
 
     def __init__(self, config_file = "./board.cfg"):
 
@@ -19,6 +20,7 @@ class RepositoryListener:
         self.config_file = config_file
         self.repoDir = config.get('Repository', 'repo.dir')
         self.type_tech = config.get('Repository', 'type.tech')
+        self.id_branch = config.get('Repository', 'id.branch')
 
     def command(self, cmd):
         pipe = subprocess.Popen(cmd, shell=True, cwd=self.repoDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -42,7 +44,7 @@ class RepositoryListener:
         persistentController = PersistentController(self.config_file)
         dict_artifact = persistentController.get_artifacts()
         dict_branch = {}
-        type_tech = 1
+        type_tech = self.type_tech
 
         commit_merge = self.command('git rev-list HEAD...origin/develop | xargs git show | grep Merge:')
         ls_commit_merge = []
@@ -97,4 +99,4 @@ class RepositoryListener:
                 ls_branch_artifact.append(dict)
             dict_branch[branch] = ls_branch_artifact
 
-        return dict_branch
+        return dict_branch, self.id_branch
