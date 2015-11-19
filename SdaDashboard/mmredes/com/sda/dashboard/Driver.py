@@ -1,7 +1,7 @@
 import time, sys
 import os
 import string
-from mmredes.com.sda.dashboard.DriverDao import DriverDao
+from mmredes.com.sda.dashboard.PersistentController import PersistentController
 # from subprocess import subprocess
 import subprocess
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     is_branch_behind = is_behind()
     print("is behind ", is_branch_behind)
     if is_branch_behind:
-        driverDao = DriverDao()
+        driverDao = PersistentController()
         dict_artifact = driverDao.get_artifacts()
         dict_branch = {}
         type_tech = 1

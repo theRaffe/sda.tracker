@@ -1,3 +1,4 @@
+# coding=utf-8
 import sqlite3 as lite
 import time
 import sys
@@ -69,16 +70,29 @@ class SdaTrackerDao:
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute(
-            "select id_ticket,"
-            "code_environment, "
-            "code_status, "
-            "datetime(date_requested,'unixepoch','localtime') date_requested, "
-            "user_request "
+            "select ticket_board.id_ticket,"
+            "cat_environment.code_environment, "
+            "cat_status_ticket.code_status, "
+            "datetime(ticket_board.date_requested,'unixepoch','localtime') date_requested, "
+            "ticket_board.user_request "
             "from ticket_board "
-            "inner join cat_environment on cat_environment.id_environment = ticket_board.id_environment"
-            "inner join cat_status on cat_status.id_status = ticket_board.id_status"
-            " where ticket_board.id_ticket = :id_ticket", {"id_ticket": id_ticket})
+            "inner join cat_environment on cat_environment.id_environment = ticket_board.id_environment "
+            "inner join cat_status_ticket on cat_status_ticket.id_status = ticket_board.id_status "
+            "where ticket_board.id_ticket = :id_ticket", {"id_ticket": id_ticket})
         return cur.fetchone()
+
+    def get_artifact_code(self, id_ticket):
+        self.conn.row_factory = lite.Row
+        cur = self.conn.cursor()
+        cur.execute(
+            "select code_artifact, "
+            "code_type_tech, "
+            "modification_user "
+            "from  ticket_artifact "
+            "inner join cat_type_tech on cat_type_tech.id_type_tech = ticket_artifact.id_type_tech "
+            "inner join cat_artifact on cat_artifact.id_artifact = ticket_artifact.id_artifact "
+            "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
+        return cur.fetchall()
 
     def insert_ticket_board(self, dict_ticket_board):
         cur = self.conn.cursor()
@@ -121,8 +135,8 @@ class SdaTrackerDao:
         id_artifact = dict_artifact["id_artifact"]
         id_type_tech = dict_artifact["id_type_tech"]
         cur.execute(
-            "insert into ticket_artifact(id_ticket, id_artifact, id_type_tech, creation_user, creation_date) values(:id_ticket, :id_artifact, :id_type_tech, :creation_user, :creation_date)",
+            "insert into ticket_artifact(id_ticket, id_artifact, id_type_tech, creation_user, creation_date, modification_user) values(:id_ticket, :id_artifact, :id_type_tech, :creation_user, :creation_date, :modification_user)",
             {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech, "creation_user":
-                creation_user, "creation_date": date_current}
+                creation_user, "creation_date": date_current, "modification_user": creation_user}
         )
         # self.conn.commit()

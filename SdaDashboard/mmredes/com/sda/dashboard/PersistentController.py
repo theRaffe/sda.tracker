@@ -1,14 +1,17 @@
 __author__ = 'macbook'
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 import sqlite3 as lite
+import ConfigParser
 
 
-class DriverDao:
+class PersistentController:
     dao_object = None
-    connection_file = '/Users/macbook/Documents/workspaces/python/sda_tracker_workspace/sda.tracker/db.sda.tracker/sda_tracking.db'
 
-    def __init__(self):
-        self.dao_object = SdaTrackerDao(self.connection_file)
+    def __init__(self, config_file = "./board.cfg"):
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        self.dao_object = SdaTrackerDao(connection_file)
 
     def get_artifacts(self):
         return self.dao_object.get_artifacts()
@@ -32,7 +35,7 @@ class DriverDao:
 
     def get_dict_ticket_code(self, dict_ticket):
         id_ticket = dict_ticket["id_ticket"]
-        dict_ticket_board = self.get_ticket_board(id_ticket)
+        dict_ticket_board = self.dao_object.get_ticket_board_code(id_ticket)
 
         #dao_object.
         return None
@@ -77,12 +80,3 @@ class DriverDao:
             print "Error Database %s:" % e.args
             self.dao_object.do_rollback()
 
-
-
-if __name__ == '__main__':
-    driver = DriverDao()
-    print driver.get_list_artifacts()
-
-    dict_branch = {"feature2": [{"id_artifact": 1, "email": "developer.one@gmail.com", "id_type_tech": 1}]}
-    driver.process_ticket_db(dict_branch, 2)
-    print "process_ticket_db...OK"

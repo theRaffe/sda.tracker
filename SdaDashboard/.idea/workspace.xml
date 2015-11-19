@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="updating process_ticket_db method">
+    <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" afterPath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -25,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Driver.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Driver.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.740741">
-              <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+            <state vertical-scroll-proportion="3.0547945">
+              <caret line="104" column="25" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="25" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -37,23 +43,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SdaTrackerDao.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="board.cfg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SdaTrackerDao.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1780822">
-              <caret line="67" column="29" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="29" />
+            <state vertical-scroll-proportion="-11.296296">
+              <caret line="135" column="52" selection-start-line="135" selection-start-column="52" selection-end-line="135" selection-end-column="52" />
               <folding>
-                <element signature="e#0#22#0" expanded="true" />
+                <element signature="e#15#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DriverDao.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py">
+      <file leaf-file-name="DriverTestPersistent.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DriverTestDao.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersistentController.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
               <folding>
                 <element signature="e#23#92#0" expanded="true" />
               </folding>
@@ -79,6 +117,10 @@
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.properties" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
       </list>
     </option>
   </component>
@@ -215,7 +257,7 @@
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.DriverDao">
+  <component name="RunManager" selected="Python.DriverTestPersistent">
     <configuration default="false" name="Driver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -245,7 +287,41 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="SdaDashboard" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DriverTestDao" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SdaDashboard" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DriverTestPersistent" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SdaDashboard" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -372,14 +448,18 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.Driver" />
       <item index="1" class="java.lang.String" itemvalue="Python.DriverDao" />
+      <item index="2" class="java.lang.String" itemvalue="Python.DriverTestDao" />
+      <item index="3" class="java.lang.String" itemvalue="Python.DriverTestPersistent" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.DriverDao" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Driver" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python.DriverTestPersistent" />
+        <item index="1" class="java.lang.String" itemvalue="Python.DriverTestDao" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DriverDao" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Driver" />
       </list>
     </recent_temporary>
   </component>
@@ -418,33 +498,42 @@
       <option name="project" value="LOCAL" />
       <updated>1447313537071</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="get_ticket_board_code">
+      <created>1447395884282</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1447395884283</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="43" width="1260" height="695" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290735" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.properties" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -460,7 +549,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding dao for sqlite" />
     <MESSAGE value="updating process_ticket_db method" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating process_ticket_db method" />
+    <MESSAGE value="get_ticket_board_code" />
+    <option name="LAST_COMMIT_MESSAGE" value="get_ticket_board_code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -482,12 +572,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="37" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="37" />
           <folding>
-            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#15#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py">
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
@@ -507,32 +597,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.740741">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.296296">
+          <caret line="135" column="52" selection-start-line="135" selection-start-column="52" selection-end-line="135" selection-end-column="52" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#15#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py">
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ConfigParser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <caret line="329" column="0" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
           <folding>
             <element signature="e#23#92#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1780822">
-          <caret line="67" column="29" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding>
-            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.0547945">
+          <caret line="104" column="25" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
