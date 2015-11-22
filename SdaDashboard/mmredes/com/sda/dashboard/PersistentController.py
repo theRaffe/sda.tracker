@@ -7,7 +7,7 @@ import ConfigParser
 class PersistentController:
     dao_object = None
 
-    def __init__(self, config_file = "./board.cfg"):
+    def __init__(self, config_file="./board.cfg"):
         print("config_file", config_file)
         config = ConfigParser.RawConfigParser()
         config.read(config_file)
@@ -34,14 +34,20 @@ class PersistentController:
         else:
             return None
 
-    def get_dict_ticket_code(self, dict_ticket):
-        id_ticket = dict_ticket["id_ticket"]
-        dict_ticket_board = self.dao_object.get_ticket_board_code(id_ticket)
+    def get_dict_board_code(self, id_ticket):
+        row_board_code = self.dao_object.get_ticket_board_code(id_ticket)
+        dict_board_code = dict(zip(row_board_code.keys(), row_board_code))
 
-        #dao_object.
-        return None
+        rows = self.dao_object.get_artifact_code(id_ticket)
+        list_artifact = []
+        for row in rows:
+            dict_artifact = dict(zip(row.keys(), row))
+            list_artifact.append(dict_artifact)
+
+        return {"dict_board": dict_board_code, "artifacts": list_artifact}
 
     def process_ticket_db(self, dict_branch, id_branch_rep):
+        list_board_ticket = []
         try:
             for id_ticket in dict_branch:
                 print "search ticket %s" % id_ticket
@@ -74,10 +80,12 @@ class PersistentController:
                     for dict_artifact in ls_artifact:
                         self.dao_object.insert_ticket_artifact(id_ticket, dict_artifact)
                     print "create ticket_artifact id_ticket, id_artifact, creator_email, creation_date"
-
+                board_ticket = self.get_dict_board_code(id_ticket)
+                list_board_ticket.append(board_ticket)
 
             self.dao_object.do_commit()
+            return {"result": "OK", "board_ticket": list_board_ticket}
         except lite.Error, e:
             print "Error Database %s:" % e.args
             self.dao_object.do_rollback()
-
+            return {"result": "ERROR", "description": e.message}

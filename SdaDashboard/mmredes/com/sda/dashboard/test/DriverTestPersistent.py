@@ -7,7 +7,8 @@ if __name__ == '__main__':
     print driver.get_list_artifacts()
 
     dict_branch = {"feature2": [{"id_artifact": 1, "email": "developer.one@gmail.com", "id_type_tech": 1}]}
-    driver.process_ticket_db(dict_branch, 2)
+    dict_result = driver.process_ticket_db(dict_branch, 2)
     print "process_ticket_db...OK"
+    print ("dic_result", dict_result)
 
 

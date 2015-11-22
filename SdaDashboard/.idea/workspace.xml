@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="add class RepositoryListener">
+    <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/emailing/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" afterPath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -27,13 +31,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Driver.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Driver.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.15068494">
-              <caret line="92" column="62" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
+            <state vertical-scroll-proportion="-8.518518">
+              <caret line="111" column="91" selection-start-line="111" selection-start-column="91" selection-end-line="111" selection-end-column="91" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmailTracker.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7270408">
+              <caret line="31" column="102" selection-start-line="31" selection-start-column="102" selection-end-line="31" selection-end-column="102" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DriverEmailTest.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#62#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -43,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="101" column="42" selection-start-line="101" selection-start-column="42" selection-end-line="101" selection-end-column="42" />
+              <caret line="19" column="38" selection-start-line="17" selection-start-column="8" selection-end-line="19" selection-end-column="38" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -55,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -64,8 +92,8 @@
       <file leaf-file-name="SdaTrackerDao.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.703704">
-              <caret line="64" column="84" selection-start-line="64" selection-start-column="75" selection-end-line="64" selection-end-column="84" />
+            <state vertical-scroll-proportion="-32.22222">
+              <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
               <folding>
                 <element signature="e#15#37#0" expanded="true" />
               </folding>
@@ -77,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -87,7 +115,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+              <caret line="6" column="30" selection-start-line="4" selection-start-column="0" selection-end-line="6" selection-end-column="30" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -98,8 +126,8 @@
       <file leaf-file-name="PersistentController.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.333334">
-              <caret line="67" column="67" selection-start-line="67" selection-start-column="67" selection-end-line="67" selection-end-column="67" />
+            <state vertical-scroll-proportion="13.703704">
+              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
               <folding>
                 <element signature="e#23#92#0" expanded="true" />
               </folding>
@@ -125,12 +153,14 @@
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.properties" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py" />
       </list>
     </option>
   </component>
@@ -250,7 +280,93 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="emailing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mmredes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sda" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mmredes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sda" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mmredes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sda" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="repository" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -267,7 +383,7 @@
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.Driver">
+  <component name="RunManager" selected="Python.DriverEmailTest">
     <configuration default="false" name="Driver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -332,6 +448,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="SdaDashboard" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DriverEmailTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SdaDashboard" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -458,18 +591,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Driver" />
       <item index="1" class="java.lang.String" itemvalue="Python.DriverDao" />
       <item index="2" class="java.lang.String" itemvalue="Python.DriverTestDao" />
       <item index="3" class="java.lang.String" itemvalue="Python.DriverTestPersistent" />
+      <item index="4" class="java.lang.String" itemvalue="Python.DriverEmailTest" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.Driver" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.DriverEmailTest" />
         <item index="1" class="java.lang.String" itemvalue="Python.DriverTestPersistent" />
-        <item index="2" class="java.lang.String" itemvalue="Python.DriverTestDao" />
-        <item index="3" class="java.lang.String" itemvalue="Python.DriverDao" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Driver" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DriverTestDao" />
+        <item index="4" class="java.lang.String" itemvalue="Python.DriverDao" />
       </list>
     </recent_temporary>
   </component>
@@ -526,7 +661,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447915690711</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add property id_branch, which represents current branch of the catalog branch_git">
+      <created>1447916342031</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1447916342031</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -574,7 +715,8 @@
     <MESSAGE value="get_ticket_board_code" />
     <MESSAGE value="rename class files&#10;add config file" />
     <MESSAGE value="add class RepositoryListener" />
-    <option name="LAST_COMMIT_MESSAGE" value="add class RepositoryListener" />
+    <MESSAGE value="add property id_branch, which represents current branch of the catalog branch_git" />
+    <option name="LAST_COMMIT_MESSAGE" value="add property id_branch, which represents current branch of the catalog branch_git" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -629,10 +771,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.518518">
+          <caret line="111" column="91" selection-start-line="111" selection-start-column="91" selection-end-line="111" selection-end-column="91" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-32.22222">
+          <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
+          <folding>
+            <element signature="e#15#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="38" selection-start-line="17" selection-start-column="8" selection-end-line="19" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="13.703704">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+          <folding>
+            <element signature="e#23#92#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <caret line="6" column="30" selection-start-line="4" selection-start-column="0" selection-end-line="6" selection-end-column="30" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -642,55 +832,27 @@
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.703704">
-          <caret line="64" column="84" selection-start-line="64" selection-start-column="75" selection-end-line="64" selection-end-column="84" />
+          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
           <folding>
-            <element signature="e#15#37#0" expanded="true" />
+            <element signature="e#0#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.333334">
-          <caret line="67" column="67" selection-start-line="67" selection-start-column="67" selection-end-line="67" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.7270408">
+          <caret line="31" column="102" selection-start-line="31" selection-start-column="102" selection-end-line="31" selection-end-column="102" />
           <folding>
-            <element signature="e#23#92#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="101" column="42" selection-start-line="101" selection-start-column="42" selection-end-line="101" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.15068494">
-          <caret line="92" column="62" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>

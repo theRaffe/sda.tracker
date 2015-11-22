@@ -109,6 +109,6 @@ if __name__ == '__main__':
         #     dict_branch[branch] = ls_branch_artifact
         #
         print dict_branch
-        persistent_controller.process_ticket_db(dict_branch, id_branch)
+        dict_board_result = persistent_controller.process_ticket_db(dict_branch, id_branch)
         result_pull = 'do pull'  # command('git pull')
         print(result_pull)
