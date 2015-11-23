@@ -27,7 +27,7 @@ class SdaTrackerDao:
         rows = cur.fetchall()
         for row in rows:
             key = row["path_directory"]
-            value_key = row["code_artifact"]
+            value_key = row["id_artifact"]
             dict_artifact[key] = value_key
 
         return dict_artifact
@@ -107,7 +107,29 @@ class SdaTrackerDao:
         )
         # self.conn.commit()
 
+    def insert_ticket_logging(self, id_ticket, dict_artifact):
+        cur = self.conn.cursor()
+        date_current = time.time()
+        creation_user = dict_artifact["email"]
+        id_artifact = dict_artifact["id_artifact"]
+
+        self.conn.row_factory = lite.Row
+        cur.execute(
+            "select max(id_ticket_row) + 1 id_ticket_row "
+            "from ticket_artifact_logging "
+            "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
+        row = cur.fetchone()
+        id_ticket_row = row["id_ticket_row"] if row and row["id_ticket_row"] else 1
+
+        cur.execute(
+            "insert into ticket_artifact_logging(id_ticket, id_ticket_row, id_artifact, creation_user, creation_date) "
+            "values(:id_ticket, :id_ticket_row, :id_artifact, :creation_user, :creation_date)",
+            {"id_ticket": id_ticket, "id_ticket_row": id_ticket_row, "creation_user":
+                creation_user, "creation_date": date_current, "id_artifact": id_artifact}
+        )
+
     def update_ticket_board(self, dict_ticket_board):
+        print ("update board", dict_ticket_board)
         cur = self.conn.cursor()
         date_requested = time.time()
         cur.execute(

@@ -12,6 +12,7 @@ insert into cat_environment values(10, 'izzi.prd', 'izzi production');
 
 delete from cat_artifact
 insert into cat_artifact values(1, 'cartridge-1', 'cartridge1', 'artifact example');
+insert into cat_artifact values(-1, 'unknow artifact', '', 'unregistered directory');
 
 delete form cat_branch_git;
 insert into cat_branch_git values(1, 'des', 1, 'development of hotfixes and new feat.');

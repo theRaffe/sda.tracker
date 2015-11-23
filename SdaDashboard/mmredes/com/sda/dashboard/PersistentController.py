@@ -53,7 +53,12 @@ class PersistentController:
                 print "search ticket %s" % id_ticket
                 dict_ticket = self.get_ticket_board(id_ticket)
                 ls_artifact = dict_branch[id_ticket]
-                if dict_ticket:
+                if dict_ticket and len(ls_artifact) > 0:
+                    #get first dict artifact
+                    first_artifact = ls_artifact[0]
+                    user_request = first_artifact["email"]
+                    #update user_request with new value of the artifact's email
+                    dict_ticket["user_request"] = user_request
                     print "update ticket_board.date_requested"
                     self.dao_object.update_ticket_board(dict_ticket)
                     print "search ticket_artifact by id_artifact, type_tech"
@@ -68,6 +73,8 @@ class PersistentController:
                         else:
                             self.dao_object.insert_ticket_artifact(id_ticket, dict_artifact)
                             print "create artifact id_artifact, type_tech, creator_email, creation_date"
+
+                        self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
                 else:
                     first_artifact = ls_artifact[0]
                     user_request = first_artifact["email"]
@@ -78,6 +85,7 @@ class PersistentController:
                     self.dao_object.insert_ticket_board(dict_ticket)
                     print "create ticket_board, id_environment, id_ticket, id_status, date_requested"
                     for dict_artifact in ls_artifact:
+                        self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
                         self.dao_object.insert_ticket_artifact(id_ticket, dict_artifact)
                     print "create ticket_artifact id_ticket, id_artifact, creator_email, creation_date"
                 board_ticket = self.get_dict_board_code(id_ticket)

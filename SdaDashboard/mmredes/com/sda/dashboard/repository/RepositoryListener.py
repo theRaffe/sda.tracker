@@ -86,7 +86,7 @@ class RepositoryListener:
                 list_token = file_path.split('/')
                 if len(list_token) > 1:
                     path_directory = list_token[0]
-                    id_artifact = dict_artifact[path_directory]
+                    id_artifact = dict_artifact[path_directory] if dict_artifact[path_directory] else -1
                     if id_artifact not in list_artifact:
                         list_artifact.append(id_artifact)
             print(list_artifact)

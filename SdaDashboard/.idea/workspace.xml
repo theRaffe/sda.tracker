@@ -2,14 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/emailing/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/res/template/request_ticket_email.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" afterPath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/initial_data.sql" afterPath="$PROJECT_DIR$/../db.sda.tracker/initial_data.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/scriptTables.sql" afterPath="$PROJECT_DIR$/../db.sda.tracker/scriptTables.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SdaDashboard.iws" />
@@ -34,20 +36,30 @@
       <file leaf-file-name="Driver.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.518518">
-              <caret line="111" column="91" selection-start-line="111" selection-start-column="91" selection-end-line="111" selection-end-column="91" />
+            <state vertical-scroll-proportion="-9.62963">
+              <caret line="37" column="35" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
               <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EmailTracker.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="request_ticket_email.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/res/template/request_ticket_email.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3668478">
+              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmailTracker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7270408">
-              <caret line="31" column="102" selection-start-line="31" selection-start-column="102" selection-end-line="31" selection-end-column="102" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -59,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+              <caret line="9" column="29" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="35" />
               <folding>
                 <element signature="e#0#62#0" expanded="true" />
               </folding>
@@ -71,10 +83,8 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="38" selection-start-line="17" selection-start-column="8" selection-end-line="19" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
+              <caret line="0" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="13" />
+              <caret line="14" column="22" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -92,8 +102,8 @@
       <file leaf-file-name="SdaTrackerDao.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-32.22222">
-              <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
+            <state vertical-scroll-proportion="-6.296296">
+              <caret line="73" column="45" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="45" />
               <folding>
                 <element signature="e#15#37#0" expanded="true" />
               </folding>
@@ -126,8 +136,8 @@
       <file leaf-file-name="PersistentController.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="13.703704">
-              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+            <state vertical-scroll-proportion="-0.5925926">
+              <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
               <folding>
                 <element signature="e#23#92#0" expanded="true" />
               </folding>
@@ -141,6 +151,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Html5" />
       </list>
     </option>
   </component>
@@ -151,16 +162,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/DriverDao.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.properties" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestDao.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverTestPersistent.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
-        <option value="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" />
         <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py" />
+        <option value="$PROJECT_DIR$/mmredes/com/sda/dashboard/res/template/request_ticket_email.html" />
       </list>
     </option>
   </component>
@@ -366,6 +378,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SdaDashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mmredes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sda" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="repository" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -382,8 +428,9 @@
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
-  <component name="RunManager" selected="Python.DriverEmailTest">
+  <component name="RunManager" selected="Python.Driver">
     <configuration default="false" name="Driver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -600,9 +647,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.DriverEmailTest" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DriverTestPersistent" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Driver" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Driver" />
+        <item index="1" class="java.lang.String" itemvalue="Python.DriverEmailTest" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DriverTestPersistent" />
         <item index="3" class="java.lang.String" itemvalue="Python.DriverTestDao" />
         <item index="4" class="java.lang.String" itemvalue="Python.DriverDao" />
       </list>
@@ -667,12 +714,18 @@
       <option name="project" value="LOCAL" />
       <updated>1447916342031</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add EmailTracker">
+      <created>1448176752391</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1448176752391</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="43" width="1260" height="695" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -686,7 +739,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290735" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290735" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -716,7 +769,8 @@
     <MESSAGE value="rename class files&#10;add config file" />
     <MESSAGE value="add class RepositoryListener" />
     <MESSAGE value="add property id_branch, which represents current branch of the catalog branch_git" />
-    <option name="LAST_COMMIT_MESSAGE" value="add property id_branch, which represents current branch of the catalog branch_git" />
+    <MESSAGE value="add EmailTracker" />
+    <option name="LAST_COMMIT_MESSAGE" value="add EmailTracker" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -728,7 +782,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -758,7 +812,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -768,54 +822,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="329" column="0" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.518518">
-          <caret line="111" column="91" selection-start-line="111" selection-start-column="91" selection-end-line="111" selection-end-column="91" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-32.22222">
-          <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
-          <folding>
-            <element signature="e#15#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="38" selection-start-line="17" selection-start-column="8" selection-end-line="19" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="13.703704">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
-          <folding>
-            <element signature="e#23#92#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -837,23 +843,77 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/repository/RepositoryListener.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.296296">
+          <caret line="73" column="45" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="45" />
+          <folding>
+            <element signature="e#15#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5925926">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+          <folding>
+            <element signature="e#23#92#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/test/DriverEmailTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+          <caret line="9" column="29" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="35" />
           <folding>
             <element signature="e#0#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.62963">
+          <caret line="37" column="35" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/emailing/EmailTracker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7270408">
-          <caret line="31" column="102" selection-start-line="31" selection-start-column="102" selection-end-line="31" selection-end-column="102" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/res/template/request_ticket_email.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3668478">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
