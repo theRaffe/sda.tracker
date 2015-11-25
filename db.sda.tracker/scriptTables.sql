@@ -2,6 +2,7 @@ create table cat_environment(
   id_environment tinyint not null,
   code_environment varchar(20) not null unique,
   description varchar(50) not null,
+  id_list_tracker varchar(40),
   primary key(id_environment)
 );
 
@@ -63,7 +64,7 @@ create table ticket_artifact(
   foreign key(id_type_tech) references cat_type_tech(id_type_tech)
 );
 
-create table ticket_logging(
+create table ticket_artifact_logging(
   id_ticket varchar(20) not null,
   id_ticket_row tinyint not null,
   creation_user varchar(50) not null,

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44260e0a-45b5-4e23-b58d-a276d8c68ed3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/management/TaskManager.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/management/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/dao/SdaTrackerDao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" afterPath="$PROJECT_DIR$/../db.sda.tracker/sda_tracking.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mmredes/com/sda/dashboard/management/TaskManager.py" afterPath="$PROJECT_DIR$/mmredes/com/sda/dashboard/management/TaskManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/initial_data.sql" afterPath="$PROJECT_DIR$/../db.sda.tracker/initial_data.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db.sda.tracker/scriptTables.sql" afterPath="$PROJECT_DIR$/../db.sda.tracker/scriptTables.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SdaDashboard.iws" />
@@ -31,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-5.740741">
-              <caret line="37" column="35" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
+              <caret line="30" column="49" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="49" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -118,8 +118,8 @@
       <file leaf-file-name="PersistentController.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5555553">
-              <caret line="38" column="74" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="74" />
+            <state vertical-scroll-proportion="-10.037037">
+              <caret line="46" column="27" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="27" />
               <folding>
                 <element signature="e#23#92#0" expanded="true" />
               </folding>
@@ -130,8 +130,8 @@
       <file leaf-file-name="TaskManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/management/TaskManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.91780823">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.8767123">
+              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -657,7 +657,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448257807014</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add TaskManager as a wrapper of trello">
+      <created>1448435108771</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1448435108771</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -708,7 +714,8 @@
     <MESSAGE value="add property id_branch, which represents current branch of the catalog branch_git" />
     <MESSAGE value="add EmailTracker" />
     <MESSAGE value="integrate EmailTracker with the hole project" />
-    <option name="LAST_COMMIT_MESSAGE" value="integrate EmailTracker with the hole project" />
+    <MESSAGE value="add TaskManager as a wrapper of trello" />
+    <option name="LAST_COMMIT_MESSAGE" value="add TaskManager as a wrapper of trello" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -817,16 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.740741">
-          <caret line="37" column="35" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/board.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -845,10 +842,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/Driver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.740741">
+          <caret line="30" column="49" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/PersistentController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5555553">
-          <caret line="38" column="74" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="74" />
+        <state vertical-scroll-proportion="-10.037037">
+          <caret line="46" column="27" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="27" />
           <folding>
             <element signature="e#23#92#0" expanded="true" />
           </folding>
@@ -857,8 +864,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mmredes/com/sda/dashboard/management/TaskManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.91780823">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.8767123">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

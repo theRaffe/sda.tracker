@@ -1,14 +1,14 @@
 delete from cat_environment;
-insert into cat_environment values(1, 'maab.des', 'maab dev, fix bugs and new feat.');
-insert into cat_environment values(2, 'maab.qas', 'maab release, new future feature');
-insert into cat_environment values(3, 'maab.uat', 'maab hotfix, bug on production');
-insert into cat_environment values(4, 'maab.qa2', 'maab incognito/broadsoft');
-insert into cat_environment values(5, 'maab.prd', 'maab production');
-insert into cat_environment values(6, 'izzi.des', 'izzi dev, fix bugs and new feat.');
-insert into cat_environment values(7, 'izzi.qas', 'izzi release, new future feature');
-insert into cat_environment values(8, 'izzi.uat', 'izzi hotfix, bug on production');
-insert into cat_environment values(9, 'izzi.qa2', 'izzi incognito/broadsoft');
-insert into cat_environment values(10, 'izzi.prd', 'izzi production');
+insert into cat_environment values(1, 'maab.des', 'maab dev, fix bugs and new feat.', null);
+insert into cat_environment values(2, 'maab.qas', 'maab release, new future feature', null);
+insert into cat_environment values(3, 'maab.uat', 'maab hotfix, bug on production', null);
+insert into cat_environment values(4, 'maab.qa2', 'maab incognito/broadsoft', null);
+insert into cat_environment values(5, 'maab.prd', 'maab production', null);
+insert into cat_environment values(6, 'izzi.des', 'izzi dev, fix bugs and new feat.', null);
+insert into cat_environment values(7, 'izzi.qas', 'izzi release, new future feature', null);
+insert into cat_environment values(8, 'izzi.uat', 'izzi hotfix, bug on production', null);
+insert into cat_environment values(9, 'izzi.qa2', 'izzi incognito/broadsoft', null);
+insert into cat_environment values(10, 'izzi.prd', 'izzi production', null);
 
 delete from cat_artifact
 insert into cat_artifact values(1, 'cartridge-1', 'cartridge1', 'artifact example');
