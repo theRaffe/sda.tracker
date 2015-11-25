@@ -72,6 +72,7 @@ class SdaTrackerDao:
         cur.execute(
             "select ticket_board.id_ticket,"
             "cat_environment.code_environment, "
+            "cat_environment.id_list_tracker, "
             "cat_status_ticket.code_status, "
             "datetime(ticket_board.date_requested,'unixepoch','localtime') date_requested, "
             "ticket_board.user_request "
@@ -161,4 +162,11 @@ class SdaTrackerDao:
             {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech, "creation_user":
                 creation_user, "creation_date": date_current, "modification_user": creation_user}
         )
-        # self.conn.commit()
+
+    def update_list_tracker(self, code_env, id_list_tracker):
+        cur = self.conn.cursor()
+        cur.execute(
+            "update cat_environment set id_list_tracker = :id_list_tracker "
+            "where code_environment = :code_env",
+            {"code_env" : code_env, "id_list_tracker" : id_list_tracker})
+
