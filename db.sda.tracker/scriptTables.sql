@@ -38,6 +38,15 @@ create table cat_type_tech(
   primary key(id_type_tech)
 );
 
+create table ticket_library(
+  id_ticket varchar(20) not null,
+  id_environment tinyint not null,
+  resource_path varchar(100) null,
+  creation_date integer not null,
+  primary key(id_ticket),
+  foreign key(id_environment) references cat_environment(id_environment)
+);
+
 create table ticket_board(
   id_ticket varchar(20) not null,
   id_environment tinyint not null,

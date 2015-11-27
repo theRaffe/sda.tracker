@@ -39,5 +39,9 @@ class TaskManager():
 
     def send_ticket_card(self, dict_board_ticket):
         a_card = self.get_card_ticket(dict_board_ticket)
+        if a_card:
+            print "update card"
+        else:
+            print "new card"
 
         return None

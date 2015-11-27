@@ -33,3 +33,5 @@ insert into cat_type_tech values(1, 'java', 'releases from java');
 insert into cat_type_tech values(2, 'osb', 'releases from osb');
 insert into cat_type_tech values(3, 'db', 'releases from db');
 insert into cat_type_tech values(4, 'soa', 'releases from soa');
+
+insert into ticket_library values('feature2', 2, '', current_timestamp);

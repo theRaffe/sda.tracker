@@ -61,10 +61,16 @@ class SdaTrackerDao:
     def get_default_environment(self, id_branch):
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
-        cur.execute(
-            "select * from cat_branch_git where id_branch = :id_branch", {"id_branch": id_branch})
+        cur.execute("select id_environment from ticket_library where id_ticket = :id_ticket",
+                    {"id_ticket" : id_branch})
         row = cur.fetchone()
-        return row["id_environment_def"]
+        if not row:
+            cur.execute(
+                "select * from cat_branch_git where id_branch = :id_branch", {"id_branch": id_branch})
+            row = cur.fetchone()
+            return row["id_environment_def"]
+
+        return row["id_environment"]
 
     def get_ticket_board_code(self, id_ticket):
         self.conn.row_factory = lite.Row
