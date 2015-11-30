@@ -78,7 +78,7 @@ class SdaTrackerDao:
         cur.execute(
             "select ticket_board.id_ticket,"
             "cat_environment.code_environment, "
-            "cat_environment.id_list_tracker, "
+            "ticket_board.id_list_tracker, "
             "cat_status_ticket.code_status, "
             "datetime(ticket_board.date_requested,'unixepoch','localtime') date_requested, "
             "ticket_board.user_request "
