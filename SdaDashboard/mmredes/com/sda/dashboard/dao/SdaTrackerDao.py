@@ -92,9 +92,9 @@ class SdaTrackerDao:
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute(
-            "select code_artifact, "
-            "code_type_tech, "
-            "modification_user "
+            "select code_artifact artifact, "
+            "code_type_tech tech, "
+            "modification_user user"
             "from  ticket_artifact "
             "inner join cat_type_tech on cat_type_tech.id_type_tech = ticket_artifact.id_type_tech "
             "inner join cat_artifact on cat_artifact.id_artifact = ticket_artifact.id_artifact "
