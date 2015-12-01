@@ -22,7 +22,7 @@ class TaskManager():
         oath_token = config.get('Management.Task', 'oath.token')
         id_board = config.get('Management.Task', 'id.board')
         self._client_trello = TrelloClient(api_key, token=oath_token)
-        self._board = self._client_trello.get_board(self.id_board)
+        self._board = self._client_trello.get_board(id_board)
         self._board_labels = self._board.get_labels()
         list_label = [label for label in self._board_labels if label.name != '' and label.color]
         for label in list_label:
