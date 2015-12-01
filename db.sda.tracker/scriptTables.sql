@@ -51,6 +51,7 @@ create table ticket_board(
   id_ticket varchar(20) not null,
   id_environment tinyint not null,
   id_status tinyint not null,
+  id_card_tracker varchar(20) null,
   user_request varchar(50) not null,
   date_requested integer not null,
   date_installed integer null,

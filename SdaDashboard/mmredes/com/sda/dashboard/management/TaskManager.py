@@ -5,33 +5,39 @@ from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 
 __author__ = 'macbook'
 
+
 class TaskManager():
-    client_trello = None
+    _client_trello = None
     _board = None
     _board_labels = None
-    config_file = ''
+    _config_file = ''
+    _dict_label = {}
 
     def __init__(self, config_file):
-        self.config_file = config_file
+        self._config_file = config_file
         config = ConfigParser.RawConfigParser()
         config.read(config_file)
 
         api_key = config.get('Management.Task', 'api.key')
         oath_token = config.get('Management.Task', 'oath.token')
         id_board = config.get('Management.Task', 'id.board')
-        self.client_trello = TrelloClient(api_key,token=oath_token)
-        self._board = self.client_trello.get_board(self.id_board)
+        self._client_trello = TrelloClient(api_key, token=oath_token)
+        self._board = self._client_trello.get_board(self.id_board)
         self._board_labels = self._board.get_labels()
+        list_label = [label for label in self._board_labels if label.name != '' and label.color]
+        for label in list_label:
+            self._dict_label[label.name] = label
+
 
     def refresh_list_id(self):
-        dao_object = SdaTrackerDao(self.config_file)
+        dao_object = SdaTrackerDao(self._config_file)
         for a_list in self.o_board.all_lists():
             code_env = a_list.name
             id_list_tracker = a_list.id
             dao_object.update_list_tracker(code_env, id_list_tracker)
 
     def get_card_ticket(self, id_card_tracker):
-        return self.client_trello.get_card(id_card_tracker)
+        return self._client_trello.get_card(id_card_tracker)
 
     def send_ticket_card(self, dict_board_ticket):
         dict_board = dict_board_ticket['dict_board']
@@ -50,9 +56,9 @@ class TaskManager():
             labels_artifact = self.get_labels_artifact(list_artifact)
 
             new_card = a_list.add(id_ticket, string_json)
+            new_card.add_label(self._dict_label['requested'])
             for label in labels_artifact:
                 new_card.add_label(label)
-
 
         return None
 
