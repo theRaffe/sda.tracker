@@ -1,6 +1,8 @@
 import json
 import ConfigParser
+
 from trello import TrelloClient
+
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 
 __author__ = 'macbook'
@@ -28,7 +30,6 @@ class TaskManager():
         for label in list_label:
             self._dict_label[label.name] = label
 
-
     def refresh_list_id(self):
         dao_object = SdaTrackerDao(self._config_file)
         for a_list in self.o_board.all_lists():
@@ -37,30 +38,45 @@ class TaskManager():
             dao_object.update_list_tracker(code_env, id_list_tracker)
 
     def get_card_ticket(self, id_card_tracker):
-        return self._client_trello.get_card(id_card_tracker)
+        return self._client_trello.get_card(id_card_tracker) if id_card_tracker else None
 
     def send_ticket_card(self, dict_board_ticket):
+        """Send new card or update it"""
+        result_card = None
         dict_board = dict_board_ticket['dict_board']
         id_card_tracker = dict_board['id_card_tracker']
+        # get trello's card
         a_card = self.get_card_ticket(id_card_tracker)
+        list_artifact = dict_board_ticket['artifacts']
+        # get id_list trello
+        id_list_tracker = dict_board['id_list_tracker']
+        # id_ticket = card.name
+        id_ticket = dict_board['id_ticket']
+        # card's description
+        string_json = json.dumps(list_artifact, indent=2)
+        labels_artifact = self.get_labels_artifact(list_artifact)
 
         if a_card:
             print "update card"
+            for label in a_card.labels:
+                a_card.client.fetch_json(
+                    '/cards/' + a_card.id + '/idLabels/' + label.id,
+                    http_method='DELETE')
+
+            a_card.set_description(string_json)
+            result_card = a_card
+
         else:
             print "new card"
-            list_artifact = dict_board_ticket['artifacts']
-            id_list_tracker = dict_board['id_list_tracker']
-            id_ticket = dict_board['id_ticket']
-            string_json = json.dumps(list_artifact, indent=2)
             a_list = self._board.get_list(id_list_tracker)
-            labels_artifact = self.get_labels_artifact(list_artifact)
+            new_card = a_list.add_card(id_ticket, string_json)
+            result_card = new_card
 
-            new_card = a_list.add(id_ticket, string_json)
-            new_card.add_label(self._dict_label['requested'])
-            for label in labels_artifact:
-                new_card.add_label(label)
+        result_card.add_label(self._dict_label['requested'])
+        for label in labels_artifact:
+            result_card.add_label(label)
 
-        return None
+        return result_card
 
     def get_labels_artifact(self, list_artifact):
         list_label = []
