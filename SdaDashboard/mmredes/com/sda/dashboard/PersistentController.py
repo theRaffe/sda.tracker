@@ -1,7 +1,8 @@
 __author__ = 'macbook'
-from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 import sqlite3 as lite
 import ConfigParser
+
+from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 
 
 class PersistentController:
@@ -97,3 +98,7 @@ class PersistentController:
             print "Error Database %s:" % e.args
             self.dao_object.do_rollback()
             return {"result": "ERROR", "description": e.message}
+
+    def update_ticket_db(self, dict_board_ticket):
+
+        return None

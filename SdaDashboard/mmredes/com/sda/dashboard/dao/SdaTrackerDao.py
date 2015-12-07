@@ -1,7 +1,6 @@
 # coding=utf-8
 import sqlite3 as lite
 import time
-import sys
 
 __author__ = 'macbook'
 
@@ -80,7 +79,8 @@ class SdaTrackerDao:
             "cat_environment.code_environment, "
             "ticket_board.id_list_tracker, "
             "cat_status_ticket.code_status, "
-            "datetime(ticket_board.date_requested,'unixepoch','localtime') date_requested, "
+            "date_requested, "
+            "datetime(ticket_board.date_requested,'unixepoch','localtime') date_format_requested, "
             "ticket_board.user_request "
             "from ticket_board "
             "inner join cat_environment on cat_environment.id_environment = ticket_board.id_environment "
@@ -140,8 +140,10 @@ class SdaTrackerDao:
         cur = self.conn.cursor()
         date_requested = time.time()
         cur.execute(
-            "update ticket_board set date_requested = :date_requested, user_request = :user_request where id_ticket = :id_ticket and id_environment = :id_environment",
+            "update ticket_board set date_requested = :date_requested, user_request = :user_request, id_card_tracker = :id_card_tracker "
+            "where id_ticket = :id_ticket and id_environment = :id_environment",
             {"date_requested": date_requested, "user_request": dict_ticket_board["user_request"],
+             "id_card_tracker": dict_ticket_board["id_card_tracker"],
              "id_ticket": dict_ticket_board["id_ticket"], "id_environment": dict_ticket_board["id_environment"]})
         # self.conn.commit()
 

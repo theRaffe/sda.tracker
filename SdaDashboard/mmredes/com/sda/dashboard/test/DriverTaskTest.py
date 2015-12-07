@@ -6,7 +6,8 @@ if __name__ == '__main__':
     print task_manager._dict_label
 
     dict_board_code = {"id_ticket": "T101", "code_environment": "maab.qas",
-                       "id_list_tracker": "5652a9b65a11441da81b763f", "code_status": "requested", "id_card_tracker": ""}
+                       "id_list_tracker": "5652a9b65a11441da81b763f", "code_status": "requested",
+                       "id_card_tracker": "565e80108c046399ecc709a3"}
     list_artifact = []
     list_artifact.append({"artifact": "cartridge-1", "tech": "java", "user": "rafe@mail.com"})
     list_artifact.append({"artifact": "cartridge-2", "tech": "java", "user": "rafe@mail.com"})

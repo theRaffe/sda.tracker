@@ -1,5 +1,7 @@
 import os
+
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
+from mmredes.com.sda.dashboard.management.TaskManager import TaskManager
 from mmredes.com.sda.dashboard.repository.RepositoryListener import RepositoryListener
 from mmredes.com.sda.emailing.EmailTracker import EmailTracker
 
@@ -19,6 +21,7 @@ if __name__ == '__main__':
     #         sys.exit()
 
     repository_listener = RepositoryListener(config_file)
+    task_manager = TaskManager(config_file)
     is_branch_behind = repository_listener.is_behind()
     print("is behind ", is_branch_behind)
     if is_branch_behind:
@@ -30,16 +33,15 @@ if __name__ == '__main__':
         if dict_board_result['result'] == 'OK':
             list_board_ticket = dict_board_result['board_ticket']
             email_tracker = EmailTracker(config_file)
-            #get each ticket at board
+            # get each ticket at board
             for board_ticket in list_board_ticket:
-                dict_board_code = board_ticket['dict_board']
-                print("board_ticket", board_ticket)
-                message_email = email_tracker.get_email_ticket_request(board_ticket)
-                email_tracker.sendEmail(message_email)
+
+                m_card = task_manager.send_ticket_card(board_ticket)
+                if m_card:
+                    dict_board_code = board_ticket['dict_board']
+                    print("board_ticket", board_ticket)
+                    message_email = email_tracker.get_email_ticket_request(board_ticket)
+                    email_tracker.sendEmail(message_email)
 
         result_pull = 'do pull'  # command('git pull')
         print(result_pull)
-
-
-
-
