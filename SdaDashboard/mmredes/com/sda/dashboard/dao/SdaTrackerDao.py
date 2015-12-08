@@ -61,7 +61,7 @@ class SdaTrackerDao:
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute("select id_environment from ticket_library where id_ticket = :id_ticket",
-                    {"id_ticket" : id_branch})
+                    {"id_ticket": id_branch})
         row = cur.fetchone()
         if not row:
             cur.execute(
@@ -76,8 +76,10 @@ class SdaTrackerDao:
         cur = self.conn.cursor()
         cur.execute(
             "select ticket_board.id_ticket,"
+            "ticket_board.id_environment, "
             "cat_environment.code_environment, "
-            "ticket_board.id_list_tracker, "
+            "cat_environment.id_list_tracker, "
+            "ticket_board.id_card_tracker, "
             "cat_status_ticket.code_status, "
             "date_requested, "
             "datetime(ticket_board.date_requested,'unixepoch','localtime') date_format_requested, "
@@ -94,7 +96,7 @@ class SdaTrackerDao:
         cur.execute(
             "select code_artifact artifact, "
             "code_type_tech tech, "
-            "modification_user user"
+            "modification_user user "
             "from  ticket_artifact "
             "inner join cat_type_tech on cat_type_tech.id_type_tech = ticket_artifact.id_type_tech "
             "inner join cat_artifact on cat_artifact.id_artifact = ticket_artifact.id_artifact "
@@ -140,7 +142,8 @@ class SdaTrackerDao:
         cur = self.conn.cursor()
         date_requested = time.time()
         cur.execute(
-            "update ticket_board set date_requested = :date_requested, user_request = :user_request, id_card_tracker = :id_card_tracker "
+            "update ticket_board set date_requested = :date_requested, "
+            "user_request = :user_request, id_card_tracker = :id_card_tracker "
             "where id_ticket = :id_ticket and id_environment = :id_environment",
             {"date_requested": date_requested, "user_request": dict_ticket_board["user_request"],
              "id_card_tracker": dict_ticket_board["id_card_tracker"],
@@ -154,7 +157,11 @@ class SdaTrackerDao:
         id_artifact = dict_artifact["id_artifact"]
         id_type_tech = dict_artifact["id_type_tech"]
         cur.execute(
-            "update ticket_artifact set modification_user = :modification_user, modification_date = :modification_date where id_ticket = :id_ticket and id_artifact = :id_artifact and id_type_tech = :id_type_tech",
+            "update ticket_artifact set modification_user = :modification_user, "
+            "modification_date = :modification_date "
+            "where id_ticket = :id_ticket and "
+            "id_artifact = :id_artifact and "
+            "id_type_tech = :id_type_tech",
             {"modification_user": modification_user, "modification_date": date_current, "id_ticket": id_ticket,
              "id_artifact": id_artifact, "id_type_tech": id_type_tech})
         # self.conn.commit()
@@ -176,5 +183,4 @@ class SdaTrackerDao:
         cur.execute(
             "update cat_environment set id_list_tracker = :id_list_tracker "
             "where code_environment = :code_env",
-            {"code_env" : code_env, "id_list_tracker" : id_list_tracker})
-
+            {"code_env": code_env, "id_list_tracker": id_list_tracker})

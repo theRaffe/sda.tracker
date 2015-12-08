@@ -1,8 +1,12 @@
 __author__ = 'macbook'
 import sqlite3 as lite
 import ConfigParser
+import logging
 
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 class PersistentController:
@@ -55,10 +59,10 @@ class PersistentController:
                 dict_ticket = self.get_ticket_board(id_ticket)
                 ls_artifact = dict_branch[id_ticket]
                 if dict_ticket and len(ls_artifact) > 0:
-                    #get first dict artifact
+                    # get first dict artifact
                     first_artifact = ls_artifact[0]
                     user_request = first_artifact["email"]
-                    #update user_request with new value of the artifact's email
+                    # update user_request with new value of the artifact's email
                     dict_ticket["user_request"] = user_request
                     print "update ticket_board.date_requested"
                     self.dao_object.update_ticket_board(dict_ticket)
@@ -96,9 +100,11 @@ class PersistentController:
             return {"result": "OK", "board_ticket": list_board_ticket}
         except lite.Error, e:
             print "Error Database %s:" % e.args
+            logger.exception(e)
+
             self.dao_object.do_rollback()
             return {"result": "ERROR", "description": e.message}
 
     def update_ticket_db(self, dict_board_ticket):
-
+        self.dao_object.update_ticket_board(dict_board_ticket)
         return None

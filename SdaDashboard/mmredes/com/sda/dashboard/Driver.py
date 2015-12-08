@@ -27,7 +27,7 @@ if __name__ == '__main__':
     if is_branch_behind:
         dict_branch, id_branch = repository_listener.get_branch_ticket()
         persistent_controller = PersistentController(config_file)
-        print dict_branch
+        print ("dict_branch", dict_branch)
         dict_board_result = persistent_controller.process_ticket_db(dict_branch, id_branch)
 
         if dict_board_result['result'] == 'OK':
@@ -36,12 +36,20 @@ if __name__ == '__main__':
             # get each ticket at board
             for board_ticket in list_board_ticket:
 
-                m_card = task_manager.send_ticket_card(board_ticket)
-                if m_card:
+                dict_result = task_manager.send_ticket_card(board_ticket)
+                if dict_result["result"] == "OK":
+                    dict_board = board_ticket['dict_board']
+                    m_card = dict_result['result_card']
+                    dict_board['id_card_tracker'] = m_card.id
+                    persistent_controller.update_ticket_db(dict_board)
+
                     dict_board_code = board_ticket['dict_board']
                     print("board_ticket", board_ticket)
                     message_email = email_tracker.get_email_ticket_request(board_ticket)
+                    print("sending email...")
                     email_tracker.sendEmail(message_email)
+                else:
+                    print ("error send to trello", dict_result["description"])
 
-        result_pull = 'do pull'  # command('git pull')
-        print(result_pull)
+            result_pull = repository_listener.update_local_repository()
+            print(result_pull)

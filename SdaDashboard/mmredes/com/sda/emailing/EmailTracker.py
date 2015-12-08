@@ -46,7 +46,7 @@ class EmailTracker:
         message = MIMEMultipart()
         list_email = []
         for dict_artifact in list_artifact:
-            email_request = dict_artifact['modification_user']
+            email_request = dict_artifact['user']
             list_email.append(email_request)
 
         config = ConfigParser.RawConfigParser()

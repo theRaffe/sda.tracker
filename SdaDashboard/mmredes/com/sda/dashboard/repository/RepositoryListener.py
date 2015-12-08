@@ -1,7 +1,7 @@
 import ConfigParser
-import time, sys
 import os
 import subprocess
+
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
 
 __author__ = 'macbook'
@@ -100,3 +100,6 @@ class RepositoryListener:
             dict_branch[branch] = ls_branch_artifact
 
         return dict_branch, self.id_branch
+
+    def update_local_repository(self):
+        return self.command('git pull')
