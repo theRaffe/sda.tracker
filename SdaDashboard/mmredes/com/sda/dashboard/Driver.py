@@ -1,5 +1,7 @@
 import os
 import logging
+import time
+import sys
 
 from requests import ConnectionError
 
@@ -14,16 +16,8 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 __author__ = 'macbook'
 
-if __name__ == '__main__':
-    # x = 1
-    # while True:
-    #     try:
-    #         print x
-    #         time.sleep(1)
-    #         x += 1
-    #     except KeyboardInterrupt:
-    #         print "Quit! See you"
-    #         sys.exit()
+
+def monitor_repository():
     connected_trello = False
     task_manager = None
     try:
@@ -39,7 +33,7 @@ if __name__ == '__main__':
     if is_branch_behind:
         dict_branch, id_branch = repository_listener.get_branch_ticket()
         persistent_controller = PersistentController(config_file)
-        print ("dict_branch", dict_branch)
+        logger.info("dict_branch: %s" % dict_branch)
         dict_board_result = persistent_controller.process_ticket_db(dict_branch, id_branch)
 
         if dict_board_result['result'] == 'OK':
@@ -66,3 +60,14 @@ if __name__ == '__main__':
 
             result_pull = repository_listener.update_local_repository()
             print(result_pull)
+        else:
+            logger.error("error at process_ticket_db: %s" % dict_board_result["description"])
+
+if __name__ == '__main__':
+    while True:
+        try:
+            monitor_repository()
+            time.sleep(60)
+        except KeyboardInterrupt:
+            print "Quit! See you"
+            sys.exit()
