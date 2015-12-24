@@ -52,7 +52,7 @@ def monitor_repository():
                     else:
                         logger.error("error send to trello: %s", dict_result["description"])
 
-                dict_board_code = board_ticket['dict_board']
+                # dict_board_code = board_ticket['dict_board']
                 print("board_ticket", board_ticket)
                 message_email = email_tracker.get_email_ticket_request(board_ticket)
                 print("sending email...")
