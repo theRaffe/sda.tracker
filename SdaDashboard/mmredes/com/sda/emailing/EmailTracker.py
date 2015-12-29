@@ -2,6 +2,7 @@ import smtplib
 import ConfigParser
 import os
 import imaplib
+import email
 
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -83,10 +84,46 @@ class EmailTracker:
         for message_uid in messages:
             result, data = mail.uid('fetch', message_uid, '(RFC822)')
             raw_body = data[0][1]
-            start_index = raw_body.find(substring_start)
-            body_email = raw_body[start_index: len(raw_body)]
-            print ("result: %s" % result)
-            print ("body_email: %s" % body_email)
-            dict_defect = email_parser.parse_mail_defect(body_email)
+            email_message = self.get_decoded_email_body(raw_body)
+
+            # print ("result: %s" % result)
+            # print ("body_email: %s" % email_message)
+            dict_defect = email_parser.parse_mail_defect(email_message)
 
             print("dict_defect: %s" % dict_defect)
+
+    def get_decoded_email_body(self, message_body):
+        """ Decode email body.
+        Detect character set if the header is not set.
+        We try to get text/plain, but if there is not one then fallback to text/html.
+        :param message_body: Raw 7-bit message body input e.g. from imaplib. Double encoded in quoted-printable and latin-1
+        :return: Message body as unicode string
+        """
+        msg = email.message_from_string(message_body)
+        text = ""
+        if msg.is_multipart():
+            html = None
+            for part in msg.get_payload():
+
+                print "%s, %s" % (part.get_content_type(), part.get_content_charset())
+
+                if part.get_content_charset() is None:
+                    # We cannot know the character set, so return decoded "something"
+                    text = part.get_payload(decode=True)
+                    continue
+
+                charset = part.get_content_charset()
+
+                if part.get_content_type() == 'text/plain':
+                    text = unicode(part.get_payload(decode=True), str(charset), "ignore").encode('utf8', 'replace')
+
+                if part.get_content_type() == 'text/html':
+                    html = unicode(part.get_payload(decode=True), str(charset), "ignore").encode('utf8', 'replace')
+
+            if html is not None:
+                return html.strip()
+            else:
+                return text.strip()
+        else:
+            text = unicode(msg.get_payload(decode=True), msg.get_content_charset(), 'ignore').encode('utf8', 'replace')
+            return text.strip()
