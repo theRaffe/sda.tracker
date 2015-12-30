@@ -46,7 +46,7 @@ class RepositoryListener:
         dict_branch = {}
         type_tech = self.type_tech
 
-        commit_merge = self.command('git rev-list HEAD...origin/develop | xargs git show | grep Merge:')
+        commit_merge = self.command('git rev-list develop...origin/develop | xargs git show | grep commit ')
         ls_commit_merge = []
         for line in filter(None, commit_merge.split('\n')):
             print(line)
