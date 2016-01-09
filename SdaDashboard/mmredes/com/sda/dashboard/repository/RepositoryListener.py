@@ -1,10 +1,13 @@
 import ConfigParser
 import os
 import subprocess
+import logging
 
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
 
 __author__ = 'macbook'
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class RepositoryListener:
     repoDir = ''
@@ -36,32 +39,42 @@ class RepositoryListener:
         status = self.command("git status -u no")
         return status
 
+    def get_current_branch(self):
+        output = self.command('git status')
+        status_line = [line for line in output.split('\n') if 'On branch' in line][0]
+        arr_token = status_line.split(' ')
+        return arr_token[2] if len(arr_token) == 3 else ''
+
+
     def is_behind(self):
         return self.CONST_IS_BEHIND in self.get_status()
 
-    def get_branch_ticket(self):
+    def get_branch_ticket(self, current_branch):
         print ("self.config_file", self.config_file)
         persistentController = PersistentController(self.config_file)
         dict_artifact = persistentController.get_artifacts()
         dict_branch = {}
         type_tech = self.type_tech
 
-        commit_merge = self.command('git rev-list develop...origin/develop | xargs git show | grep commit ')
+        str_command = 'git rev-list %s...origin/%s | xargs git show | grep Merge:' % (current_branch, current_branch)
+        commit_merge = self.command(str_command)
         ls_commit_merge = []
         for line in filter(None, commit_merge.split('\n')):
-            print(line)
+            # logger.info(line)
             ls_token_commit = line.split(' ')
             # the third token is the wanted commit
             # example: 'Merge: 93097c3 23e060e'
             ls_commit_merge.append(ls_token_commit[2])
 
-        print(ls_commit_merge)
+        logger.info('list of commits merge: %s' % ls_commit_merge)
 
         for commit_git in ls_commit_merge:
             # getting branch-ticket
             list_artifact = []
             output = self.command('git reflog --all | grep %s' % commit_git)
-            print output
+            if output == '':
+                continue
+            logger.info('output of git reflog: %s' % output)
             ref_log = [token_log for token_log in output.split(' ') if '@' in token_log][0]
             # iterating of tokens refs/remotes/origin/{branch}@{0}
             # getting token with a @ then get token branch
@@ -78,10 +91,10 @@ class RepositoryListener:
                     email = file
                 else:
                     list_files.append(file)
-            print 'branch:{0:s} email: {1:s}'.format(branch, email)
-            print ('files', list_files)
+            logger.info('branch:{0:s} email: {1:s}'.format(branch, email))
+            logger.info('files: %s' % list_files)
             # Iterate each path
-            # and determinate artifact by getting the first directory of each path file
+            # and determine artifact by getting the first directory of each path file
             for file_path in list_files:
                 list_token = file_path.split('/')
                 if len(list_token) > 1:
@@ -89,7 +102,7 @@ class RepositoryListener:
                     id_artifact = dict_artifact[path_directory] if dict_artifact[path_directory] else -1
                     if id_artifact not in list_artifact:
                         list_artifact.append(id_artifact)
-            print(list_artifact)
+            logger.info('branch [%s] list of artifact: %s' % (branch, list_artifact))
             if branch in dict_branch:
                 ls_branch_artifact = dict_branch[branch]
             else:

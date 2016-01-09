@@ -31,7 +31,6 @@ class EmailParser:
                 cell_span = row.findAll('span')
                 if len(cell_span) > 0:
                     cell_text = cell_span[0].find(text=True)
-                    #print "cell_text: %s" % cell_text
                     if cell_text == "Ambiente":
                         is_table_ok = True
                         break
