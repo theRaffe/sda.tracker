@@ -28,10 +28,11 @@ def monitor_repository():
 
     repository_listener = RepositoryListener(config_file)
     is_branch_behind = repository_listener.is_behind()
+    branch_repository = repository_listener.get_current_branch()
     logger.info("is behind: %s ", is_branch_behind)
 
     if is_branch_behind:
-        dict_branch, id_branch = repository_listener.get_branch_ticket()
+        dict_branch, id_branch = repository_listener.get_branch_ticket(branch_repository)
         persistent_controller = PersistentController(config_file)
         logger.info("dict_branch: %s" % dict_branch)
         dict_board_result = persistent_controller.process_ticket_db(dict_branch, id_branch)
@@ -53,9 +54,9 @@ def monitor_repository():
                         logger.error("error send to trello: %s", dict_result["description"])
 
                 # dict_board_code = board_ticket['dict_board']
-                print("board_ticket", board_ticket)
+                logger.info("board_ticket: %s" % board_ticket)
                 message_email = email_tracker.get_email_ticket_request(board_ticket)
-                print("sending email...")
+                logger.info("sending email...")
                 email_tracker.sendEmail(message_email)
 
             result_pull = repository_listener.update_local_repository()
