@@ -13,6 +13,17 @@ insert into cat_environment values(10, 'izzi.prd', 'izzi production', null);
 delete from cat_artifact
 insert into cat_artifact values(1, 'cartridge-1', 'cartridge1', 'artifact example');
 insert into cat_artifact values(-1, 'unknow artifact', '', 'unregistered directory');
+insert into cat_artifact values(2, 'cartridge-dvb', 'CartridgeDvb', 'artifact dvb');
+insert into cat_artifact values(3, 'cartridge-incognito', 'CartridgeIncognito', 'artifact incognito');
+insert into cat_artifact values(4, 'cartridge-iwy', 'CartridgeIwy', 'artifact intraway');
+insert into cat_artifact values(5, 'cartridge-softswitch', 'Cartridge-Telephony', 'artifact softswitch');
+insert into cat_artifact values(6, 'monitorweb', 'MonitorWeb,MonitorCore', 'artifact portal de soporte');
+insert into cat_artifact values(7, 'provisioning-framework', 'ProvisioningFramework', 'artifact provisioning-framework');
+insert into cat_artifact values(8, 'sdaconsole', 'SdaConsole', 'artifact app web sdaconsole');
+insert into cat_artifact values(9, 'broadworks.ws', 'telephony', 'artifact app de Broadsoft');
+insert into cat_artifact values(10, 'cartridge-incognito-ws-provider', 'CartridgeIncognitoWsProvider', 'artifact CartridgeIncognitoWsProvider');
+insert into cat_artifact values(11, 'provisioning-manager', 'ProvisioningManager', 'artifact ProvisioningManager');
+
 
 delete form cat_branch_git;
 insert into cat_branch_git values(1, 'des', 1, 'development of hotfixes and new feat.');
