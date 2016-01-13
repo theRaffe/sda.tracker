@@ -84,3 +84,10 @@ create table ticket_artifact_logging(
   primary key(id_ticket, id_ticket_row),
   foreign key(id_ticket) references ticket_board(id_ticket)
 );
+
+create table translate_environment(
+  environment varchar(30) not null,
+  crm varchar(30) not null,
+  id_environment tinyint not null,
+  primary key(environment, crm, id_environment)
+);
