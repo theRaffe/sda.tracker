@@ -1,3 +1,4 @@
+import logging
 import smtplib
 import ConfigParser
 import os
@@ -6,11 +7,17 @@ import email
 
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
+from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.emailing.EmailParser import EmailParser
 
 __author__ = 'macbook'
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 cwd = os.getcwd()
+
+
 class EmailTracker:
     config_file = ''
     smtp_server = ''
@@ -29,7 +36,6 @@ class EmailTracker:
         self.email_account = self.config.get('SettingEmail', 'email.account')
         self.email_password = self.config.get('SettingEmail', 'email.password')
         self.smtp_port = self.config.getint('SettingEmail', 'smtp.port')
-
 
     def sendEmail(self, message):
         try:
@@ -71,6 +77,7 @@ class EmailTracker:
         return message
 
     def listen_email(self):
+        persistent_controller = PersistentController(self.config_file)
         mail = imaplib.IMAP4_SSL(self.imap_server)
         mail.login(self.email_account, self.email_password)
         mail.list()
@@ -85,14 +92,14 @@ class EmailTracker:
             result, data = mail.uid('fetch', message_uid, '(RFC822)')
             raw_body = data[0][1]
             email_message = self.get_decoded_email_body(raw_body)
-
             # print ("result: %s" % result)
             # print ("body_email: %s" % email_message)
             dict_defect = email_parser.parse_mail_defect(email_message)
+            persistent_controller.process_library_ticket(dict_defect)
+            logger.info("dict_defect: %s" % dict_defect)
 
-            print("dict_defect: %s" % dict_defect)
-
-    def get_decoded_email_body(self, message_body):
+    @staticmethod
+    def get_decoded_email_body(message_body):
         """ Decode email body.
         Detect character set if the header is not set.
         We try to get text/plain, but if there is not one then fallback to text/html.

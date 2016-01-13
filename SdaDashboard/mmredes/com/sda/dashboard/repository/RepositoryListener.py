@@ -26,6 +26,7 @@ class RepositoryListener:
         self.id_branch = config.get('Repository', 'id.branch')
 
     def command(self, cmd):
+        logger.info('executing: %s' % cmd)
         pipe = subprocess.Popen(cmd, shell=True, cwd=self.repoDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (out, error) = pipe.communicate()
         return out

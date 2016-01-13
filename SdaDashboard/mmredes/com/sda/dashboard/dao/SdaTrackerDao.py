@@ -184,3 +184,37 @@ class SdaTrackerDao:
             "update cat_environment set id_list_tracker = :id_list_tracker "
             "where code_environment = :code_env",
             {"code_env": code_env, "id_list_tracker": id_list_tracker})
+
+    def add_upd_library_ticket(self, dict_ticket):
+        cur = self.conn.cursor()
+        date_current = time.time()
+        id_ticket = dict_ticket["id_ticket"]
+        id_environment = dict_ticket["id_environment"]
+        description = dict_ticket["description"]
+
+        cur.execute(
+            "select * "
+            "from ticket_library "
+            "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
+        row = cur.fetchone()
+        if row:
+            cur.execute("update ticket_library set id_environment = :id_environment, description = :description "
+                        "where id_ticket = :id_ticket",
+                        {"id_ticket": id_ticket, "id_environment": id_environment, "description": description})
+        else:
+            cur.execute("insert into ticket_library(id_ticket, id_environment, description, creation_date)"
+                        "values(:id_ticket, :id_environment, :description, :creation_date)",
+                        {"id_ticket": id_ticket, "id_environment": id_environment, "description": description,
+                         "creation_date": date_current})
+
+    def translate_environment(self, dict_defect):
+        cur = self.conn.cursor()
+        self.conn.row_factory = lite.Row
+        crm = dict_defect["crm"]
+        environment = dict_defect["environment"]
+        cur.execute("SELECT * from translate_environment where crm = :crm and environment = :environment",
+                    {"crm": crm, "environment": environment})
+        row = cur.fetchone()
+
+        id_environment = row["id_environment"] if row and row["id_environment"] else None
+        return id_environment
