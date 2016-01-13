@@ -38,7 +38,7 @@ class EmailParser:
             if is_table_ok:
                 dict_defect = {'id_defect': None, 'environment': None, 'crm': None, 'description': None}
                 #print "table found!!"
-                dict_defect['id_defect'] = self.get_cell_value(rows, 'Defect ID')
+                dict_defect['id_defect'] = 'T' + self.get_cell_value(rows, 'Defect ID')
                 dict_defect['environment'] = self.get_cell_value(rows, 'Ambiente')
                 dict_defect['crm'] = self.get_cell_value(rows, 'Mercado')
                 dict_defect['description'] = self.get_cell_value(rows, 'Descripcion')
