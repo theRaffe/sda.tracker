@@ -74,10 +74,10 @@ class PersistentController:
                         row_ticket_artifact = self.get_ticket_artifact(id_ticket, id_artifact, id_type_tech)
                         if row_ticket_artifact:
                             self.dao_object.update_ticket_artifact(id_ticket, dict_artifact)
-                            #print "update ticket_artifact.modified_date, ticket_artifact.modifier_email"
+                            # print "update ticket_artifact.modified_date, ticket_artifact.modifier_email"
                         else:
                             self.dao_object.insert_ticket_artifact(id_ticket, dict_artifact)
-                            #print "create artifact id_artifact, type_tech, creator_email, creation_date"
+                            # print "create artifact id_artifact, type_tech, creator_email, creation_date"
 
                         self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
                 else:
@@ -111,8 +111,12 @@ class PersistentController:
 
     def process_library_ticket(self, dict_defect):
         id_environment = self.dao_object.translate_environment(dict_defect)
-        id_ticket = dict_defect["id_ticket"]
-        description = dict_defect["description"][:200]
-        dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment, "description": description}
-        self.dao_object.add_upd_library_ticket(dict_ticket)
-        self.dao_object.do_commit()
+        if id_environment:
+            id_ticket = dict_defect["id_defect"]
+            description = dict_defect["description"][:200]
+            dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment, "description": description}
+            self.dao_object.add_upd_library_ticket(dict_ticket)
+            self.dao_object.do_commit()
+        else:
+            logger.error("couldn't find id_environment, with crm=%s environment=%s" % (
+                dict_defect["crm"], dict_defect["environment"]))

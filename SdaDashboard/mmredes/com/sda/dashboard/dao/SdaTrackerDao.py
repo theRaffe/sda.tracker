@@ -1,9 +1,11 @@
 # coding=utf-8
+import logging
 import sqlite3 as lite
 import time
 
 __author__ = 'macbook'
-
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class SdaTrackerDao:
     'Class for accessing to sqlite database'
@@ -198,20 +200,24 @@ class SdaTrackerDao:
             "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
         row = cur.fetchone()
         if row:
+            logger.info("update: %s" % dict_ticket)
             cur.execute("update ticket_library set id_environment = :id_environment, description = :description "
                         "where id_ticket = :id_ticket",
                         {"id_ticket": id_ticket, "id_environment": id_environment, "description": description})
         else:
+            logger.info("insert: %s" % dict_ticket)
             cur.execute("insert into ticket_library(id_ticket, id_environment, description, creation_date)"
                         "values(:id_ticket, :id_environment, :description, :creation_date)",
                         {"id_ticket": id_ticket, "id_environment": id_environment, "description": description,
                          "creation_date": date_current})
 
     def translate_environment(self, dict_defect):
-        cur = self.conn.cursor()
         self.conn.row_factory = lite.Row
+        cur = self.conn.cursor()
+
         crm = dict_defect["crm"]
         environment = dict_defect["environment"]
+
         cur.execute("SELECT * from translate_environment where crm = :crm and environment = :environment",
                     {"crm": crm, "environment": environment})
         row = cur.fetchone()
