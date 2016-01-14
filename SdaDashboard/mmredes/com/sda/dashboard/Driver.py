@@ -21,8 +21,8 @@ def monitor_repository():
     connected_trello = False
     task_manager = None
     try:
-        task_manager = TaskManager(config_file)
-        connected_trello = True
+        # task_manager = TaskManager(config_file)
+        connected_trello = False
     except ConnectionError as e:
         logger.warning("Error at connecting trello: %s" % e.message)
 
@@ -57,12 +57,14 @@ def monitor_repository():
                 logger.info("board_ticket: %s" % board_ticket)
                 message_email = email_tracker.get_email_ticket_request(board_ticket)
                 logger.info("sending email...")
-                email_tracker.sendEmail(message_email)
+                email_tracker.send_email(message_email)
 
             result_pull = repository_listener.update_local_repository()
             print(result_pull)
         else:
             logger.error("error at process_ticket_db: %s" % dict_board_result["description"])
+    else:
+        repository_listener.update_local_repository()
 
 if __name__ == '__main__':
     while True:

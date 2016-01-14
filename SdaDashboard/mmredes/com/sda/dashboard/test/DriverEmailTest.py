@@ -18,7 +18,7 @@ class DriverEmailTest(unittest.TestCase):
         message_body = 'This is the text message of DriverEmailTest'
         message.attach(MIMEText(message_body))
 
-        email_tracker.sendEmail(message)
+        email_tracker.send_email(message)
         self.assertTrue(True)
 
     def test02_listen_new(self):

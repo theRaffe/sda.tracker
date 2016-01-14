@@ -37,7 +37,7 @@ class EmailTracker:
         self.email_password = self.config.get('SettingEmail', 'email.password')
         self.smtp_port = self.config.getint('SettingEmail', 'smtp.port')
 
-    def sendEmail(self, message):
+    def send_email(self, message):
         try:
             receivers = message['To']
             message['From'] = self.email_account
@@ -45,10 +45,10 @@ class EmailTracker:
             conn.login(self.email_account, self.email_password)
             conn.sendmail(self.email_account, receivers, message.as_string())
             print "message email: %s" % message.as_string()
-            print "Successfully sent email: to=%s , subject=%s " % (message["To"], message["Subject"])
+            logger.info("Successfully sent email: to=%s , subject=%s " % (message["To"], message["Subject"]))
             conn.quit()
         except smtplib.SMTPException, e:
-            print "Error: unable to send email: %s" % e.message
+            logger.warning("Error: unable to send email: %s" % e.message)
 
     def get_email_ticket_request(self, dict_board_code):
         list_artifact = dict_board_code['artifacts']
@@ -95,8 +95,10 @@ class EmailTracker:
             # print ("result: %s" % result)
             # print ("body_email: %s" % email_message)
             dict_defect = email_parser.parse_mail_defect(email_message)
-            persistent_controller.process_library_ticket(dict_defect)
-            logger.info("dict_defect: %s" % dict_defect)
+            if dict_defect:
+                logger.info("dict_defect: %s" % dict_defect)
+                persistent_controller.process_library_ticket(dict_defect)
+
 
     @staticmethod
     def get_decoded_email_body(message_body):
@@ -129,8 +131,8 @@ class EmailTracker:
 
             if html is not None:
                 return html.strip()
-            else:
-                return text.strip()
+            # else:
+            #    return text.strip()
         else:
             text = unicode(msg.get_payload(decode=True), msg.get_content_charset(), 'ignore').encode('utf8', 'replace')
             return text.strip()

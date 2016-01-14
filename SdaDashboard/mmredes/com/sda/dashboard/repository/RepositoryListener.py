@@ -9,6 +9,7 @@ __author__ = 'macbook'
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+
 class RepositoryListener:
     repoDir = ''
     config_file = ''
@@ -16,7 +17,7 @@ class RepositoryListener:
     CONST_IS_BEHIND = 'branch is behind'
     id_branch = None
 
-    def __init__(self, config_file = "./board.cfg"):
+    def __init__(self, config_file="./board.cfg"):
 
         config = ConfigParser.RawConfigParser()
         config.read(config_file)
@@ -26,9 +27,11 @@ class RepositoryListener:
         self.id_branch = config.get('Repository', 'id.branch')
 
     def command(self, cmd):
-        logger.info('executing: %s' % cmd)
+        logger.info('executing: %s at dir: %s' % (cmd, self.repoDir))
         pipe = subprocess.Popen(cmd, shell=True, cwd=self.repoDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (out, error) = pipe.communicate()
+        (out, error_output) = pipe.communicate()
+        if error_output:
+            logger.warning("returning error_output = %s" % error_output)
         return out
 
     def rm_empty(self, L):
@@ -42,18 +45,18 @@ class RepositoryListener:
 
     def get_current_branch(self):
         output = self.command('git status')
+        logger.info("output= %s" % output)
         status_line = [line for line in output.split('\n') if 'On branch' in line][0]
         arr_token = status_line.split(' ')
         return arr_token[2] if len(arr_token) == 3 else ''
-
 
     def is_behind(self):
         return self.CONST_IS_BEHIND in self.get_status()
 
     def get_branch_ticket(self, current_branch):
-        print ("self.config_file", self.config_file)
-        persistentController = PersistentController(self.config_file)
-        dict_artifact = persistentController.get_artifacts()
+        logger.info("self.config_file", self.config_file)
+        persistent_controller = PersistentController(self.config_file)
+        dict_artifact = persistent_controller.get_artifacts()
         dict_branch = {}
         type_tech = self.type_tech
 
