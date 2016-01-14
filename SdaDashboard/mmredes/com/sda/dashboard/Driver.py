@@ -23,7 +23,7 @@ def monitor_repository():
     try:
         task_manager = TaskManager(config_file)
         connected_trello = True
-    except ConnectionError, e:
+    except ConnectionError as e:
         logger.warning("Error at connecting trello: %s" % e.message)
 
     repository_listener = RepositoryListener(config_file)
@@ -70,5 +70,5 @@ if __name__ == '__main__':
             monitor_repository()
             time.sleep(60)
         except KeyboardInterrupt:
-            print "Quit! See you"
+            print("Quit! See you")
             sys.exit()

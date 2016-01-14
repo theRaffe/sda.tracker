@@ -60,7 +60,7 @@ class TaskManager():
 
             if a_card:
                 action = "UPDATE"
-                print "update card"
+                #print "update card"
                 for label in a_card.labels:
                     a_card.client.fetch_json(
                         '/cards/' + a_card.id + '/idLabels/' + label.id,
@@ -71,7 +71,7 @@ class TaskManager():
 
             else:
                 action = "NEW"
-                print "new card"
+                #print "new card"
                 a_list = self._board.get_list(id_list_tracker)
                 new_card = a_list.add_card(id_ticket, string_json)
                 result_card = new_card
@@ -80,7 +80,7 @@ class TaskManager():
             for label in labels_artifact:
                 result_card.add_label(label)
             return {"result": "OK", "action": action, "result_card": result_card}
-        except RuntimeError, e:
+        except RuntimeError as e:
             return {"result": "ERROR", "description": e.message}
 
     def get_labels_artifact(self, list_artifact):
