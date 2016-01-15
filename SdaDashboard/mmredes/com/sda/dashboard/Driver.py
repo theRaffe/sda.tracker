@@ -20,11 +20,9 @@ __author__ = 'macbook'
 def monitor_repository():
     connected_trello = False
     task_manager = None
-    try:
-        # task_manager = TaskManager(config_file)
-        connected_trello = False
-    except ConnectionError as e:
-        logger.warning("Error at connecting trello: %s" % e.message)
+    if TaskManager.validate_connection():
+        task_manager = TaskManager(config_file)
+        connected_trello = True
 
     repository_listener = RepositoryListener(config_file)
     is_branch_behind = repository_listener.is_behind()
@@ -63,8 +61,7 @@ def monitor_repository():
             print(result_pull)
         else:
             logger.error("error at process_ticket_db: %s" % dict_board_result["description"])
-    else:
-        repository_listener.update_local_repository()
+
 
 if __name__ == '__main__':
     while True:
