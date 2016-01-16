@@ -4,11 +4,10 @@ import subprocess
 import logging
 
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
+from mmredes.com.sda.utils import ConfigLogger
 
 __author__ = 'macbook'
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
-
+logger = ConfigLogger.get_sda_logger(__name__)
 
 class RepositoryListener:
     repoDir = ''
