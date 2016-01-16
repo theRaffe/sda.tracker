@@ -7,7 +7,8 @@ from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.utils import ConfigLogger
 
 __author__ = 'macbook'
-logger = ConfigLogger.get_sda_logger(__name__)
+ConfigLogger.get_sda_logger()
+logger = logging.getLogger(__name__)
 
 class RepositoryListener:
     repoDir = ''

@@ -7,11 +7,10 @@ from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.dashboard.management.TaskManager import TaskManager
 from mmredes.com.sda.dashboard.repository.RepositoryListener import RepositoryListener
 from mmredes.com.sda.emailing.EmailTracker import EmailTracker
-from mmredes.com.sda.utils import ConfigLogger
 
 cwd = os.getcwd()
 config_file = os.path.join(cwd, "board.cfg")
-logger = ConfigLogger.get_sda_logger(__name__)
+logger = logging.getLogger(__name__)
 __author__ = 'macbook'
 
 

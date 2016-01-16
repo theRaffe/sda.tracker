@@ -1,3 +1,5 @@
+from mmredes.com.sda.utils import ConfigLogger
+
 __author__ = 'macbook'
 import sqlite3 as lite
 import ConfigParser
@@ -5,7 +7,7 @@ import logging
 
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 
-logging.basicConfig(level=logging.DEBUG)
+ConfigLogger.get_sda_logger()
 logger = logging.getLogger(__name__)
 
 

@@ -3,7 +3,6 @@ import ConfigParser
 import logging
 
 import requests
-from requests.exceptions import ReadTimeout
 from trello import TrelloClient
 
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
@@ -40,7 +39,7 @@ class TaskManager():
         try:
             result = requests.request('GET', url_test, timeout=5)
             return result.status_code == 200
-        except ReadTimeout as e:
+        except RuntimeError as e:
             logger.warning("couldn't connect to trello, see error: %s" % e.message)
             return False
 
@@ -109,3 +108,6 @@ class TaskManager():
             else:
                 list_label.append(ls[0])
         return list_label
+
+
+
