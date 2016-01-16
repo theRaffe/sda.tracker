@@ -1,12 +1,16 @@
 import json
 import ConfigParser
+import logging
 
+import requests
+from requests.exceptions import ReadTimeout
 from trello import TrelloClient
 
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 
 __author__ = 'macbook'
-
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class TaskManager():
     _client_trello = None
@@ -30,9 +34,19 @@ class TaskManager():
         for label in list_label:
             self._dict_label[label.name] = label
 
+    @staticmethod
+    def validate_connection():
+        url_test = 'https://api.trello.com/1'
+        try:
+            result = requests.request('GET', url_test, timeout=5)
+            return result.status_code == 200
+        except ReadTimeout as e:
+            logger.warning("couldn't connect to trello, see error: %s" % e.message)
+            return False
+
     def refresh_list_id(self):
         dao_object = SdaTrackerDao(self._config_file)
-        for a_list in self.o_board.all_lists():
+        for a_list in self._board.all_lists():
             code_env = a_list.name
             id_list_tracker = a_list.id
             dao_object.update_list_tracker(code_env, id_list_tracker)
