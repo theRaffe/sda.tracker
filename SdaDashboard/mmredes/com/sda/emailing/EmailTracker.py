@@ -15,7 +15,7 @@ __author__ = 'macbook'
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-cwd = os.getcwd()
+dir_path = os.path.dirname(__file__)
 
 
 class EmailTracker:
@@ -53,6 +53,8 @@ class EmailTracker:
     def get_email_ticket_request(self, dict_board_code):
         list_artifact = dict_board_code['artifacts']
         dict_board = dict_board_code['dict_board']
+        logger.info(dict_board)
+
         id_ticket = dict_board['id_ticket']
         message = MIMEMultipart()
         list_email = []
@@ -70,21 +72,26 @@ class EmailTracker:
 
         list_tech = set(m_dict['tech'] for m_dict in list_artifact)
 
-        file_template_email = os.path.join(cwd, 'res/template/request_ticket_email.html')
-        file_template_row = os.path.join(cwd, 'res/template/ticket_row.html')
+        file_template_email = os.path.join(dir_path, '../dashboard/res/template/request_ticket_email.html')
+        file_template_row = os.path.join(dir_path, '../dashboard/res/template/ticket_row.html')
         file_email = open(file_template_email, 'r')
         file_ticket_row = open(file_template_row, 'r')
 
         body_message = file_email.read()
         body_message = body_message.replace('@id_ticket@', id_ticket)
+
+        row_ticket = file_ticket_row.read()
         rows_ticket = ''
         for code_tech in list_tech:
-            row_text = file_ticket_row.replace('@code_tech@', code_tech)
+
+            row_text = row_ticket.replace('@code_tech@', code_tech)
+            row_text = row_text.replace('@id_ticket@', id_ticket)
+            row_text = row_text.replace('@path_release@', '\\searchlight\sda\%s\%s' % (id_ticket, code_tech))
             rows_ticket += row_text
-        body_message = body_message.replace('@rows_ticker@', rows_ticket)
+        body_message = body_message.replace('@rows_ticket@', rows_ticket)
 
         message.attach(MIMEText(body_message, 'html'))
-
+        logger.info(body_message)
         return message
 
     def listen_email(self):
