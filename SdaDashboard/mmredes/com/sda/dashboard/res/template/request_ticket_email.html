@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+<head>
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: navy;
+    color: white;
+}
+</style>
 </head>
 <body>
-    Ha solicitado la instalacion del ticket %s
+
+<h3>Ha solicitado la instalacion del siguiente ticket @id_ticket@</h3>
+
+<table>
+  <tr>
+    <th>Ticket</th>
+    <th>Tecnologia</th>
+    <th>Ruta del entregable</th>
+  </tr>
+    @rows_ticket@
+
+</table>
+
 </body>
 </html>

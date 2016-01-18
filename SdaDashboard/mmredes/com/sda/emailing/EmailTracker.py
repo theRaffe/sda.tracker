@@ -68,11 +68,22 @@ class EmailTracker:
         message['Subject'] = subject
         message['To'] = ','.join(list_email)
 
+        list_tech = set(m_dict['tech'] for m_dict in list_artifact)
+
         file_template_email = os.path.join(cwd, 'res/template/request_ticket_email.html')
+        file_template_row = os.path.join(cwd, 'res/template/ticket_row.html')
         file_email = open(file_template_email, 'r')
+        file_ticket_row = open(file_template_row, 'r')
+
         body_message = file_email.read()
-        body_message = body_message % id_ticket
-        message.attach(MIMEText(body_message))
+        body_message = body_message.replace('@id_ticket@', id_ticket)
+        rows_ticket = ''
+        for code_tech in list_tech:
+            row_text = file_ticket_row.replace('@code_tech@', code_tech)
+            rows_ticket += row_text
+        body_message = body_message.replace('@rows_ticker@', rows_ticket)
+
+        message.attach(MIMEText(body_message, 'html'))
 
         return message
 
