@@ -1,14 +1,17 @@
 import ConfigParser
 import os
+import shlex
 import subprocess
 import logging
+import re
 
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.utils import ConfigLogger
 
 __author__ = 'macbook'
-ConfigLogger.get_sda_logger()
+# ConfigLogger.get_sda_logger()
 logger = logging.getLogger(__name__)
+
 
 class RepositoryListener:
     repoDir = ''
@@ -32,7 +35,7 @@ class RepositoryListener:
         (out, error_output) = pipe.communicate()
         if error_output:
             logger.warning("returning error_output = %s" % error_output)
-        return out
+        return out, error_output
 
     def rm_empty(self, L):
         return [l for l in L if (l and l != "")]
@@ -40,11 +43,41 @@ class RepositoryListener:
     def get_status(self):
         os.chdir(self.repoDir)
         self.command('git remote update')
-        status = self.command("git status -u no")
+        status, error_output = self.command("git status -u no")
         return status
 
+    def grep(self, pattern, str_obj):
+        grepper = re.compile(pattern)
+        arr_str = str_obj.split('\n')
+        for line in arr_str:
+            if grepper.search(line):
+                return line
+        return None
+
+    def get_list_merge_commit(self, current_branch):
+        cmd1 = 'git rev-list %s...origin/%s' % (current_branch, current_branch)
+
+        pipe1 = subprocess.Popen(shlex.split(cmd1), shell=True, cwd=self.repoDir, stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
+        (output, error_output) = pipe1.communicate()
+        list_result = []
+        if not error_output:
+            arr_commit = output.split('\n')
+            for str_commit in arr_commit:
+                str_command = 'git show %s' % str_commit
+                output_commit, error_output = self.command(str_command)
+                # logger.debug('output_commit = %s' % output_commit)
+                merge_commit = self.grep('Merge:', output_commit)
+                logger.debug('merge_commit = %s' % merge_commit)
+                if merge_commit:
+                    list_result.append(merge_commit)
+        else:
+            logger.warning('error_output rev-list= %s' % error_output)
+
+        return list_result
+
     def get_current_branch(self):
-        output = self.command('git status')
+        output, error_output = self.command('git status')
         logger.info("output= %s" % output)
         status_line = [line for line in output.split('\n') if 'On branch' in line][0]
         arr_token = status_line.split(' ')
@@ -60,22 +93,32 @@ class RepositoryListener:
         dict_branch = {}
         type_tech = self.type_tech
 
-        str_command = 'git rev-list %s...origin/%s | xargs git show | grep Merge:' % (current_branch, current_branch)
-        commit_merge = self.command(str_command)
+        # list_commit_merge = [line for line in commit_merge.split('\n') if line]
+        list_commit_merge = self.get_list_merge_commit(current_branch)
+        logger.debug("list_commit_merge=%s" % list_commit_merge)
         ls_commit_merge = []
-        for line in filter(None, commit_merge.split('\n')):
-            # logger.info(line)
+        # for line in filter(None, commit_merge.split('\n')):
+        for line in filter(None, list_commit_merge):
+            logger.info('line_commit_merge= %s' % line)
             ls_token_commit = line.split(' ')
             # the third token is the wanted commit
             # example: 'Merge: 93097c3 23e060e'
             ls_commit_merge.append(ls_token_commit[2])
 
-        logger.info('list of commits merge: %s' % ls_commit_merge)
+        logger.debug('list of commits merge: %s' % ls_commit_merge)
 
         for commit_git in ls_commit_merge:
             # getting branch-ticket
             list_artifact = []
-            output = self.command('git reflog --all | grep %s' % commit_git)
+
+            cmd1 = 'git reflog --all'
+            cmd2 = '"C:/progra~1/Git/usr/bin/grep.exe" %s' % commit_git
+            pipe1 = subprocess.Popen(cmd1, shell=True, cwd=self.repoDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            pipe2 = subprocess.Popen(cmd2, shell=True, cwd=self.repoDir, stdin=pipe1.stdout, stdout=subprocess.PIPE,
+                                     stderr=subprocess.PIPE)
+            (output, error_output) = pipe2.communicate()
+            logger.warning('git reflog error: %s' % error_output)
+            # output, error_output = self.command('git reflog --all | grep %s' % commit_git)
             if output == '':
                 continue
             logger.info('output of git reflog: %s' % output)
@@ -86,7 +129,7 @@ class RepositoryListener:
             branch = ls_token_reflog[0]
 
             str_command = 'git show --pretty="format:%%ae" --name-only %s' % commit_git
-            modified_files = self.command(str_command)
+            modified_files, error_output = self.command(str_command)
             # print modified_files
             email = ''
             list_files = []

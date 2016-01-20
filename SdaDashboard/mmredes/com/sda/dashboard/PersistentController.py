@@ -100,7 +100,7 @@ class PersistentController:
 
             self.dao_object.do_commit()
             return {"result": "OK", "board_ticket": list_board_ticket}
-        except lite.Error, e:
+        except lite.Error as e:
             print "Error Database %s:" % e.args
             logger.exception(e)
 

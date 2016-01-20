@@ -54,8 +54,8 @@ def monitor_repository():
                 logger.info("sending email...")
                 email_tracker.send_email(message_email)
 
-            result_pull = repository_listener.update_local_repository()
-            print(result_pull)
+            #result_pull = repository_listener.update_local_repository()
+            #print(result_pull)
         else:
             logger.error("error at process_ticket_db: %s" % dict_board_result["description"])
 

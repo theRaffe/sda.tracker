@@ -3,6 +3,8 @@ import ConfigParser
 import logging
 
 import requests
+from requests.exceptions import ReadTimeout
+from requests.packages.urllib3.exceptions import ConnectionError
 from trello import TrelloClient
 
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
@@ -39,8 +41,11 @@ class TaskManager():
         try:
             result = requests.request('GET', url_test, timeout=5)
             return result.status_code == 200
-        except RuntimeError as e:
+        except ConnectionError as e:
             logger.warning("couldn't connect to trello, see error: %s" % e.message)
+            return False
+        except ReadTimeout as e:
+            logger.warning("couldn't connect to trello, timeout error: %s" % e.message)
             return False
 
     def refresh_list_id(self):
