@@ -7,6 +7,7 @@ __author__ = 'macbook'
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+
 class SdaTrackerDao:
     'Class for accessing to sqlite database'
     conn = None
@@ -54,8 +55,8 @@ class SdaTrackerDao:
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute(
-            "select * from ticket_artifact where id_ticket = :id_ticket and id_artifact = :id_artifact and id_type_tech = :id_type_tech",
-            {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech})
+                "select * from ticket_artifact where id_ticket = :id_ticket and id_artifact = :id_artifact and id_type_tech = :id_type_tech",
+                {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech})
 
         return cur.fetchone()
 
@@ -67,7 +68,7 @@ class SdaTrackerDao:
         row = cur.fetchone()
         if not row:
             cur.execute(
-                "select * from cat_branch_git where id_branch = :id_branch", {"id_branch": id_branch})
+                    "select * from cat_branch_git where id_branch = :id_branch", {"id_branch": id_branch})
             row = cur.fetchone()
             return row["id_environment_def"]
 
@@ -77,32 +78,32 @@ class SdaTrackerDao:
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute(
-            "select ticket_board.id_ticket,"
-            "ticket_board.id_environment, "
-            "cat_environment.code_environment, "
-            "cat_environment.id_list_tracker, "
-            "ticket_board.id_card_tracker, "
-            "cat_status_ticket.code_status, "
-            "date_requested, "
-            "datetime(ticket_board.date_requested,'unixepoch','localtime') date_format_requested, "
-            "ticket_board.user_request "
-            "from ticket_board "
-            "inner join cat_environment on cat_environment.id_environment = ticket_board.id_environment "
-            "inner join cat_status_ticket on cat_status_ticket.id_status = ticket_board.id_status "
-            "where ticket_board.id_ticket = :id_ticket", {"id_ticket": id_ticket})
+                "select ticket_board.id_ticket,"
+                "ticket_board.id_environment, "
+                "cat_environment.code_environment, "
+                "cat_environment.id_list_tracker, "
+                "ticket_board.id_card_tracker, "
+                "cat_status_ticket.code_status, "
+                "date_requested, "
+                "datetime(ticket_board.date_requested,'unixepoch','localtime') date_format_requested, "
+                "ticket_board.user_request "
+                "from ticket_board "
+                "inner join cat_environment on cat_environment.id_environment = ticket_board.id_environment "
+                "inner join cat_status_ticket on cat_status_ticket.id_status = ticket_board.id_status "
+                "where ticket_board.id_ticket = :id_ticket", {"id_ticket": id_ticket})
         return cur.fetchone()
 
     def get_artifact_code(self, id_ticket):
         self.conn.row_factory = lite.Row
         cur = self.conn.cursor()
         cur.execute(
-            "select code_artifact artifact, "
-            "code_type_tech tech, "
-            "modification_user user "
-            "from  ticket_artifact "
-            "inner join cat_type_tech on cat_type_tech.id_type_tech = ticket_artifact.id_type_tech "
-            "inner join cat_artifact on cat_artifact.id_artifact = ticket_artifact.id_artifact "
-            "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
+                "select code_artifact artifact, "
+                "code_type_tech tech, "
+                "modification_user user "
+                "from  ticket_artifact "
+                "inner join cat_type_tech on cat_type_tech.id_type_tech = ticket_artifact.id_type_tech "
+                "inner join cat_artifact on cat_artifact.id_artifact = ticket_artifact.id_artifact "
+                "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
         return cur.fetchall()
 
     def insert_ticket_board(self, dict_ticket_board):
@@ -112,9 +113,9 @@ class SdaTrackerDao:
         id_environment = dict_ticket_board["id_environment"]
         user_request = dict_ticket_board["user_request"]
         cur.execute(
-            "insert into ticket_board(id_ticket, id_environment, id_status, user_request, date_requested) values(:id_ticket, :id_environment, :id_status, :user_request, :date_request)",
-            {"id_ticket": id_ticket, "id_environment": id_environment, "id_status": 1, "user_request": user_request,
-             "date_request": date_requested}
+                "insert into ticket_board(id_ticket, id_environment, id_status, user_request, date_requested) values(:id_ticket, :id_environment, :id_status, :user_request, :date_request)",
+                {"id_ticket": id_ticket, "id_environment": id_environment, "id_status": 1, "user_request": user_request,
+                 "date_request": date_requested}
         )
         # self.conn.commit()
 
@@ -126,17 +127,17 @@ class SdaTrackerDao:
 
         self.conn.row_factory = lite.Row
         cur.execute(
-            "select max(id_ticket_row) + 1 id_ticket_row "
-            "from ticket_artifact_logging "
-            "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
+                "select max(id_ticket_row) + 1 id_ticket_row "
+                "from ticket_artifact_logging "
+                "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
         row = cur.fetchone()
         id_ticket_row = row["id_ticket_row"] if row and row["id_ticket_row"] else 1
 
         cur.execute(
-            "insert into ticket_artifact_logging(id_ticket, id_ticket_row, id_artifact, creation_user, creation_date) "
-            "values(:id_ticket, :id_ticket_row, :id_artifact, :creation_user, :creation_date)",
-            {"id_ticket": id_ticket, "id_ticket_row": id_ticket_row, "creation_user":
-                creation_user, "creation_date": date_current, "id_artifact": id_artifact}
+                "insert into ticket_artifact_logging(id_ticket, id_ticket_row, id_artifact, creation_user, creation_date) "
+                "values(:id_ticket, :id_ticket_row, :id_artifact, :creation_user, :creation_date)",
+                {"id_ticket": id_ticket, "id_ticket_row": id_ticket_row, "creation_user":
+                    creation_user, "creation_date": date_current, "id_artifact": id_artifact}
         )
 
     def update_ticket_board(self, dict_ticket_board):
@@ -144,13 +145,27 @@ class SdaTrackerDao:
         cur = self.conn.cursor()
         date_requested = time.time()
         cur.execute(
-            "update ticket_board set date_requested = :date_requested, "
-            "user_request = :user_request, id_card_tracker = :id_card_tracker "
-            "where id_ticket = :id_ticket and id_environment = :id_environment",
-            {"date_requested": date_requested, "user_request": dict_ticket_board["user_request"],
-             "id_card_tracker": dict_ticket_board["id_card_tracker"],
-             "id_ticket": dict_ticket_board["id_ticket"], "id_environment": dict_ticket_board["id_environment"]})
+                "update ticket_board set date_requested = :date_requested, "
+                "user_request = :user_request, id_card_tracker = :id_card_tracker "
+                "where id_ticket = :id_ticket and id_environment = :id_environment",
+                {"date_requested": date_requested, "user_request": dict_ticket_board["user_request"],
+                 "id_card_tracker": dict_ticket_board["id_card_tracker"],
+                 "id_ticket": dict_ticket_board["id_ticket"], "id_environment": dict_ticket_board["id_environment"]})
         # self.conn.commit()
+
+    def process_ticket_artifact(self, id_ticket, dict_artifact):
+        cur = self.conn.cursor()
+        id_artifact = dict_artifact["id_artifact"]
+        id_type_tech = dict_artifact["id_type_tech"]
+        cur.execute(
+                "select 1 from ticket_artifact "
+                "where id_ticket = :id_ticket and id_artifact = :id_artifact and id_type_tech = :id_type_tech",
+                {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech})
+        row = cur.fetchone()
+        if row:
+            self.update_ticket_artifact(id_ticket, dict_artifact)
+        else:
+            self.insert_ticket_artifact(id_ticket, dict_artifact)
 
     def update_ticket_artifact(self, id_ticket, dict_artifact):
         cur = self.conn.cursor()
@@ -159,13 +174,13 @@ class SdaTrackerDao:
         id_artifact = dict_artifact["id_artifact"]
         id_type_tech = dict_artifact["id_type_tech"]
         cur.execute(
-            "update ticket_artifact set modification_user = :modification_user, "
-            "modification_date = :modification_date "
-            "where id_ticket = :id_ticket and "
-            "id_artifact = :id_artifact and "
-            "id_type_tech = :id_type_tech",
-            {"modification_user": modification_user, "modification_date": date_current, "id_ticket": id_ticket,
-             "id_artifact": id_artifact, "id_type_tech": id_type_tech})
+                "update ticket_artifact set modification_user = :modification_user, "
+                "modification_date = :modification_date "
+                "where id_ticket = :id_ticket and "
+                "id_artifact = :id_artifact and "
+                "id_type_tech = :id_type_tech",
+                {"modification_user": modification_user, "modification_date": date_current, "id_ticket": id_ticket,
+                 "id_artifact": id_artifact, "id_type_tech": id_type_tech})
         # self.conn.commit()
 
     def insert_ticket_artifact(self, id_ticket, dict_artifact):
@@ -175,17 +190,18 @@ class SdaTrackerDao:
         id_artifact = dict_artifact["id_artifact"]
         id_type_tech = dict_artifact["id_type_tech"]
         cur.execute(
-            "insert into ticket_artifact(id_ticket, id_artifact, id_type_tech, creation_user, creation_date, modification_user) values(:id_ticket, :id_artifact, :id_type_tech, :creation_user, :creation_date, :modification_user)",
-            {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech, "creation_user":
-                creation_user, "creation_date": date_current, "modification_user": creation_user}
+                "insert into ticket_artifact(id_ticket, id_artifact, id_type_tech, creation_user, creation_date, modification_user) "
+                "values(:id_ticket, :id_artifact, :id_type_tech, :creation_user, :creation_date, :modification_user)",
+                {"id_ticket": id_ticket, "id_artifact": id_artifact, "id_type_tech": id_type_tech, "creation_user":
+                    creation_user, "creation_date": date_current, "modification_user": creation_user}
         )
 
     def update_list_tracker(self, code_env, id_list_tracker):
         cur = self.conn.cursor()
         cur.execute(
-            "update cat_environment set id_list_tracker = :id_list_tracker "
-            "where code_environment = :code_env",
-            {"code_env": code_env, "id_list_tracker": id_list_tracker})
+                "update cat_environment set id_list_tracker = :id_list_tracker "
+                "where code_environment = :code_env",
+                {"code_env": code_env, "id_list_tracker": id_list_tracker})
 
     def add_upd_library_ticket(self, dict_ticket):
         cur = self.conn.cursor()
@@ -195,9 +211,9 @@ class SdaTrackerDao:
         description = dict_ticket["description"]
 
         cur.execute(
-            "select * "
-            "from ticket_library "
-            "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
+                "select * "
+                "from ticket_library "
+                "where id_ticket = :id_ticket", {"id_ticket": id_ticket})
         row = cur.fetchone()
         if row:
             logger.info("update: %s" % dict_ticket)

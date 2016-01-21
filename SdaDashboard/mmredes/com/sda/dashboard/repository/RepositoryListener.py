@@ -64,13 +64,19 @@ class RepositoryListener:
         if not error_output:
             arr_commit = output.split('\n')
             for str_commit in arr_commit:
-                str_command = 'git show %s' % str_commit
-                output_commit, error_output = self.command(str_command)
-                # logger.debug('output_commit = %s' % output_commit)
-                merge_commit = self.grep('Merge:', output_commit)
-                logger.debug('merge_commit = %s' % merge_commit)
+                cmd_git_show = 'git show %s' % str_commit
+                cmd_grep = '"C:/progra~1/Git/usr/bin/grep.exe" Merge:'
+                p_git_show = subprocess.Popen(shlex.split(cmd_git_show), shell=True, cwd=self.repoDir,
+                                              stdout=subprocess.PIPE,
+                                              stderr=subprocess.PIPE)
+                p_grep = subprocess.Popen(shlex.split(cmd_grep), shell=True, cwd=self.repoDir, stdin=p_git_show.stdout,
+                                          stdout=subprocess.PIPE,
+                                          stderr=subprocess.PIPE)
+
+                (merge_commit, error_output) = p_grep.communicate()
                 if merge_commit:
                     list_result.append(merge_commit)
+                    logger.debug('merge_commit = %s' % merge_commit)
         else:
             logger.warning('error_output rev-list= %s' % error_output)
 
@@ -87,7 +93,7 @@ class RepositoryListener:
         return self.CONST_IS_BEHIND in self.get_status()
 
     def get_branch_ticket(self, current_branch):
-        logger.info("self.config_file", self.config_file)
+        logger.info("self.config_file= %s" % self.config_file)
         persistent_controller = PersistentController(self.config_file)
         dict_artifact = persistent_controller.get_artifacts()
         dict_branch = {}
@@ -99,7 +105,7 @@ class RepositoryListener:
         ls_commit_merge = []
         # for line in filter(None, commit_merge.split('\n')):
         for line in filter(None, list_commit_merge):
-            logger.info('line_commit_merge= %s' % line)
+            # logger.info('line_commit_merge= %s' % line)
             ls_token_commit = line.split(' ')
             # the third token is the wanted commit
             # example: 'Merge: 93097c3 23e060e'
@@ -117,9 +123,10 @@ class RepositoryListener:
             pipe2 = subprocess.Popen(cmd2, shell=True, cwd=self.repoDir, stdin=pipe1.stdout, stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE)
             (output, error_output) = pipe2.communicate()
-            logger.warning('git reflog error: %s' % error_output)
+            if error_output:
+                logger.warning('git reflog error: %s' % error_output)
             # output, error_output = self.command('git reflog --all | grep %s' % commit_git)
-            if output == '':
+            if not output:
                 continue
             logger.info('output of git reflog: %s' % output)
             ref_log = [token_log for token_log in output.split(' ') if '@' in token_log][0]
@@ -131,13 +138,12 @@ class RepositoryListener:
             str_command = 'git show --pretty="format:%%ae" --name-only %s' % commit_git
             modified_files, error_output = self.command(str_command)
             # print modified_files
-            email = ''
-            list_files = []
-            for file in filter(None, modified_files.split('\n')):
-                if '@' in file:
-                    email = file
-                else:
-                    list_files.append(file)
+
+            list_modified_files = filter(None, modified_files.split('\n'))
+            email = list_modified_files[0]
+            list_files = list_modified_files[1:]
+            # for modified_file in list_modified_files[1:]:
+            #    list_files.append(modified_file)
             logger.info('branch:{0:s} email: {1:s}'.format(branch, email))
             logger.info('files: %s' % list_files)
             # Iterate each path
@@ -155,8 +161,10 @@ class RepositoryListener:
             else:
                 ls_branch_artifact = []
             for id_artifact in list_artifact:
-                dict = {'id_artifact': id_artifact, 'email': email, 'id_type_tech': type_tech}
-                ls_branch_artifact.append(dict)
+                list_found_artifact = [item for item in ls_branch_artifact if item['id_artifact'] == id_artifact and item['email'] == email and item['id_type_tech'] == type_tech]
+                if len(list_found_artifact) == 0:
+                    dict_result = {'id_artifact': id_artifact, 'email': email, 'id_type_tech': type_tech}
+                    ls_branch_artifact.append(dict_result)
             dict_branch[branch] = ls_branch_artifact
 
         return dict_branch, self.id_branch

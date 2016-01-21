@@ -78,7 +78,7 @@ class PersistentController:
                             self.dao_object.update_ticket_artifact(id_ticket, dict_artifact)
                             # print "update ticket_artifact.modified_date, ticket_artifact.modifier_email"
                         else:
-                            self.dao_object.insert_ticket_artifact(id_ticket, dict_artifact)
+                            self.dao_object.process_ticket_artifact(id_ticket, dict_artifact)
                             # print "create artifact id_artifact, type_tech, creator_email, creation_date"
 
                         self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
@@ -93,7 +93,7 @@ class PersistentController:
                     print "create ticket_board, id_environment, id_ticket, id_status, date_requested"
                     for dict_artifact in ls_artifact:
                         self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
-                        self.dao_object.insert_ticket_artifact(id_ticket, dict_artifact)
+                        self.dao_object.process_ticket_artifact(id_ticket, dict_artifact)
                     print "create ticket_artifact id_ticket, id_artifact, creator_email, creation_date"
                 board_ticket = self.get_dict_board_code(id_ticket)
                 list_board_ticket.append(board_ticket)
