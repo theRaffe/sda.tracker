@@ -1,10 +1,9 @@
 import logging
 import logging.config
-import os
+from pkg_resources import resource_filename
 
 
 def get_sda_logger():
-    dir_path = os.path.dirname(__file__)
-    config_file = os.path.join(dir_path, 'logging.conf')
-
+    config_file = resource_filename('mmredes.com.sda.utils', 'logging.conf')
+    # print "config_file_log = %s" % config_file
     logging.config.fileConfig(config_file)

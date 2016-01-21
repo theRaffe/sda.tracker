@@ -9,6 +9,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.emailing.EmailParser import EmailParser
+from pkg_resources import resource_filename
 
 __author__ = 'macbook'
 
@@ -72,8 +73,10 @@ class EmailTracker:
 
         list_tech = set(m_dict['tech'] for m_dict in list_artifact)
 
-        file_template_email = os.path.join(dir_path, '../dashboard/res/template/request_ticket_email.html')
-        file_template_row = os.path.join(dir_path, '../dashboard/res/template/ticket_row.html')
+        file_template_email = resource_filename('mmredes.com.sda.dashboard.resource.template',
+                                                'request_ticket_email.html')
+        file_template_row = resource_filename('mmredes.com.sda.dashboard.resource.template',
+                                              'ticket_row.html')
         file_email = open(file_template_email, 'r')
         file_ticket_row = open(file_template_row, 'r')
 
@@ -83,7 +86,6 @@ class EmailTracker:
         row_ticket = file_ticket_row.read()
         rows_ticket = ''
         for code_tech in list_tech:
-
             row_text = row_ticket.replace('@code_tech@', code_tech)
             row_text = row_text.replace('@id_ticket@', id_ticket)
             row_text = row_text.replace('@path_release@', '\\searchlight\sda\%s\%s' % (id_ticket, code_tech))
@@ -117,7 +119,6 @@ class EmailTracker:
                 logger.info("dict_defect: %s" % dict_defect)
                 persistent_controller.process_library_ticket(dict_defect)
 
-
     @staticmethod
     def get_decoded_email_body(message_body):
         """ Decode email body.
@@ -149,8 +150,8 @@ class EmailTracker:
 
             if html is not None:
                 return html.strip()
-            # else:
-            #    return text.strip()
+                # else:
+                #    return text.strip()
         else:
             text = unicode(msg.get_payload(decode=True), msg.get_content_charset(), 'ignore').encode('utf8', 'replace')
             return text.strip()

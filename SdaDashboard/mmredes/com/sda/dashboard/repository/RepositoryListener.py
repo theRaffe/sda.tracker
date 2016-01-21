@@ -1,15 +1,15 @@
 import ConfigParser
+import logging
 import os
+import re
 import shlex
 import subprocess
-import logging
-import re
 
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.utils import ConfigLogger
 
 __author__ = 'macbook'
-# ConfigLogger.get_sda_logger()
+ConfigLogger.get_sda_logger()
 logger = logging.getLogger(__name__)
 
 
