@@ -37,22 +37,14 @@ class RepositoryListener:
             logger.warning("returning error_output = %s" % error_output)
         return out, error_output
 
-    def rm_empty(self, L):
-        return [l for l in L if (l and l != "")]
+    # def rm_empty(self, L):
+    #    return [l for l in L if (l and l != "")]
 
     def get_status(self):
         os.chdir(self.repoDir)
         self.command('git remote update')
         status, error_output = self.command("git status -u no")
         return status
-
-    def grep(self, pattern, str_obj):
-        grepper = re.compile(pattern)
-        arr_str = str_obj.split('\n')
-        for line in arr_str:
-            if grepper.search(line):
-                return line
-        return None
 
     def get_list_merge_commit(self, current_branch):
         cmd1 = 'git rev-list %s...origin/%s' % (current_branch, current_branch)
@@ -93,7 +85,7 @@ class RepositoryListener:
         return self.CONST_IS_BEHIND in self.get_status()
 
     def get_branch_ticket(self, current_branch):
-        logger.info("self.config_file= %s" % self.config_file)
+        # logger.info("self.config_file= %s" % self.config_file)
         persistent_controller = PersistentController(self.config_file)
         dict_artifact = persistent_controller.get_artifacts()
         dict_branch = {}
@@ -161,7 +153,9 @@ class RepositoryListener:
             else:
                 ls_branch_artifact = []
             for id_artifact in list_artifact:
-                list_found_artifact = [item for item in ls_branch_artifact if item['id_artifact'] == id_artifact and item['email'] == email and item['id_type_tech'] == type_tech]
+                list_found_artifact = [item for item in ls_branch_artifact if
+                                       item['id_artifact'] == id_artifact and item['email'] == email and item[
+                                           'id_type_tech'] == type_tech]
                 if len(list_found_artifact) == 0:
                     dict_result = {'id_artifact': id_artifact, 'email': email, 'id_type_tech': type_tech}
                     ls_branch_artifact.append(dict_result)
@@ -171,3 +165,27 @@ class RepositoryListener:
 
     def update_local_repository(self):
         return self.command('git pull')
+
+    @staticmethod
+    def get_list_java_artifact(dict_artifact, list_files):
+        list_artifact = []
+        for file_path in list_files:
+            list_token = file_path.split('/')
+            if len(list_token) > 1:
+                path_directory = list_token[0]
+                id_artifact = dict_artifact[path_directory] if dict_artifact[path_directory] else -1
+                if id_artifact not in list_artifact:
+                    list_artifact.append({"id_artifact": id_artifact, "path_directory": path_directory})
+        return list_artifact
+
+    @staticmethod
+    def get_list_osb_artifact(dict_artifact, list_files):
+        list_artifact = []
+        for file_path in list_files:
+            list_token = file_path.split('/')
+            if len(list_token) > 1:
+                path_directory = list_token[0]
+                id_artifact = dict_artifact[path_directory] if dict_artifact[path_directory] else -1
+                if id_artifact not in list_artifact:
+                    list_artifact.append({"id_artifact": id_artifact, "path_directory": path_directory})
+        return list_artifact

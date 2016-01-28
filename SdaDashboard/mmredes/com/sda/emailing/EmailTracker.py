@@ -45,11 +45,13 @@ class EmailTracker:
             conn = smtplib.SMTP(self.smtp_server, self.smtp_port)
             conn.login(self.email_account, self.email_password)
             conn.sendmail(self.email_account, receivers, message.as_string())
-            print "message email: %s" % message.as_string()
+            logger.debug("message email: %s" % message.as_string())
             logger.info("Successfully sent email: to=%s , subject=%s " % (message["To"], message["Subject"]))
             conn.quit()
-        except smtplib.SMTPException, e:
-            logger.warning("Error: unable to send email: %s" % e.message)
+        except smtplib.SMTPException as e:
+            logger.warning("Error, unable to send email: %s" % e.message)
+        except RuntimeError as e:
+            logger.warning("Unexpected error has occurred: %s" % e.message)
 
     def get_email_ticket_request(self, dict_board_code):
         list_artifact = dict_board_code['artifacts']
