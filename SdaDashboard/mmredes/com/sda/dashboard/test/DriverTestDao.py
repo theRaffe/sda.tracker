@@ -1,17 +1,45 @@
 import ConfigParser
+from mmredes.com.sda.dashboard.dao.CatArtifactDao import CatArtifactDao
+from mmredes.com.sda.dashboard.dao.ControllerDao import ControllerDao
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
+import unittest
+import logging
 
 __author__ = 'macbook'
-if __name__ == '__main__':
-    print "start test dao"
-    config_file='../board.cfg'
-    config = ConfigParser.RawConfigParser()
-    config.read(config_file)
-    print ("sections", config.sections())
-    connection_file = config.get('DatabaseSection', 'database.file')
-    driverDao = SdaTrackerDao(connection_file)
-    row = driverDao.get_ticket_board_code("feature2")
-    print row
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
-    rows = driverDao.get_artifact_code("feature2")
-    print rows
+
+class DriverTestDao(unittest.TestCase):
+
+    def test_01(self):
+        config_file = '../board.cfg'
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        controller_dao = ControllerDao(connection_file)
+
+        cat_artifact_dao = CatArtifactDao(controller_dao.get_dict_database())
+
+        res = cat_artifact_dao.list_all()
+
+        m_dict = {}
+        for row in res:
+            m_dict[row.path_directory] = row.code_artifact
+
+        print m_dict
+        self.assertTrue(len(res) > 0)
+
+# if __name__ == '__main__':
+#     print "start test dao"
+#     config_file = '../board.cfg'
+#     config = ConfigParser.RawConfigParser()
+#     config.read(config_file)
+#     print ("sections", config.sections())
+#     connection_file = config.get('DatabaseSection', 'database.file')
+#     driverDao = SdaTrackerDao(connection_file)
+#     row = driverDao.get_ticket_board_code("feature2")
+#     print row
+#
+#     rows = driverDao.get_artifact_code("feature2")
+#     print rows
