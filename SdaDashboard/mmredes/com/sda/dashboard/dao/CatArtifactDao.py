@@ -1,18 +1,12 @@
-from sqlalchemy import *
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.automap import automap_base
+from mmredes.com.sda.dashboard.dao.SdaBaseDao import SdaBaseDao
 
 __author__ = 'macbook'
 
 
-class CatArtifactDao:
-    _db_engine = None
-    _metadata = None
+class CatArtifactDao(SdaBaseDao):
 
     def __init__(self, dict_database):
-        self._db_engine = dict_database["engine"]
-        self._session = dict_database["session"]
-        self._Base = dict_database["base"]
+        SdaBaseDao.__init__(self, dict_database)
         self._cat_artifacts = self._Base.classes.cat_artifact
 
     def list_all(self):

@@ -41,7 +41,6 @@ create table cat_type_tech(
 create table ticket_library(
   id_ticket varchar(20) not null,
   id_environment tinyint not null,
-  description varchar(200) not null,
   resource_path varchar(100) null,
   creation_date integer not null,
   primary key(id_ticket),
