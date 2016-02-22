@@ -9,4 +9,9 @@ class TicketArtifactDao(SdaBaseDao):
         return self._session.query(TicketArtifact).filter(TicketArtifact.id_ticket == id_ticket,
                                                           TicketArtifact.id_status == id_status)
 
-
+    def get_ticket_artifact(self, id_ticket):
+        TicketArtifact = self._Base.classes.ticket_artifact
+        CatTypeTech = self._Base.classes.cat_type_tech
+        CatArtifact = self._Base.classes.cat_artifact
+        return self._session.query(TicketArtifact, CatTypeTech, CatArtifact).join(CatTypeTech).join(CatArtifact).filter(
+            TicketArtifact.id_ticket == id_ticket).all()

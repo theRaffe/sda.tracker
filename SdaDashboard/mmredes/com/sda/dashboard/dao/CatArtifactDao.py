@@ -11,3 +11,4 @@ class CatArtifactDao(SdaBaseDao):
 
     def list_all(self):
         return self._session.query(self._cat_artifacts).all()
+
