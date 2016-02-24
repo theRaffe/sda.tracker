@@ -1,3 +1,4 @@
+from mmredes.com.sda.dashboard.dao.CatArtifactDao import CatArtifactDao
 from mmredes.com.sda.dashboard.dao.ControllerDao import ControllerDao
 from mmredes.com.sda.utils import ConfigLogger
 
@@ -25,7 +26,14 @@ class PersistentController:
         self._controller_dao = ControllerDao(connection_file)
 
     def get_artifacts(self):
-        return self.dao_object.get_artifacts()
+        cat_artifact_dao = CatArtifactDao(self._controller_dao.get_dict_database())
+        rows = cat_artifact_dao.list_all()
+        dict_artifact = {}
+        for row in rows:
+            key = row.path_directory
+            value_key = row.id_artifact
+            dict_artifact[key] = value_key
+        return dict_artifact
 
     def get_list_artifacts(self):
         return self.dao_object.get_list_artifacts()
@@ -63,7 +71,7 @@ class PersistentController:
                 print "search ticket %s" % id_ticket
                 dict_ticket = self.get_ticket_board(id_ticket)
                 ls_artifact = dict_branch[id_ticket]
-                #if ticket exists
+                # if ticket exists
                 if dict_ticket and len(ls_artifact) > 0:
                     # get first dict artifact
                     first_artifact = ls_artifact[0]
