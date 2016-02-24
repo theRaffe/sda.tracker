@@ -1,3 +1,4 @@
+from mmredes.com.sda.dashboard.dao.ControllerDao import ControllerDao
 from mmredes.com.sda.utils import ConfigLogger
 
 __author__ = 'macbook'
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 class PersistentController:
     dao_object = None
+    _controller_dao = None
 
     def __init__(self, config_file="./board.cfg"):
         logger.info("config_file: %s" % config_file)
@@ -20,6 +22,7 @@ class PersistentController:
         config.read(config_file)
         connection_file = config.get('DatabaseSection', 'database.file')
         self.dao_object = SdaTrackerDao(connection_file)
+        self._controller_dao = ControllerDao(connection_file)
 
     def get_artifacts(self):
         return self.dao_object.get_artifacts()
@@ -60,6 +63,7 @@ class PersistentController:
                 print "search ticket %s" % id_ticket
                 dict_ticket = self.get_ticket_board(id_ticket)
                 ls_artifact = dict_branch[id_ticket]
+                #if ticket exists
                 if dict_ticket and len(ls_artifact) > 0:
                     # get first dict artifact
                     first_artifact = ls_artifact[0]

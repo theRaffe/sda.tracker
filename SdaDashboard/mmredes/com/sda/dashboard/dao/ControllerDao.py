@@ -29,3 +29,6 @@ class ControllerDao:
 
     def get_dict_database(self):
         return self._dict_database
+
+    def do_commit(self):
+        self._session.commit()

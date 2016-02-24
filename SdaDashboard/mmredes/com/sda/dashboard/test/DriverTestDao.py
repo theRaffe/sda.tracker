@@ -59,6 +59,23 @@ class DriverTestDao(unittest.TestCase):
 
         self.assertTrue(m_result is not None)
 
+    def test_04(self):
+        config_file = '../board.cfg'
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        controller_dao = ControllerDao(connection_file)
+        try:
+            ticket_board_dao = TicketBoardDao(controller_dao.get_dict_database())
+
+            dict_ticket_board = {"id_ticket" : "feature3", "id_environment" : "1", "user_request" : "rafe@mail.com"}
+
+            ticket_board_dao.add(dict_ticket_board)
+
+            controller_dao._session.commit()
+            self.assertTrue(True)
+        except RuntimeError as e:
+            self.assertTrue(False, e.message)
 
 # if __name__ == '__main__':
 #     print "start test dao"
