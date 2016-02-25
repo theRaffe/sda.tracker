@@ -1,5 +1,11 @@
+import time
 from mmredes.com.sda.dashboard.dao.CatArtifactDao import CatArtifactDao
+from mmredes.com.sda.dashboard.dao.CatBranchDao import CatBranchDao
 from mmredes.com.sda.dashboard.dao.ControllerDao import ControllerDao
+from mmredes.com.sda.dashboard.dao.TicketArtifactDao import TicketArtifactDao
+from mmredes.com.sda.dashboard.dao.TicketArtifactLoggingDao import TicketArtifactLoggingDao
+from mmredes.com.sda.dashboard.dao.TicketBoardDao import TicketBoardDao
+from mmredes.com.sda.dashboard.dao.TicketLibraryDao import TicketLibraryDao
 from mmredes.com.sda.utils import ConfigLogger
 
 __author__ = 'macbook'
@@ -36,88 +42,89 @@ class PersistentController:
         return dict_artifact
 
     def get_list_artifacts(self):
-        return self.dao_object.get_list_artifacts()
+        cat_artifact_dao = CatArtifactDao(self._controller_dao.get_dict_database())
+        return cat_artifact_dao.list_all()
 
     def get_ticket_board(self, ticket):
-        row = self.dao_object.get_ticket(ticket)
-        if row:
-            return dict(zip(row.keys(), row))
-        else:
-            return None
+        ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
+        row = ticket_board_dao.get_ticket(ticket)
+        return row
 
     def get_ticket_artifact(self, id_ticket, id_artifact, type_tech):
-        row = self.dao_object.get_ticket_artifact(id_ticket, id_artifact, type_tech)
-        if row:
-            return dict(zip(row.keys(), row))
-        else:
-            return None
+        ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
+        row = ticket_artifact_dao.get_ticket_artifact(id_ticket, id_artifact, type_tech)
+        return row
 
     def get_dict_board_code(self, id_ticket):
-        row_board_code = self.dao_object.get_ticket_board_code(id_ticket)
-        dict_board_code = dict(zip(row_board_code.keys(), row_board_code))
+        ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
+        ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
+        row_board_code = ticket_board_dao.get_ticket_code(id_ticket)
+        rows = ticket_artifact_dao.get_ticket_artifact_code(id_ticket)
 
-        rows = self.dao_object.get_artifact_code(id_ticket)
-        list_artifact = []
-        for row in rows:
-            dict_artifact = dict(zip(row.keys(), row))
-            list_artifact.append(dict_artifact)
+        return {"dict_board": row_board_code, "artifacts": rows}
 
-        return {"dict_board": dict_board_code, "artifacts": list_artifact}
+    def insert_ticket_board(self, dic_ticket_board):
+        ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
+        ticket_board_dao.add(dic_ticket_board)
+
+    def get_ticket_environment(self, id_ticket, id_branch):
+        ticket_library_dao = TicketLibraryDao(self._controller_dao.get_dict_database())
+        id_environment = ticket_library_dao.get_id_environment(id_ticket)
+        if id_environment:
+            return id_environment
+
+        cat_branch_dao = CatBranchDao(self._controller_dao.get_dict_database())
+        return cat_branch_dao.get_environment(id_branch)
+
+    def do_commit(self):
+        self._controller_dao.do_commit()
+
+    def close_session(self):
+        self._controller_dao.close_session()
 
     def process_ticket_db(self, dict_branch, id_branch_rep):
         list_board_ticket = []
         try:
             for id_ticket in dict_branch:
                 print "search ticket %s" % id_ticket
-                dict_ticket = self.get_ticket_board(id_ticket)
+                row_ticket_board = self.get_ticket_board(id_ticket)
                 ls_artifact = dict_branch[id_ticket]
                 # if ticket exists
-                if dict_ticket and len(ls_artifact) > 0:
+                if row_ticket_board and len(ls_artifact) > 0:
                     # get first dict artifact
                     first_artifact = ls_artifact[0]
                     user_request = first_artifact["email"]
                     # update user_request with new value of the artifact's email
-                    dict_ticket["user_request"] = user_request
+                    row_ticket_board.user_request = user_request
+                    row_ticket_board.date_requested = time.time()
                     logger.info("update ticket_board.date_requested")
-                    self.dao_object.update_ticket_board(dict_ticket)
                     # print "search ticket_artifact by id_artifact, type_tech"
-
-                    for dict_artifact in ls_artifact:
-                        id_artifact = dict_artifact["id_artifact"]
-                        id_type_tech = dict_artifact["id_type_tech"]
-                        row_ticket_artifact = self.get_ticket_artifact(id_ticket, id_artifact, id_type_tech)
-                        if row_ticket_artifact:
-                            self.dao_object.update_ticket_artifact(id_ticket, dict_artifact)
-                            # print "update ticket_artifact.modified_date, ticket_artifact.modifier_email"
-                        else:
-                            self.dao_object.process_ticket_artifact(id_ticket, dict_artifact)
-                            # print "create artifact id_artifact, type_tech, creator_email, creation_date"
-
-                        self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
                 else:
                     first_artifact = ls_artifact[0]
                     user_request = first_artifact["email"]
-                    id_environment = self.dao_object.get_default_environment(id_branch_rep)
+                    id_environment = self.get_ticket_environment(id_ticket=id_ticket, id_branch=id_branch_rep)
                     dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment,
                                    "user_request": user_request}
                     print "creating ticket_board, id_environment, id_ticket, id_status, date_requested..."
-                    self.dao_object.insert_ticket_board(dict_ticket)
-                    print "create ticket_board, id_environment, id_ticket, id_status, date_requested"
-                    for dict_artifact in ls_artifact:
-                        self.dao_object.insert_ticket_logging(id_ticket, dict_artifact)
-                        self.dao_object.process_ticket_artifact(id_ticket, dict_artifact)
-                    print "create ticket_artifact id_ticket, id_artifact, creator_email, creation_date"
+                    self.insert_ticket_board(dict_ticket)
+
+                ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
+                ticket_artifact_logging = TicketArtifactLoggingDao(self._controller_dao.get_dict_database())
+                for dict_artifact in ls_artifact:
+                    ticket_artifact_dao.process_ticket_artifact(id_ticket, dict_artifact)
+                    ticket_artifact_logging.add(id_ticket, dict_artifact)
+
                 board_ticket = self.get_dict_board_code(id_ticket)
                 list_board_ticket.append(board_ticket)
 
-            self.dao_object.do_commit()
+            self.do_commit()
             return {"result": "OK", "board_ticket": list_board_ticket}
         except lite.Error as e:
-            print "Error Database %s:" % e.args
             logger.exception(e)
-
-            self.dao_object.do_rollback()
+            self._controller_dao.do_rollback()
             return {"result": "ERROR", "description": e.message}
+        finally:
+            self.close_session()
 
     def update_ticket_db(self, dict_board_ticket):
         self.dao_object.update_ticket_board(dict_board_ticket)

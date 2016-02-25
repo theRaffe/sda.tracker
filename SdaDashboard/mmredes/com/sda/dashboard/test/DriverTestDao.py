@@ -4,6 +4,7 @@ from mmredes.com.sda.dashboard.dao.ControllerDao import ControllerDao
 from mmredes.com.sda.dashboard.dao.SdaTrackerDao import SdaTrackerDao
 import unittest
 import logging
+from mmredes.com.sda.dashboard.dao.TicketArtifactDao import TicketArtifactDao
 from mmredes.com.sda.dashboard.dao.TicketBoardDao import TicketBoardDao
 
 __author__ = 'macbook'
@@ -77,16 +78,44 @@ class DriverTestDao(unittest.TestCase):
         except RuntimeError as e:
             self.assertTrue(False, e.message)
 
-# if __name__ == '__main__':
-#     print "start test dao"
-#     config_file = '../board.cfg'
-#     config = ConfigParser.RawConfigParser()
-#     config.read(config_file)
-#     print ("sections", config.sections())
-#     connection_file = config.get('DatabaseSection', 'database.file')
-#     driverDao = SdaTrackerDao(connection_file)
-#     row = driverDao.get_ticket_board_code("feature2")
-#     print row
-#
-#     rows = driverDao.get_artifact_code("feature2")
-#     print rows
+    def test_05(self):
+        config_file = '../board.cfg'
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        controller_dao = ControllerDao(connection_file)
+
+        ticket_artifact_dao = TicketArtifactDao(controller_dao.get_dict_database())
+        rows = ticket_artifact_dao.get_ticket_artifact_code('feature2')
+        for row in rows:
+            print row.ticket_artifact.id_ticket
+
+        self.assertIsNotNone(rows)
+
+    def test_06(self):
+        config_file = '../board.cfg'
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        controller_dao = ControllerDao(connection_file)
+
+        ticket_artifact_dao = TicketArtifactDao(controller_dao.get_dict_database())
+        rows = ticket_artifact_dao.get_ticket_artifact_code('noticket')
+        print rows
+        self.assertFalse(rows)
+
+    def test_07(self):
+        config_file = '../board.cfg'
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        controller_dao = ControllerDao(connection_file)
+        try:
+            ticket_board_dao = TicketBoardDao(controller_dao.get_dict_database())
+            row = ticket_board_dao.get_ticket('feature2')
+            row.user_request = 'rafe@gmail.com'
+
+            controller_dao._session.commit()
+            self.assertTrue(True)
+        except RuntimeError as e:
+            self.assertTrue(False, e.message)

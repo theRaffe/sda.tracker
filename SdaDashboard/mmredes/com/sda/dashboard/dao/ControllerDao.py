@@ -18,7 +18,7 @@ class ControllerDao:
         # reflect the tables
         Base.prepare(self._db_engine, reflect=True)
         # create a session
-        Session = sessionmaker(bind=self._db_engine)
+        Session = sessionmaker(bind=self._db_engine, autocommit=False)
         self._session = Session()
 
         self._dict_database["engine"] = self._db_engine
@@ -32,3 +32,9 @@ class ControllerDao:
 
     def do_commit(self):
         self._session.commit()
+
+    def close_session(self):
+        self._session.close()
+
+    def rollback(self):
+        self._session.rollback()

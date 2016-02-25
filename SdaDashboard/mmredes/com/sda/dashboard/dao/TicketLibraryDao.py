@@ -14,10 +14,19 @@ class TicketLibraryDao(SdaBaseDao):
 
         TicketLibrary = Base.classes.ticket_library
 
-        row = self._session.query(TicketLibrary).filter(TicketLibrary.id_ticket == id_ticket)
-        if row:
+        rows = self._session.query(TicketLibrary).filter(TicketLibrary.id_ticket == id_ticket).all
+        if len(rows) > 0:
+            row = rows[0]
             row.id_environment = id_environment
             row.description = description
         else:
             row = TicketLibrary(id_ticket = id_ticket, id_environment = id_environment, description = description, creation_date = date_current)
             self._session.add(row)
+
+    def get_id_environment(self, id_ticket):
+        TicketLibrary = self._Base.classes.ticket_libraryBase
+        rows = self._session.query(TicketLibrary).filter(TicketLibrary.id_ticket == id_ticket).all
+        if len(rows) > 0:
+            row = rows[0]
+            return row.id_environment
+        return None

@@ -1,15 +1,21 @@
+import logging
 import time
+from sqlalchemy.orm.exc import NoResultFound
 from mmredes.com.sda.dashboard.dao.SdaBaseDao import SdaBaseDao
 
 __author__ = 'macbook'
-
+logger = logging.getLogger(__name__)
 
 class TicketBoardDao(SdaBaseDao):
     def get_ticket(self, id_ticket, id_status=1):
-        Base = self._Base
-        TicketBoard = Base.classes.ticket_board
-        return self._session.query(TicketBoard).filter(
-            TicketBoard.id_ticket == id_ticket and TicketBoard.id_status == id_status).one()
+        try:
+            Base = self._Base
+            TicketBoard = Base.classes.ticket_board
+            return self._session.query(TicketBoard).filter(
+                TicketBoard.id_ticket == id_ticket and TicketBoard.id_status == id_status).one()
+        except NoResultFound as e:
+            logger.warning(e.message)
+            return None
 
     def get_ticket_code(self, id_ticket):
         Base = self._Base

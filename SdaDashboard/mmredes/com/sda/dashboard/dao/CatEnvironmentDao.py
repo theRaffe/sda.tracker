@@ -2,7 +2,7 @@ from mmredes.com.sda.dashboard.dao.SdaBaseDao import SdaBaseDao
 
 __author__ = 'macbook'
 
-class CatEnvironmentDap(SdaBaseDao):
+class CatEnvironmentDao(SdaBaseDao):
 
     def update_list_tracker(self, code_env, id_list_tracker):
         Base = self._Base
