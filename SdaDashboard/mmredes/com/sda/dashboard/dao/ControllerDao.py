@@ -13,7 +13,7 @@ class ControllerDao:
     def __init__(self, db_path):
         connection_str = "sqlite:///%s" % db_path
         self._db_engine = create_engine(connection_str)
-        self._db_engine.echo = True
+        self._db_engine.echo = False
 
         # reflect the tables
         Base.prepare(self._db_engine, reflect=True)

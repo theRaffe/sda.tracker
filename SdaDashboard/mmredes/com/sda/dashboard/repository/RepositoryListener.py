@@ -28,6 +28,11 @@ class RepositoryListener:
         self.repoDir = config.get('Repository', 'repo.dir')
         self.type_tech = config.get('Repository', 'type.tech')
         self.id_branch = config.get('Repository', 'id.branch')
+        self.CMD_GREP = config.get('Repository', 'command.grep')
+        self.CMD_REF_LOG = config.get('Repository', 'command.reflog')
+        self.CMD_GREP_MERGE = config.get('Repository', 'command.grep.merge')
+        self.CMD_REV_LIST = 'git rev-list %s...origin/%s'
+        #config.get('Repository', 'command.rev-list')
 
     def command(self, cmd):
         logger.info('executing: %s at dir: %s' % (cmd, self.repoDir))
@@ -47,21 +52,23 @@ class RepositoryListener:
         return status
 
     def get_list_merge_commit(self, current_branch):
-        cmd1 = 'git rev-list %s...origin/%s' % (current_branch, current_branch)
+        cmd1 = self.CMD_REV_LIST % (current_branch, current_branch)
+        logger.info(cmd1)
 
-        pipe1 = subprocess.Popen(shlex.split(cmd1), shell=True, cwd=self.repoDir, stdout=subprocess.PIPE,
+        pipe1 = subprocess.Popen(cmd1, shell=True, cwd=self.repoDir, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
         (output, error_output) = pipe1.communicate()
+        logger.info("output rev-list: %s" % output)
         list_result = []
         if not error_output:
             arr_commit = output.split('\n')
             for str_commit in arr_commit:
                 cmd_git_show = 'git show %s' % str_commit
-                cmd_grep = '"C:/progra~1/Git/usr/bin/grep.exe" Merge:'
-                p_git_show = subprocess.Popen(shlex.split(cmd_git_show), shell=True, cwd=self.repoDir,
+                cmd_grep = self.CMD_GREP_MERGE
+                p_git_show = subprocess.Popen(cmd_git_show, shell=True, cwd=self.repoDir,
                                               stdout=subprocess.PIPE,
                                               stderr=subprocess.PIPE)
-                p_grep = subprocess.Popen(shlex.split(cmd_grep), shell=True, cwd=self.repoDir, stdin=p_git_show.stdout,
+                p_grep = subprocess.Popen(cmd_grep, shell=True, cwd=self.repoDir, stdin=p_git_show.stdout,
                                           stdout=subprocess.PIPE,
                                           stderr=subprocess.PIPE)
 
@@ -84,9 +91,8 @@ class RepositoryListener:
     def is_behind(self):
         return self.CONST_IS_BEHIND in self.get_status()
 
-    def get_branch_ticket(self, current_branch):
+    def get_branch_ticket(self, current_branch, persistent_controller):
         # logger.info("self.config_file= %s" % self.config_file)
-        persistent_controller = PersistentController(self.config_file)
         dict_artifact = persistent_controller.get_artifacts()
         dict_branch = {}
         type_tech = self.type_tech
@@ -109,8 +115,8 @@ class RepositoryListener:
             # getting branch-ticket
             list_artifact = []
 
-            cmd1 = 'git reflog --all'
-            cmd2 = '"C:/progra~1/Git/usr/bin/grep.exe" %s' % commit_git
+            cmd1 = self.CMD_REF_LOG
+            cmd2 = self.CMD_GREP % commit_git
             pipe1 = subprocess.Popen(cmd1, shell=True, cwd=self.repoDir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             pipe2 = subprocess.Popen(cmd2, shell=True, cwd=self.repoDir, stdin=pipe1.stdout, stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE)

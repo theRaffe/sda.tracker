@@ -81,41 +81,44 @@ class PersistentController:
 
     def close_session(self):
         self._controller_dao.close_session()
+        self._controller_dao._session.close_all()
 
     def process_ticket_db(self, dict_branch, id_branch_rep):
         list_board_ticket = []
         try:
             for id_ticket in dict_branch:
-                print "search ticket %s" % id_ticket
-                row_ticket_board = self.get_ticket_board(id_ticket)
+
                 ls_artifact = dict_branch[id_ticket]
-                # if ticket exists
-                if row_ticket_board and len(ls_artifact) > 0:
-                    # get first dict artifact
-                    first_artifact = ls_artifact[0]
-                    user_request = first_artifact["email"]
-                    # update user_request with new value of the artifact's email
-                    row_ticket_board.user_request = user_request
-                    row_ticket_board.date_requested = time.time()
-                    logger.info("update ticket_board.date_requested")
-                    # print "search ticket_artifact by id_artifact, type_tech"
-                else:
-                    first_artifact = ls_artifact[0]
-                    user_request = first_artifact["email"]
-                    id_environment = self.get_ticket_environment(id_ticket=id_ticket, id_branch=id_branch_rep)
-                    dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment,
-                                   "user_request": user_request}
-                    print "creating ticket_board, id_environment, id_ticket, id_status, date_requested..."
-                    self.insert_ticket_board(dict_ticket)
+                if len(ls_artifact) > 0:
+                    logger.debug("search ticket %s" % id_ticket)
+                    row_ticket_board = self.get_ticket_board(id_ticket)
+                    # if ticket exists
+                    if row_ticket_board:
+                        # get first dict artifact
+                        first_artifact = ls_artifact[0]
+                        user_request = first_artifact["email"]
+                        # update user_request with new value of the artifact's email
+                        row_ticket_board.user_request = user_request
+                        row_ticket_board.date_requested = time.time()
+                        logger.info("update ticket_board.date_requested")
+                        # print "search ticket_artifact by id_artifact, type_tech"
+                    else:
+                        first_artifact = ls_artifact[0]
+                        user_request = first_artifact["email"]
+                        id_environment = self.get_ticket_environment(id_ticket=id_ticket, id_branch=id_branch_rep)
+                        dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment,
+                                       "user_request": user_request}
+                        print "creating ticket_board, id_environment, id_ticket, id_status, date_requested..."
+                        self.insert_ticket_board(dict_ticket)
 
-                ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
-                ticket_artifact_logging = TicketArtifactLoggingDao(self._controller_dao.get_dict_database())
-                for dict_artifact in ls_artifact:
-                    ticket_artifact_dao.process_ticket_artifact(id_ticket, dict_artifact)
-                    ticket_artifact_logging.add(id_ticket, dict_artifact)
+                    ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
+                    ticket_artifact_logging = TicketArtifactLoggingDao(self._controller_dao.get_dict_database())
+                    for dict_artifact in ls_artifact:
+                        ticket_artifact_dao.process_ticket_artifact(id_ticket, dict_artifact)
+                        ticket_artifact_logging.add(id_ticket, dict_artifact)
 
-                board_ticket = self.get_dict_board_code(id_ticket)
-                list_board_ticket.append(board_ticket)
+                    board_ticket = self.get_dict_board_code(id_ticket)
+                    list_board_ticket.append(board_ticket)
 
             self.do_commit()
             return {"result": "OK", "board_ticket": list_board_ticket}
@@ -123,8 +126,7 @@ class PersistentController:
             logger.exception(e)
             self._controller_dao.do_rollback()
             return {"result": "ERROR", "description": e.message}
-        finally:
-            self.close_session()
+
 
     def update_ticket_db(self, dict_board_ticket):
         self.dao_object.update_ticket_board(dict_board_ticket)
