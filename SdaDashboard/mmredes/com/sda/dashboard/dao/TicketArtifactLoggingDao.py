@@ -16,7 +16,7 @@ class TicketArtifactLoggingDao(SdaBaseDao):
         TicketArtifactLogging = Base.classes.ticket_artifact_logging
         max_row = self._session.query(func.max(TicketArtifactLogging.id_ticket_row).label("max_row")).filter(
             TicketArtifactLogging.id_ticket == id_ticket).one().max_row
-        id_ticket_row = max_row + 1
+        id_ticket_row = max_row + 1 if max_row else 1
         ticket_artifact_logging = TicketArtifactLogging(id_ticket=id_ticket, id_ticket_row=id_ticket_row,
                                                         creation_user=creation_user, id_artifact=id_artifact,
                                                         creation_date=creation_date)

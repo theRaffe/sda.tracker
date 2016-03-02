@@ -24,8 +24,8 @@ class TicketLibraryDao(SdaBaseDao):
             self._session.add(row)
 
     def get_id_environment(self, id_ticket):
-        TicketLibrary = self._Base.classes.ticket_libraryBase
-        rows = self._session.query(TicketLibrary).filter(TicketLibrary.id_ticket == id_ticket).all
+        TicketLibrary = self._Base.classes.ticket_library
+        rows = self._session.query(TicketLibrary).filter(TicketLibrary.id_ticket == id_ticket).all()
         if len(rows) > 0:
             row = rows[0]
             return row.id_environment
