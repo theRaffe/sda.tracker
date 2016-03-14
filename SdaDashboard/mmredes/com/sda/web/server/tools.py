@@ -7,7 +7,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 __author__ = 'macbook'
 
-Base = automap_base()
+schema_base = automap_base()
 
 class SAEnginePlugin(cherrypy.process.plugins.SimplePlugin):
     def __init__(self, bus, db_uri):
@@ -28,8 +28,10 @@ class SAEnginePlugin(cherrypy.process.plugins.SimplePlugin):
         self.db_uri = db_uri
 
     def start(self):
-        db_path = os.path.abspath(os.path.join(os.curdir, self.db_uri))
+        db_path = self.db_uri
+        #os.path.abspath(os.path.join(os.curdir, self.db_uri))
         self.sa_engine = create_engine('sqlite:///%s' % db_path, echo=True)
+        schema_base.prepare(self.sa_engine, reflect=True)
         #Base.metadata.create_all(self.sa_engine)
 
     def stop(self):

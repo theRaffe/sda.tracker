@@ -5,10 +5,11 @@ __author__ = 'macbook'
 
 class CatArtifactDao(SdaBaseDao):
 
-    def __init__(self, dict_database):
-        SdaBaseDao.__init__(self, dict_database)
-        self._cat_artifacts = self._Base.classes.cat_artifact
+    # def __init__(self, dict_database):
+    #     SdaBaseDao.__init__(self, dict_database)
+    #     self._cat_artifacts = dict_database['base'].classes.cat_artifact
 
     def list_all(self):
-        return self._session.query(self._cat_artifacts).all()
+        cat_artifacts = self._Base.classes.cat_artifact
+        return self._session.query(cat_artifacts).all()
 
