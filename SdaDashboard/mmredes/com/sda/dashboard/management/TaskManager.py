@@ -3,7 +3,6 @@ import ConfigParser
 import logging
 
 import requests
-from requests.exceptions import ReadTimeout
 from requests.packages.urllib3.exceptions import ConnectionError
 from trello import TrelloClient
 
@@ -44,7 +43,7 @@ class TaskManager():
         except ConnectionError as e:
             logger.warning("couldn't connect to trello, see error: %s" % e.message)
             return False
-        except ReadTimeout as e:
+        except RuntimeError as e:
             logger.warning("couldn't connect to trello, timeout error: %s" % e.message)
             return False
 

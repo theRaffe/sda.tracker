@@ -55,25 +55,25 @@ class EmailTracker:
 
     def get_email_ticket_request(self, dict_board_code):
         list_artifact = dict_board_code['artifacts']
-        dict_board = dict_board_code['dict_board']
-        logger.info(dict_board)
+        ticket_board_code = dict_board_code['dict_board']
+        logger.info(ticket_board_code)
 
-        id_ticket = dict_board['id_ticket']
+        id_ticket = ticket_board_code.ticket_board.id_ticket
         message = MIMEMultipart()
         list_email = []
-        for dict_artifact in list_artifact:
-            email_request = dict_artifact['user']
+        for ticket_artifact_code in list_artifact:
+            email_request = ticket_artifact_code.ticket_artifact.modification_user
             list_email.append(email_request)
 
         config = ConfigParser.RawConfigParser()
         config.read(self.config_file)
         subject = config.get('SettingEmail', 'subject.request.ticket')
-        code_env = dict_board['code_environment']
+        code_env = ticket_board_code.cat_environment.code_environment
         subject = subject % (id_ticket, code_env)
         message['Subject'] = subject
         message['To'] = ','.join(list_email)
 
-        list_tech = set(m_dict['tech'] for m_dict in list_artifact)
+        list_tech = set(m_ticket_artifact.cat_type_tech.code_type_tech for m_ticket_artifact in list_artifact)
 
         file_template_email = resource_filename('mmredes.com.sda.dashboard.resource.template',
                                                 'request_ticket_email.html')

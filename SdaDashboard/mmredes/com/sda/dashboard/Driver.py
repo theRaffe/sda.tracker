@@ -27,9 +27,10 @@ def monitor_repository():
     logger.info("is behind: %s ", is_branch_behind)
 
     if is_branch_behind:
-        dict_branch, id_branch = repository_listener.get_branch_ticket(branch_repository)
         persistent_controller = PersistentController(config_file)
-        logger.info("dict_branch: %s" % dict_branch)
+        dict_branch, id_branch = repository_listener.get_branch_ticket(branch_repository, persistent_controller)
+
+        logger.info("after get_branch_ticket, dict_branch: %s" % dict_branch)
         dict_board_result = persistent_controller.process_ticket_db(dict_branch, id_branch)
 
         if dict_board_result['result'] == 'OK':
@@ -55,9 +56,9 @@ def monitor_repository():
                 email_tracker.send_email(message_email)
 
             #result_pull = repository_listener.update_local_repository()
-            #print(result_pull)
         else:
             logger.error("error at process_ticket_db: %s" % dict_board_result["description"])
+        persistent_controller.close_session()
 
 
 if __name__ == '__main__':
