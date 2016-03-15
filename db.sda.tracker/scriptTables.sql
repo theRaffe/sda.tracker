@@ -7,11 +7,12 @@ create table cat_environment(
 );
 
 create table cat_artifact(
+  id_type_tech tinyint not null,
   id_artifact tinyint not null,
   code_artifact varchar(20) not null unique,
   path_directory varchar(50) not null,
   description varchar(100) not null,
-  primary key(id_artifact)
+  primary key(id_type_tech, id_artifact)
 );
 
 create table cat_branch_git(
