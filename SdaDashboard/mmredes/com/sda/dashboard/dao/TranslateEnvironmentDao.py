@@ -16,4 +16,4 @@ class TranslateEnvironmentDao(SdaBaseDao):
 
         id_environment = row.id_environment if row else None
 
-        return None
+        return id_environment

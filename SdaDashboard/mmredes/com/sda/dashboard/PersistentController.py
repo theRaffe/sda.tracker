@@ -52,15 +52,19 @@ class PersistentController:
         cat_artifact_dao = CatArtifactDao(self._controller_dao.get_dict_database())
         return cat_artifact_dao.list_all()
 
-    def get_ticket_board(self, ticket):
+    def get_ticket_board(self, id_ticket):
         ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
-        row = ticket_board_dao.get_ticket(ticket)
+        row = ticket_board_dao.get_ticket(id_ticket)
         return row
 
     def get_ticket_artifact(self, id_ticket, id_artifact, type_tech):
         ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
         row = ticket_artifact_dao.get_ticket_artifact(id_ticket, id_artifact, type_tech)
         return row
+
+    def get_all_ticket_artifact(self, id_ticket):
+        ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
+        return ticket_artifact_dao.get_all_ticket_artifact(id_ticket)
 
     def get_dict_board_code(self, id_ticket):
         ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
@@ -176,7 +180,6 @@ class PersistentController:
         return None
 
     def process_library_ticket(self, dict_defect):
-
         cat_environment_dao = CatEnvironmentDao(self._controller_dao.get_dict_database())
         crm = dict_defect["crm"]
         code_environment = dict_defect["environment"]
@@ -191,12 +194,42 @@ class PersistentController:
 
             ticket_library_dao = TicketLibraryDao(self._controller_dao.get_dict_database())
             ticket_library_dao.process_ticket_library(dict_ticket)
-            return {"code_result" : "OK", "message" : "success"}
+            return {"code_result": "OK", "message": "success"}
         else:
             message_error = "couldn't find id_environment, with crm=%s environment=%s" % (
                 dict_defect["crm"], dict_defect["environment"])
             logger.error(message_error)
-            return {"code_result" : "ERROR", "message" : message_error}
+            return {"code_result": "ERROR", "message": message_error}
+
+    def linking_tickets(self, dict_link_ticket):
+        id_ticket_original = dict_link_ticket["id_ticket_original"]
+        id_ticket_linked = dict_link_ticket["id_ticket_linked"]
+        row_ticket_board = self.get_ticket_board(id_ticket_original)
+        row_ticket_linked = self.get_ticket_board(id_ticket_linked)
+
+        if not row_ticket_board:
+            return {"result_code" : "ERROR", "message": "original ticket doesn't exist!"}
+
+        if row_ticket_linked:
+            return {"result_code": "ERROR", "message": "linked ticket already exists"}
+        else:
+            rows_ticket_artifact = self.get_all_ticket_artifact(id_ticket_original)
+            user_request = row_ticket_board.user_request
+            id_environment = row_ticket_board.id_environment
+            dict_ticket = {"id_ticket": id_ticket_linked, "id_environment": id_environment,
+                           "user_request": user_request}
+            self.insert_ticket_board(dict_ticket)
+            ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
+            #copy original ticket's artifacts to the new ticket
+            for row in rows_ticket_artifact:
+                dict_ticket_artifact = {"id_ticket": id_ticket_linked, "id_type_tech": row.id_type_tech,
+                                        "modification_user": row.modification_user,
+                                        "id_revision": row.id_revision, "build_release": row.build_release,
+                                        "build_hotfix": row.build_hotfix}
+                ticket_artifact_dao.process_ticket_artifact(id_artifact=row.id_artifact,
+                                                            dict_artifact=dict_ticket_artifact)
+
+            return {"result_code" : "OK", "message" : "success"}
 
 
 

@@ -5,10 +5,15 @@ __author__ = 'macbook'
 
 
 class TicketArtifactDao(SdaBaseDao):
-    def get_ticket_artifact(self, id_ticket, id_status=1):
+    def get_ticket_artifact(self, id_ticket, id_artifact, type_tech):
         TicketArtifact = self._Base.classes.ticket_artifact
         return self._session.query(TicketArtifact).filter(TicketArtifact.id_ticket == id_ticket,
-                                                          TicketArtifact.id_status == id_status).one
+                                                          TicketArtifact.id_artifact == id_artifact,
+                                                          TicketArtifact.id_type_tech == type_tech).one()
+
+    def get_all_ticket_artifact(self, id_ticket):
+        TicketArtifact = self._Base.classes.ticket_artifact
+        return self._session.query(TicketArtifact).filter(TicketArtifact.id_ticket == id_ticket).all()
 
     def get_ticket_artifact_code(self, id_ticket):
         TicketArtifact = self._Base.classes.ticket_artifact

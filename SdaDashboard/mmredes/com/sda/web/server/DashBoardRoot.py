@@ -52,6 +52,15 @@ class DashBoardRoot(object):
         persistent_controller = PersistentController(dict_database=self._dict_database)
         return persistent_controller.process_library_ticket(input_json)
 
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    @cherrypy.tools.json_in()
+    def linking_tickets(self, **kwargs):
+        self._dict_database["session"] = cherrypy.request.db
+        input_json = cherrypy.request.json
+
+        persistent_controller = PersistentController(dict_database=self._dict_database)
+        return persistent_controller.linking_tickets(input_json)
 
 
 

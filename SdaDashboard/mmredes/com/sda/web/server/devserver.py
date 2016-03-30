@@ -32,7 +32,8 @@ config = {
 if __name__ == "__main__":
     config_parser = ConfigParser.RawConfigParser()
     config_parser.read('board.cfg')
-    connection_file = config.get('DatabaseSection', 'database.file')
+    connection_file = config_parser.get('DatabaseSection', 'database.file')
+    #print "sqlite file: %s" % connection_file
     SAEnginePlugin(cherrypy.engine, connection_file).subscribe()
     cherrypy.tools.db = SATool()
     cherrypy.config.update(config)
