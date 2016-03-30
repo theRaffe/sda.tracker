@@ -2,6 +2,7 @@ import json
 import time
 from mmredes.com.sda.dashboard.dao.CatArtifactDao import CatArtifactDao
 from mmredes.com.sda.dashboard.dao.CatBranchDao import CatBranchDao
+from mmredes.com.sda.dashboard.dao.CatEnvironmentDao import CatEnvironmentDao
 from mmredes.com.sda.dashboard.dao.ControllerDao import ControllerDao
 from mmredes.com.sda.dashboard.dao.TicketArtifactDao import TicketArtifactDao
 from mmredes.com.sda.dashboard.dao.TicketArtifactLoggingDao import TicketArtifactLoggingDao
@@ -25,10 +26,10 @@ class PersistentController:
     dao_object = None
     _controller_dao = None
 
-    def __init__(self, config_file=None, dict_database = None):
+    def __init__(self, config_file=None, dict_database=None):
 
         if dict_database:
-            self._controller_dao = ControllerDao(dict_database = dict_database)
+            self._controller_dao = ControllerDao(dict_database=dict_database)
         else:
             logger.info("config_file: %s" % config_file)
             config = ConfigParser.RawConfigParser()
@@ -77,7 +78,7 @@ class PersistentController:
         ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
         ticket_board_dao.add(dic_ticket_board)
 
-    def get_ticket_environment(self, id_ticket, id_branch = None):
+    def get_ticket_environment(self, id_ticket, id_branch=None):
         ticket_library_dao = TicketLibraryDao(self._controller_dao.get_dict_database())
         id_environment = ticket_library_dao.get_id_environment(id_ticket)
         if id_environment:
@@ -137,7 +138,6 @@ class PersistentController:
             self._controller_dao.do_rollback()
             return {"result": "ERROR", "description": e.message}
 
-
     def process_ticket_artifact(self, dict_ticket_artifact):
         id_ticket = dict_ticket_artifact["id_ticket"]
         logger.debug("search ticket %s" % id_ticket)
@@ -171,22 +171,33 @@ class PersistentController:
         board_ticket = self.get_dict_board_code(id_ticket)
         return {"result": "OK", "board_ticket": board_ticket}
 
-
     def update_ticket_db(self, dict_board_ticket):
         self.dao_object.update_ticket_board(dict_board_ticket)
         return None
 
     def process_library_ticket(self, dict_defect):
-        id_environment = self.dao_object.translate_environment(dict_defect)
+
+        cat_environment_dao = CatEnvironmentDao(self._controller_dao.get_dict_database())
+        crm = dict_defect["crm"]
+        code_environment = dict_defect["environment"]
+
+        id_environment = cat_environment_dao.get_id_environment(crm=crm, code_environment=code_environment)
         if id_environment:
-            id_ticket = dict_defect["id_defect"]
+            id_ticket = dict_defect["id_ticket"]
             description = dict_defect["description"][:200]
-            dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment, "description": description}
-            self.dao_object.add_upd_library_ticket(dict_ticket)
-            self.dao_object.do_commit()
+
+            dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment, "description": description,
+                           "id_requirement": dict_defect["id_requirement"], "id_release": dict_defect["id_release"]}
+
+            ticket_library_dao = TicketLibraryDao(self._controller_dao.get_dict_database())
+            ticket_library_dao.process_ticket_library(dict_ticket)
+            return {"code_result" : "OK", "message" : "success"}
         else:
-            logger.error("couldn't find id_environment, with crm=%s environment=%s" % (
-                dict_defect["crm"], dict_defect["environment"]))
+            message_error = "couldn't find id_environment, with crm=%s environment=%s" % (
+                dict_defect["crm"], dict_defect["environment"])
+            logger.error(message_error)
+            return {"code_result" : "ERROR", "message" : message_error}
+
 
 
 class AlchemyEncoder(json.JSONEncoder):
@@ -197,7 +208,7 @@ class AlchemyEncoder(json.JSONEncoder):
             for field in [x for x in dir(obj) if not x.startswith('_') and x != 'metadata']:
                 data = obj.__getattribute__(field)
                 try:
-                    json.dumps(data) # this will fail on non-encodable values, like other classes
+                    json.dumps(data)  # this will fail on non-encodable values, like other classes
                     fields[field] = data
                 except TypeError:
                     fields[field] = None

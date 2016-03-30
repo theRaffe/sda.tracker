@@ -1,5 +1,8 @@
 import logging
+from cherrypy import log
+
 import cherrypy
+
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
 from mmredes.com.sda.dashboard.dao.CatArtifactDao import CatArtifactDao
 
@@ -33,10 +36,23 @@ class DashBoardRoot(object):
     def process_ticket(self, **kwargs):
         self._dict_database["session"] = cherrypy.request.db
         input_json = cherrypy.request.json
+
         persistent_controller = PersistentController(dict_database=self._dict_database)
         json_result = persistent_controller.process_ticket_artifact(input_json)
 
         return json_result
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    @cherrypy.tools.json_in()
+    def process_ticket_library(self, **kwargs):
+        self._dict_database["session"] = cherrypy.request.db
+        input_json = cherrypy.request.json
+
+        persistent_controller = PersistentController(dict_database=self._dict_database)
+        return persistent_controller.process_library_ticket(input_json)
+
+
 
 
 
