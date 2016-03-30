@@ -30,8 +30,8 @@ config = {
 }
 
 if __name__ == "__main__":
-    config = ConfigParser.RawConfigParser()
-    config.read('board.cfg')
+    config_parser = ConfigParser.RawConfigParser()
+    config_parser.read('board.cfg')
     connection_file = config.get('DatabaseSection', 'database.file')
     SAEnginePlugin(cherrypy.engine, connection_file).subscribe()
     cherrypy.tools.db = SATool()
