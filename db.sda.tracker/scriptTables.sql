@@ -42,7 +42,9 @@ create table cat_type_tech(
 create table ticket_library(
   id_ticket varchar(20) not null,
   id_environment tinyint not null,
-  resource_path varchar(100) null,
+  id_requirement varchar(100) null,
+  id_release varchar(100) null,
+  description varchar(200),
   creation_date integer not null,
   primary key(id_ticket),
   foreign key(id_environment) references cat_environment(id_environment)
@@ -64,6 +66,9 @@ create table ticket_board(
 create table ticket_artifact(
   id_ticket varchar(20) not null,
   id_artifact tinyint not null,
+  id_revision tinyint not null,
+  build_release tinyint not null,
+  build_hotfix tinyint not null,
   id_type_tech tinyint not null,
   creation_user varchar(50) not null,
   creation_date integer not null,
@@ -78,6 +83,9 @@ create table ticket_artifact(
 create table ticket_artifact_logging(
   id_ticket varchar(20) not null,
   id_ticket_row tinyint not null,
+  id_revision tinyint not null,
+  build_release tinyint not null,
+  build_hotfix tinyint not null,
   creation_user varchar(50) not null,
   id_artifact tinyint null,
   id_commit varchar(100),

@@ -10,20 +10,23 @@ class ControllerDao:
     _session = None
     _dict_database = {}
 
-    def __init__(self, db_path):
-        connection_str = "sqlite:///%s" % db_path
-        self._db_engine = create_engine(connection_str)
-        self._db_engine.echo = False
+    def __init__(self, db_path = None, dict_database = None):
+        if dict_database:
+            self._dict_database = dict_database
+        else:
+            connection_str = "sqlite:///%s" % db_path
+            self._db_engine = create_engine(connection_str)
+            self._db_engine.echo = True
 
-        # reflect the tables
-        Base.prepare(self._db_engine, reflect=True)
-        # create a session
-        Session = sessionmaker(bind=self._db_engine, autocommit=False)
-        self._session = Session()
+            # reflect the tables
+            Base.prepare(self._db_engine, reflect=True)
+            # create a session
+            Session = sessionmaker(bind=self._db_engine, autocommit=False)
+            self._session = Session()
 
-        self._dict_database["engine"] = self._db_engine
-        self._dict_database["base"] = Base
-        self._dict_database["session"] = self._session
+            self._dict_database["engine"] = self._db_engine
+            self._dict_database["base"] = Base
+            self._dict_database["session"] = self._session
 
 
 

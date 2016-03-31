@@ -6,6 +6,7 @@ from mmredes.com.sda.dashboard.dao.SdaBaseDao import SdaBaseDao
 __author__ = 'macbook'
 logger = logging.getLogger(__name__)
 
+
 class TicketBoardDao(SdaBaseDao):
     def get_ticket(self, id_ticket, id_status=1):
         try:
@@ -49,7 +50,7 @@ class TicketBoardDao(SdaBaseDao):
             Base = self._Base
             TicketBoard = Base.classes.ticket_board
             row = self._session.query(TicketBoard).filter(
-                TicketBoard.id_ticket == id_ticket and TicketBoard.id_environment == id_environment).one()
+                TicketBoard.id_ticket == id_ticket, TicketBoard.id_environment == id_environment).one()
 
         row.date_requested = date_requested
         row.user_request = user_request

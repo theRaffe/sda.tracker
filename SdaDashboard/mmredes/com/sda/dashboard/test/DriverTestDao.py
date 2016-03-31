@@ -119,3 +119,17 @@ class DriverTestDao(unittest.TestCase):
             self.assertTrue(True)
         except RuntimeError as e:
             self.assertTrue(False, e.message)
+
+    def test_08(self):
+        config_file = '../board.cfg'
+        config = ConfigParser.RawConfigParser()
+        config.read(config_file)
+        connection_file = config.get('DatabaseSection', 'database.file')
+        controller_dao = ControllerDao(db_path = connection_file)
+
+        ticket_artifact_dao = TicketArtifactDao(controller_dao.get_dict_database())
+
+        ticket_artifact = {'build_hotfix': 0, 'id_revision': 9, 'modification_user': 'rafe2004@gmail.com', 'id_type_tech': 1, 'artifacts': ['cartridge-2'], 'id_ticket': 'feature1', 'build_release': 2}
+        rows = ticket_artifact_dao.process_ticket_artifact(12, ticket_artifact)
+
+        self.assertTrue(True)
