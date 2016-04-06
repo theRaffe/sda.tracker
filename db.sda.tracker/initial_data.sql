@@ -37,7 +37,9 @@ insert into cat_branch_git values(8, 'brs.izzi.master', 10, 'code production new
 
 delete from cat_status_ticket;
 insert into cat_status_ticket values(1, 'requested', 'ticket requested');
-insert into cat_status_ticket values(2,'installed', 'ticket installed at environment');
+insert into cat_status_ticket values(2,'installed testing', 'ticket installed at testing environment');
+insert into cat_status_ticket values(3,'installed production', 'ticket installed at production environment');
+
 
 delete from cat_type_tech;
 insert into cat_type_tech values(1, 'java', 'releases from java');
@@ -46,3 +48,12 @@ insert into cat_type_tech values(3, 'db', 'releases from db');
 insert into cat_type_tech values(4, 'soa', 'releases from soa');
 
 insert into ticket_library values('feature2', 2, '', current_timestamp);
+
+insert into translate_environment select 'QA', 'Masivo', 2 ;
+insert into translate_environment select 'UAT', 'Masivo', 3 ;
+insert into translate_environment select 'QA2', 'Masivo', 4 ;
+insert into translate_environment select 'PRD', 'Masivo', 3;
+insert into translate_environment select 'QA', 'Izzi', 7;
+insert into translate_environment select 'UAT', 'Izzi', 8;
+insert into translate_environment select 'QA2', 'Izzi', 9;
+insert into translate_environment select 'PRD', 'Izzi', 7;

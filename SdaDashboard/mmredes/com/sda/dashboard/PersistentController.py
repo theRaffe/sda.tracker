@@ -8,6 +8,7 @@ from mmredes.com.sda.dashboard.dao.TicketArtifactDao import TicketArtifactDao
 from mmredes.com.sda.dashboard.dao.TicketArtifactLoggingDao import TicketArtifactLoggingDao
 from mmredes.com.sda.dashboard.dao.TicketBoardDao import TicketBoardDao
 from mmredes.com.sda.dashboard.dao.TicketLibraryDao import TicketLibraryDao
+from mmredes.com.sda.dashboard.dao.TranslateEnvironmentDao import TranslateEnvironmentDao
 from mmredes.com.sda.utils import ConfigLogger
 from sqlalchemy.ext.declarative import DeclarativeMeta
 
@@ -180,11 +181,11 @@ class PersistentController:
         return None
 
     def process_library_ticket(self, dict_defect):
-        cat_environment_dao = CatEnvironmentDao(self._controller_dao.get_dict_database())
+        translate_environment_dao = TranslateEnvironmentDao(self._controller_dao.get_dict_database())
         crm = dict_defect["crm"]
-        code_environment = dict_defect["environment"]
+        environment = dict_defect["environment"]
 
-        id_environment = cat_environment_dao.get_id_environment(crm=crm, code_environment=code_environment)
+        id_environment = translate_environment_dao.translate(crm=crm, environment=environment)
         if id_environment:
             id_ticket = dict_defect["id_ticket"]
             description = dict_defect["description"][:200]
@@ -196,7 +197,7 @@ class PersistentController:
             ticket_library_dao.process_ticket_library(dict_ticket)
             return {"code_result": "OK", "message": "success"}
         else:
-            message_error = "couldn't find id_environment, with crm=%s environment=%s" % (
+            message_error = "couldn't find id_environment at translate_environment table, with crm=%s environment=%s" % (
                 dict_defect["crm"], dict_defect["environment"])
             logger.error(message_error)
             return {"code_result": "ERROR", "message": message_error}
@@ -208,7 +209,7 @@ class PersistentController:
         row_ticket_linked = self.get_ticket_board(id_ticket_linked)
 
         if not row_ticket_board:
-            return {"result_code" : "ERROR", "message": "original ticket doesn't exist!"}
+            return {"result_code": "ERROR", "message": "original ticket doesn't exist!"}
 
         if row_ticket_linked:
             return {"result_code": "ERROR", "message": "linked ticket already exists"}
@@ -220,7 +221,7 @@ class PersistentController:
                            "user_request": user_request}
             self.insert_ticket_board(dict_ticket)
             ticket_artifact_dao = TicketArtifactDao(self._controller_dao.get_dict_database())
-            #copy original ticket's artifacts to the new ticket
+            # copy original ticket's artifacts to the new ticket
             for row in rows_ticket_artifact:
                 dict_ticket_artifact = {"id_ticket": id_ticket_linked, "id_type_tech": row.id_type_tech,
                                         "modification_user": row.modification_user,
@@ -229,8 +230,7 @@ class PersistentController:
                 ticket_artifact_dao.process_ticket_artifact(id_artifact=row.id_artifact,
                                                             dict_artifact=dict_ticket_artifact)
 
-            return {"result_code" : "OK", "message" : "success"}
-
+            return {"result_code": "OK", "message": "success"}
 
 
 class AlchemyEncoder(json.JSONEncoder):

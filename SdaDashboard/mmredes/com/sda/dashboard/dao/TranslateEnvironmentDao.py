@@ -4,15 +4,12 @@ __author__ = 'macbook'
 
 
 class TranslateEnvironmentDao(SdaBaseDao):
-    def translate(self, dict_defect):
-        crm = dict_defect["crm"]
-        environment = dict_defect["environment"]
+    def translate(self, crm, environment):
+        base = self._Base
+        translateEnvironment = base.classes.translate_environment
 
-        Base = self._Base
-        TranslateEnvironment = Base.classes.translate_environment
-
-        row = self._session.query(TranslateEnvironment).filter(
-            TranslateEnvironment.crm == crm, TranslateEnvironment.environment == environment).one
+        row = self._session.query(translateEnvironment).filter(
+            translateEnvironment.crm == crm, translateEnvironment.environment == environment).one
 
         id_environment = row.id_environment if row else None
 

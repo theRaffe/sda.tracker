@@ -4,14 +4,18 @@ __author__ = 'macbook'
 
 
 class EmailParser:
-    def get_cell_value(self, rows, field_label):
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def get_cell_value(rows, field_label):
         for row in rows:
             cells = row.findAll('td')
             cell_span = cells[0].findAll('span')
             cell_text = cell_span[0].find(text=True) if len(cell_span) > 0 else ''
             # print ("get_cell_value.cell_text: %s" % cell_text)
             if len(cells) == 2 and cell_text == field_label:
-                #print ("cell_text: %s" % cell_text)
+                # print ("cell_text: %s" % cell_text)
                 cell_value = ''
                 arr_cell_span = cells[1].findAll('span')
                 for cell_span in arr_cell_span:
@@ -37,10 +41,11 @@ class EmailParser:
 
             if is_table_ok:
                 dict_defect = {'id_defect': None, 'environment': None, 'crm': None, 'description': None}
-                #print "table found!!"
+                # print "table found!!"
                 dict_defect['id_defect'] = 'T' + self.get_cell_value(rows, 'Defect ID')
                 dict_defect['environment'] = self.get_cell_value(rows, 'Ambiente')
                 dict_defect['crm'] = self.get_cell_value(rows, 'Mercado')
                 dict_defect['description'] = self.get_cell_value(rows, 'Descripcion')
+                dict_defect['release'] = self.get_cell_value(rows, 'Release')
                 return dict_defect
         return None
