@@ -70,6 +70,7 @@ create table ticket_artifact(
   build_release tinyint not null,
   build_hotfix tinyint not null,
   id_type_tech tinyint not null,
+  code_base varchar(20),
   creation_user varchar(50) not null,
   creation_date integer not null,
   modification_user varchar(50) null,

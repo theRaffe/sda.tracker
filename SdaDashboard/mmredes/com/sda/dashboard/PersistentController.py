@@ -167,6 +167,7 @@ class PersistentController:
         cat_artifact_dao = CatArtifactDao(self._controller_dao.get_dict_database())
 
         ls_artifact = dict_ticket_artifact["artifacts"]
+        dict_ticket_artifact["code_base"] = id_ticket
         for code_artifact in ls_artifact:
             id_artifact = cat_artifact_dao.get_id_artifact(code_artifact)
 

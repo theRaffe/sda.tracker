@@ -62,6 +62,10 @@ class DashBoardRoot(object):
         persistent_controller = PersistentController(dict_database=self._dict_database)
         return persistent_controller.linking_tickets(input_json)
 
+    @cherrypy.expose
+    def shutdown(self):
+        cherrypy.engine.exit()
+
 
 
 

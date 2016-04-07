@@ -30,6 +30,7 @@ class TicketArtifactDao(SdaBaseDao):
         id_revision = dict_artifact["id_revision"]
         build_release = dict_artifact["build_release"]
         build_hotfix = dict_artifact["build_hotfix"]
+        code_base = dict_artifact["code_base"]
 
         TicketArtifact = self._Base.classes.ticket_artifact
         rows = self._session.query(TicketArtifact).filter(
@@ -40,7 +41,7 @@ class TicketArtifactDao(SdaBaseDao):
             row = TicketArtifact(id_ticket=id_ticket, id_artifact=id_artifact, id_type_tech=id_type_tech,
                                  creation_user=creation_user, creation_date=date_current, id_revision=id_revision,
                                  build_release=build_release, build_hotfix=build_hotfix,
-                                 modification_user=creation_user)
+                                 modification_user=creation_user, code_base=code_base)
             self._session.add(row)
         else:
             row = rows[0]
@@ -49,3 +50,4 @@ class TicketArtifactDao(SdaBaseDao):
             row.id_revision = id_revision
             row.build_release = build_release
             row.build_hotfix = build_hotfix
+            row.code_base = code_base
