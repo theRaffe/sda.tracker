@@ -9,7 +9,7 @@ class TranslateEnvironmentDao(SdaBaseDao):
         translateEnvironment = base.classes.translate_environment
 
         row = self._session.query(translateEnvironment).filter(
-            translateEnvironment.crm == crm, translateEnvironment.environment == environment).one
+            translateEnvironment.crm == crm, translateEnvironment.environment == environment).one()
 
         id_environment = row.id_environment if row else None
 

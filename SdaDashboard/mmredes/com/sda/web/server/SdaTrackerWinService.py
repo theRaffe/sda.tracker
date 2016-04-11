@@ -1,5 +1,10 @@
 import ConfigParser
-import os, cherrypy
+import os
+import win32service
+
+import cherrypy
+import win32serviceutil
+
 from mmredes.com.sda.web.server.DashBoardRoot import DashBoardRoot
 from tools import SAEnginePlugin, SATool, schema_base
 
@@ -11,7 +16,7 @@ config = {
     },
 
     'global': {
-        'server.socket_port': 8000,
+        'server.socket_port': 9000,
         'server.socket_host': "127.0.0.1",
 
         'tools.encode.on': True,
@@ -40,12 +45,32 @@ def start_cherrypy_server():
     cherrypy.config.update(config)
     cherrypy.engine.start()
     cherrypy.quickstart(DashBoardRoot(schema_base), config=config)
-    # cherrypy.engine.block()
+    cherrypy.engine.block()
 
 
 def shutdown_cherrypy_server():
     cherrypy.engine.exit()
 
 
-if __name__ == "__main__":
-    start_cherrypy_server()
+class SdaTrackerService(win32serviceutil.ServiceFramework):
+    """NT Service."""
+
+    _svc_name_ = "SdaTrackerService"
+    _svc_display_name_ = "Windows Service of SdaTracker Web Server"
+
+    def SvcDoRun(self):
+        start_cherrypy_server()
+        # self.ReportServiceStatus(win32service.SERVICE_RUNNING)
+        # win32event.WaitForSingleObject(self.hWaitStop, win32event.INFINITE)
+
+    def SvcStop(self):
+        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
+        shutdown_cherrypy_server()
+
+        self.ReportServiceStatus(win32service.SERVICE_STOPPED)
+        # very important for use with py2exe
+        # otherwise the Service Controller never knows that it is stopped !
+
+
+if __name__ == '__main__':
+    win32serviceutil.HandleCommandLine(SdaTrackerService)

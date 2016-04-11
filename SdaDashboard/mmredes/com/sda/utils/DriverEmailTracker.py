@@ -6,7 +6,7 @@ import re
 from mmredes.com.sda.utils.FileWriter import FileWriter
 
 
-class CheckMailer:
+class DriverEmailTracker:
     def __init__(self, filename="LOG1.txt", mailbox="Archive Rafael Briones", folderindex=1):
         self.f = FileWriter(filename)
         self.outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
@@ -40,5 +40,5 @@ class CheckMailer:
 
 
 if __name__ == "__main__":
-    mail = CheckMailer()
+    mail = DriverEmailTracker()
     mail.check()
