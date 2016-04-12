@@ -1,3 +1,4 @@
+import json
 import logging
 import smtplib
 import ConfigParser
@@ -5,6 +6,7 @@ import os
 import imaplib
 import email
 
+import requests
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from mmredes.com.sda.dashboard.PersistentController import PersistentController
@@ -157,3 +159,24 @@ class EmailTracker:
         else:
             text = unicode(msg.get_payload(decode=True), msg.get_content_charset(), 'ignore').encode('utf8', 'replace')
             return text.strip()
+
+
+def process_defect_email(email_message, host_port):
+    email_parser = EmailParser()
+    url_request = "http://%s/process_ticket_library" % host_port
+    print url_request
+    dict_defect = email_parser.parse_mail_defect(email_message)
+    if dict_defect:
+        print dict_defect
+        header = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        json_request = json.dumps(dict_defect)
+        result = requests.post(url_request, data=json_request, headers=header)
+        print result
+        if result.status_code == 200:
+            json_result = json.loads(result.content)
+            logger.info('id_ticket = %s , code_result = %s' % (dict_defect['id_ticket'], json_result['code_result']))
+            if json_result['code_result'] == 'ERROR':
+                logger.error('error_description: %s' % json_result['message'])
+        else:
+            message_result = 'error_code: %s, content: %s' % (result.status_code, result.content)
+            print message_result

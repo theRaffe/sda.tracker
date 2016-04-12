@@ -1,28 +1,24 @@
+import ConfigParser
 import time
 import win32com.client
 import pythoncom
 import re
 
+from mmredes.com.sda.emailing.EmailTracker import process_defect_email
 from mmredes.com.sda.utils.FileWriter import FileWriter
 
 
 class DriverEmailTracker:
-    def __init__(self, filename="LOG1.txt", mailbox="Archive Rafael Briones", folderindex=1):
+    def __init__(self, filename="LOG1.txt", host_port=""):
+        # mailbox="Archive Rafael Briones", folderindex=1):
         self.f = FileWriter(filename)
         self.outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
         inbox = self.outlook.GetDefaultFolder(win32com.client.constants.olFolderInbox)
         self.inbox = inbox
+        self.host_port = host_port
 
     def check(self):
-        # ===============================================================================
-        # for i in xrange(1,100):                           #Uncomment this section if index 3 does not work for you
-        #     try:
-        #         self.inbox = self.outlook.Folders(i)     # "6" refers to the index of inbox for Default User Mailbox
-        #         print "%i %s" % (i,self.inbox)            # "3" refers to the index of inbox for Another user's mailbox
-        #     except:
-        #         print "%i does not work"%i
-        # ===============================================================================
-        restrict_criteria = "@SQL=\"urn:schemas:httpmail:read\" = 0 And \"urn:schemas:mailheader:subject\"  like '%QC_MAAB.Sistemas_TVI%'";
+        restrict_criteria = "@SQL=\"urn:schemas:httpmail:read\" = 0 And \"urn:schemas:mailheader:subject\"  like 'QC_MAAB.Sistemas_TVI%'";
         print restrict_criteria
         # And [Subject] like '%QC_MAAB.Sistemas_TVI -
         self.f.pl(time.strftime("%H:%M:%S"))
@@ -31,7 +27,10 @@ class DriverEmailTracker:
         messages = all_messages.Restrict(restrict_criteria)
         message = messages.GetFirst()
         while message:
+            print message.Subject
             self.f.pl(message.Subject)
+            self.f.pl(message.HTMLBody)
+            process_defect_email(message.HTMLBody, self.host_port)
             message = messages.GetNext()
             tot += 1
         self.f.pl("Total Messages found: %i" % tot)
@@ -40,5 +39,12 @@ class DriverEmailTracker:
 
 
 if __name__ == "__main__":
-    mail = DriverEmailTracker()
+    config_parser = ConfigParser.RawConfigParser()
+    config_parser.read('emailSdaTracker.cfg')
+    host_web_server = config_parser.get('SettingEmail', 'host.web.server')
+    port_web_server = config_parser.get('SettingEmail', 'port.web.server')
+    mailBox = config_parser.get('SettingEmail', 'mailBox')
+    folderIndex = config_parser.get('SettingEmail', 'folderIndex')
+    hos_port = '%s:%s' % (host_web_server, port_web_server)
+    mail = DriverEmailTracker(host_port=hos_port)
     mail.check()
