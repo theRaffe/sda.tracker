@@ -196,12 +196,15 @@ class PersistentController:
 
             ticket_library_dao = TicketLibraryDao(self._controller_dao.get_dict_database())
             ticket_library_dao.process_ticket_library(dict_ticket)
-            return {"code_result": "OK", "message": "success"}
+
+            ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
+            ticket_board_dao.update_environment(id_ticket, id_environment)
+            return {"result_code": "OK", "message": "success"}
         else:
             message_error = "couldn't find id_environment at translate_environment table, with crm=%s environment=%s" % (
                 dict_defect["crm"], dict_defect["environment"])
             logger.error(message_error)
-            return {"code_result": "ERROR", "message": message_error}
+            return {"result_code": "ERROR", "message": message_error}
 
     def linking_tickets(self, dict_link_ticket):
         id_ticket_original = dict_link_ticket["id_ticket_original"]
@@ -232,6 +235,15 @@ class PersistentController:
                                                             dict_artifact=dict_ticket_artifact)
 
             return {"result_code": "OK", "message": "success"}
+
+    def update_status_ticket(self, dict_status_ticket):
+        ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
+        row = ticket_board_dao.update_status(dict_status_ticket)
+
+        if row:
+            return {"result_code": "OK", "message": "success"}
+
+        return {"result_code": "ERROR", "message": "ticket not found with id %s" % dict_status_ticket['id_ticket']}
 
 
 class AlchemyEncoder(json.JSONEncoder):

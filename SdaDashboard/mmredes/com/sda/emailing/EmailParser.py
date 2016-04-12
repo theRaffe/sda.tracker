@@ -25,6 +25,23 @@ class EmailParser:
                 return cell_value
         return '<valueNotFound>'
 
+    @staticmethod
+    def get_list_tickets(rows, user_installer):
+        list_ticket = []
+        for row in rows:
+            cells = row.findAll('td')
+            cell_span = cells[0].findAll('span')
+            cell_text = cell_span[0].find(text=True) if len(cell_span) > 0 else None
+            if cell_text and cell_text <> 'TICKET':
+                id_ticket = cell_text
+                cell_app_span = cells[3].findAll('span')
+                id_app = cell_app_span[0].find(text=True) if len(cell_span) > 0 else None
+                if id_app == 'SDA':
+                    dict_ticket = {'id_ticket': 'T' + id_ticket, 'user_installer': user_installer, 'id_status': 2}
+                    list_ticket.append(dict_ticket)
+
+        return list_ticket
+
     def parse_mail_defect(self, html_body):
         soup = BeautifulSoup(html_body, "html.parser")
         tables = soup.findAll('table', attrs={'class': 'textfont'})
@@ -38,21 +55,36 @@ class EmailParser:
                 if cell_field_text == 'Ambiente':
                     is_table_ok = True
                     break
-                # cell_span = row.findAll('span')
-                # if len(cell_span) > 0:
-                #     cell_text = cell_span[0].find(text=True)
-                #     if cell_text == "Ambiente":
-                #         is_table_ok = True
-                #         break
+                    # cell_span = row.findAll('span')
+                    # if len(cell_span) > 0:
+                    #     cell_text = cell_span[0].find(text=True)
+                    #     if cell_text == "Ambiente":
+                    #         is_table_ok = True
+                    #         break
 
             if is_table_ok:
-                dict_defect = {'id_defect': None, 'environment': None, 'crm': None, 'description': None}
+                dict_defect = {'id_defect': None, 'environment': self.get_cell_value(rows, 'Ambiente'),
+                               'crm': self.get_cell_value(rows, 'Mercado'),
+                               'description': self.get_cell_value(rows, 'Descripcion'),
+                               'id_ticket': 'T' + self.get_cell_value(rows, 'Defect ID'),
+                               'id_release': self.get_cell_value(rows, 'Release'), 'id_requirement': None}
                 # print "table found!!"
-                dict_defect['id_ticket'] = 'T' + self.get_cell_value(rows, 'Defect ID')
-                dict_defect['environment'] = self.get_cell_value(rows, 'Ambiente')
-                dict_defect['crm'] = self.get_cell_value(rows, 'Mercado')
-                dict_defect['description'] = self.get_cell_value(rows, 'Descripcion')
-                dict_defect['id_release'] = self.get_cell_value(rows, 'Release')
-                dict_defect['id_requirement'] = None
                 return dict_defect
+        return None
+
+    def parse_updating_environment(self, html_body, user_email):
+        soup = BeautifulSoup(html_body, "html.parser")
+        tables = soup.findAll('table', attrs={'class': 'MsoNormalTable'})
+        for table in tables:
+            is_table_ok = False
+            rows = table.findAll('tr')
+            for row in rows:
+                cell_span = row.findAll('span')
+                if len(cell_span) > 0:
+                    cell_text = cell_span[0].find(text=True)
+                    if cell_text == "TICKET":
+                        is_table_ok = True
+                        break
+            if is_table_ok:
+                return self.get_list_tickets(rows, user_email)
         return None

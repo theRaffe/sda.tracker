@@ -174,8 +174,29 @@ def process_defect_email(email_message, host_port):
         print result
         if result.status_code == 200:
             json_result = json.loads(result.content)
-            logger.info('id_ticket = %s , code_result = %s' % (dict_defect['id_ticket'], json_result['code_result']))
-            if json_result['code_result'] == 'ERROR':
+            logger.info('id_ticket = %s , code_result = %s' % (dict_defect['id_ticket'], json_result['result_code']))
+            if json_result['result_code'] == 'ERROR':
+                logger.error('error_description: %s' % json_result['message'])
+        else:
+            message_result = 'error_code: %s, content: %s' % (result.status_code, result.content)
+            print message_result
+
+
+def process_updating_environment(html_message, host_port, user_installer):
+    email_parser = EmailParser()
+    url_request = "http://%s/update_status_ticket" % host_port
+    print url_request
+    list_ticket = email_parser.parse_updating_environment(html_message, user_installer)
+    for dict_ticket in list_ticket:
+        print dict_ticket
+        header = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        json_request = json.dumps(dict_ticket)
+        result = requests.post(url_request, data=json_request, headers=header)
+        print result
+        if result.status_code == 200:
+            json_result = json.loads(result.content)
+            logger.info('id_ticket = %s , code_result = %s' % (dict_ticket['id_ticket'], json_result['result_code']))
+            if json_result['result_code'] == 'ERROR':
                 logger.error('error_description: %s' % json_result['message'])
         else:
             message_result = 'error_code: %s, content: %s' % (result.status_code, result.content)

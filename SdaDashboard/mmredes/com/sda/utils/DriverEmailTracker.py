@@ -1,10 +1,11 @@
+# coding=utf-8
 import ConfigParser
 import time
 import win32com.client
 import pythoncom
 import re
 
-from mmredes.com.sda.emailing.EmailTracker import process_defect_email
+from mmredes.com.sda.emailing.EmailTracker import process_defect_email, process_updating_environment
 from mmredes.com.sda.utils.FileWriter import FileWriter
 
 
@@ -18,7 +19,12 @@ class DriverEmailTracker:
         self.host_port = host_port
 
     def check(self):
-        restrict_criteria = "@SQL=\"urn:schemas:httpmail:read\" = 0 And \"urn:schemas:mailheader:subject\"  like 'QC_MAAB.Sistemas_TVI%'";
+        subject_defect = "QC_MAAB.Sistemas_TVI"
+        search_subject_defect = "'%s%%'" % subject_defect
+        subject_update_env = unicode(u'Actualización Ambientes Testing')
+        search_subject_update_env = "'%Ambientes Testing'"
+        restrict_criteria = "@SQL=\"urn:schemas:httpmail:read\" = 0 And (\"urn:schemas:mailheader:subject\"  like %s Or \"urn:schemas:mailheader:subject\" like %s)" % (
+            search_subject_defect, search_subject_update_env)
         print restrict_criteria
         # And [Subject] like '%QC_MAAB.Sistemas_TVI -
         self.f.pl(time.strftime("%H:%M:%S"))
@@ -30,7 +36,14 @@ class DriverEmailTracker:
             print message.Subject
             self.f.pl(message.Subject)
             self.f.pl(message.HTMLBody)
-            process_defect_email(message.HTMLBody, self.host_port)
+            if subject_defect in message.Subject:
+                process_defect_email(message.HTMLBody, self.host_port)
+
+            unicode_subject = unicode(message.Subject)
+            if subject_update_env == unicode_subject:
+                print 'message.SenderEmailAddress = %s' % message.SenderName
+                process_updating_environment(message.HTMLBody, self.host_port, message.SenderName)
+            message.UnRead = False
             message = messages.GetNext()
             tot += 1
         self.f.pl("Total Messages found: %i" % tot)
