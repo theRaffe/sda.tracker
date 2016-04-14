@@ -220,7 +220,7 @@ class PersistentController:
         else:
             rows_ticket_artifact = self.get_all_ticket_artifact(id_ticket_original)
             user_request = row_ticket_board.user_request
-            id_environment = row_ticket_board.id_environment
+            id_environment = self.get_ticket_environment(id_ticket=id_ticket_linked)
             dict_ticket = {"id_ticket": id_ticket_linked, "id_environment": id_environment,
                            "user_request": user_request}
             self.insert_ticket_board(dict_ticket)
