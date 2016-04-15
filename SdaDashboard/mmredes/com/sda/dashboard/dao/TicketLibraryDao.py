@@ -13,6 +13,9 @@ class TicketLibraryDao(SdaBaseDao):
         description = dict_ticket["description"]
         id_requirement = dict_ticket["id_requirement"]
         id_release = dict_ticket["id_release"]
+        user_detect = dict_ticket['user_detect']
+        id_type_defect = dict_ticket['id_type_defect']
+
 
         TicketLibrary = Base.classes.ticket_library
 
@@ -23,6 +26,8 @@ class TicketLibraryDao(SdaBaseDao):
             row.description = description
             row.id_requirement = id_requirement
             row.id_release = id_release
+            row.user_detect = user_detect
+            row.id_type_defect = id_type_defect
         else:
             row = TicketLibrary(id_ticket=id_ticket, id_environment=id_environment, description=description,
                                 creation_date=date_current, id_requirement=id_requirement, id_release=id_release)

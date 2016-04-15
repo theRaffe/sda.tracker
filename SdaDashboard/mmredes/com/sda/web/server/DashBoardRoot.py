@@ -23,11 +23,15 @@ class DashBoardRoot(object):
     def index(self):
         self._dict_database["session"] = cherrypy.request.db
         """
-        List users from the DB & add new if no users
+        List artifacts
         """
         cat_artifact_dao = CatArtifactDao(self._dict_database)
         artifacts = cat_artifact_dao.list_all()
-        return 'artifacts: %s' % (artifacts)
+        output_result = '<b>SdaTracker Application</b><br>'
+        for artifact in artifacts:
+            output_result += artifact.code_artifact + '<br>'
+
+        return output_result
 
     index.exposed = True
 

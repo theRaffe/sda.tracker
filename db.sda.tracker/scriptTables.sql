@@ -46,6 +46,8 @@ create table ticket_library(
   id_release varchar(100) null,
   description varchar(200),
   creation_date integer not null,
+  user_detect varchar(50),
+  id_type_defect varchar(20),
   primary key(id_ticket),
   foreign key(id_environment) references cat_environment(id_environment)
 );
@@ -58,6 +60,7 @@ create table ticket_board(
   user_request varchar(50) not null,
   date_requested integer not null,
   date_installed integer null,
+  user_installer varchar(50),
   primary key(id_ticket),
   foreign key(id_environment) references cat_environment(id_environment),
   foreign key(id_status) references cat_status_ticket(id_status)

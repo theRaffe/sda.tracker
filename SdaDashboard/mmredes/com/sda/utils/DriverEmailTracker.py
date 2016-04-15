@@ -19,7 +19,7 @@ class DriverEmailTracker:
         self.host_port = host_port
 
     def check(self):
-        subject_defect = "QC_MAAB.Sistemas_TVI"
+        subject_defect = "QC_MAAB.Sistemas_TVI - Defect"
         search_subject_defect = "'%s%%'" % subject_defect
         subject_update_env = unicode(u'Actualización Ambientes Testing')
         search_subject_update_env = "'%Ambientes Testing'"

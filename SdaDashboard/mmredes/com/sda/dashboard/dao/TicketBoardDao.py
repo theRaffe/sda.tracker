@@ -62,9 +62,10 @@ class TicketBoardDao(SdaBaseDao):
     def update_environment(self, id_ticket, id_environment):
         base = self._Base
         TicketBoard = base.classes.ticket_board
-        row = self._session.query(TicketBoard).filter(TicketBoard.id_ticket == id_ticket).one()
+        rows = self._session.query(TicketBoard).filter(TicketBoard.id_ticket == id_ticket).all()
 
-        if row:
+        if len(rows) > 0:
+            row = rows[0]
             row.id_environment = id_environment
 
     def update_status(self, dict_status_ticket):
@@ -83,6 +84,3 @@ class TicketBoardDao(SdaBaseDao):
             row.user_installer = user_installer if id_status == STATUS_INSTALLED_TEST or id_status == STATUS_INSTALLED_PROD else row.user_installer
             return row
         return None
-
-
-

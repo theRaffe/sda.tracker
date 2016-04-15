@@ -16,8 +16,8 @@ config = {
     },
 
     'global': {
-        'server.socket_port': 9000,
-        'server.socket_host': "127.0.0.1",
+        'server.socket_port': 9091,
+        'server.socket_host': "tristana.mmredes.com",
 
         'tools.encode.on': True,
         'tools.encode.encoding': 'utf-8',

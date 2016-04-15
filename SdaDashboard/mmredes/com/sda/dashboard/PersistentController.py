@@ -188,17 +188,14 @@ class PersistentController:
 
         id_environment = translate_environment_dao.translate(crm=crm, environment=environment)
         if id_environment:
-            id_ticket = dict_defect["id_ticket"]
-            description = dict_defect["description"][:200]
-
-            dict_ticket = {"id_ticket": id_ticket, "id_environment": id_environment, "description": description,
-                           "id_requirement": dict_defect["id_requirement"], "id_release": dict_defect["id_release"]}
+            dict_defect['dict_defect'] = dict_defect["description"][:200]
+            dict_defect['id_environment'] = id_environment
 
             ticket_library_dao = TicketLibraryDao(self._controller_dao.get_dict_database())
-            ticket_library_dao.process_ticket_library(dict_ticket)
+            ticket_library_dao.process_ticket_library(dict_defect)
 
             ticket_board_dao = TicketBoardDao(self._controller_dao.get_dict_database())
-            ticket_board_dao.update_environment(id_ticket, id_environment)
+            ticket_board_dao.update_environment(dict_defect['id_ticket'], id_environment)
             return {"result_code": "OK", "message": "success"}
         else:
             message_error = "couldn't find id_environment at translate_environment table, with crm=%s environment=%s" % (
