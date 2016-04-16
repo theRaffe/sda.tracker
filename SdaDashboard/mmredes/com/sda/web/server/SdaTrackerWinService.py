@@ -6,7 +6,7 @@ import cherrypy
 import win32serviceutil
 
 from mmredes.com.sda.web.server.DashBoardRoot import DashBoardRoot
-from tools import SAEnginePlugin, SATool, schema_base
+from mmredes.com.sda.web.server.tools import SAEnginePlugin, SATool, schema_base
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
