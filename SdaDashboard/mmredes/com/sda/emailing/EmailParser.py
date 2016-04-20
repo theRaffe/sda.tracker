@@ -69,7 +69,8 @@ class EmailParser:
                                'id_ticket': 'T' + self.get_cell_value(rows, 'Defect ID'),
                                'id_release': self.get_cell_value(rows, 'Release'), 'id_requirement': None,
                                'user_detect': self.get_cell_value(rows, 'Detectado por'),
-                               'id_type_defect': self.get_cell_value(rows, 'Tipo Defecto')}
+                               'id_type_defect': self.get_cell_value(rows, 'Tipo Defecto'),
+                               'user_assign': self.get_cell_value(rows, 'Asignado a')}
                 # print "table found!!"
                 return dict_defect
         return None

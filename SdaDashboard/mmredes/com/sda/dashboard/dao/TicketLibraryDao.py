@@ -15,7 +15,7 @@ class TicketLibraryDao(SdaBaseDao):
         id_release = dict_ticket["id_release"]
         user_detect = dict_ticket['user_detect']
         id_type_defect = dict_ticket['id_type_defect']
-
+        user_assign = dict_ticket['user_assign']
 
         TicketLibrary = Base.classes.ticket_library
 
@@ -28,9 +28,11 @@ class TicketLibraryDao(SdaBaseDao):
             row.id_release = id_release
             row.user_detect = user_detect
             row.id_type_defect = id_type_defect
+            row.user_assign = user_assign
         else:
             row = TicketLibrary(id_ticket=id_ticket, id_environment=id_environment, description=description,
-                                creation_date=date_current, id_requirement=id_requirement, id_release=id_release)
+                                creation_date=date_current, id_requirement=id_requirement, id_release=id_release,
+                                user_detect=user_detect, id_type_defect=id_type_defect, user_assign=user_assign)
             self._session.add(row)
 
     def get_id_environment(self, id_ticket):

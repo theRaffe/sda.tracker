@@ -48,6 +48,7 @@ create table ticket_library(
   creation_date integer not null,
   user_detect varchar(50),
   id_type_defect varchar(20),
+  user_assign varchar(50),
   primary key(id_ticket),
   foreign key(id_environment) references cat_environment(id_environment)
 );
