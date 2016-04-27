@@ -227,7 +227,7 @@ class PersistentController:
                 dict_ticket_artifact = {"id_ticket": id_ticket_linked, "id_type_tech": row.id_type_tech,
                                         "modification_user": row.modification_user,
                                         "id_revision": row.id_revision, "build_release": row.build_release,
-                                        "build_hotfix": row.build_hotfix}
+                                        "build_hotfix": row.build_hotfix, "code_base": row.code_base}
                 ticket_artifact_dao.process_ticket_artifact(id_artifact=row.id_artifact,
                                                             dict_artifact=dict_ticket_artifact)
 
