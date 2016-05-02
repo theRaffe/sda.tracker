@@ -32,11 +32,13 @@ class EmailParser:
             cells = row.findAll('td')
             cell_span = cells[0].findAll('span')
             cell_text = cell_span[0].find(text=True) if len(cell_span) > 0 else None
-            if cell_text and cell_text <> 'TICKET':
+            if cell_text and cell_text != 'TICKET':
                 id_ticket = cell_text
                 cell_app_span = cells[3].findAll('span')
                 id_app = cell_app_span[0].find(text=True) if len(cell_span) > 0 else None
-                if id_app == 'SDA':
+                find_sda = 'SDA' in id_app
+                print "find SDA in app: %s" % find_sda
+                if find_sda:
                     dict_ticket = {'id_ticket': 'T' + id_ticket, 'user_installer': user_installer, 'id_status': 2}
                     list_ticket.append(dict_ticket)
 
@@ -85,7 +87,7 @@ class EmailParser:
                 cell_span = row.findAll('span')
                 if len(cell_span) > 0:
                     cell_text = cell_span[0].find(text=True)
-                    if cell_text == "TICKET":
+                    if cell_text == "TICKET" or cell_text == "REQUERIMIENTO":
                         is_table_ok = True
                         break
             if is_table_ok:
