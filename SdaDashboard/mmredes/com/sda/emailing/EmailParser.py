@@ -26,8 +26,9 @@ class EmailParser:
         return '<valueNotFound>'
 
     @staticmethod
-    def get_list_tickets(rows, user_installer):
+    def get_list_tickets(rows, user_installer, is_req):
         list_ticket = []
+        prefix = 'R' if is_req else 'T'
         for row in rows:
             cells = row.findAll('td')
             cell_span = cells[0].findAll('span')
@@ -37,9 +38,9 @@ class EmailParser:
                 cell_app_span = cells[3].findAll('span')
                 id_app = cell_app_span[0].find(text=True) if len(cell_span) > 0 else None
                 find_sda = 'SDA' in id_app
-                print "find SDA in app: %s" % find_sda
+                # print "find SDA in app: %s" % find_sda
                 if find_sda:
-                    dict_ticket = {'id_ticket': 'T' + id_ticket, 'user_installer': user_installer, 'id_status': 2}
+                    dict_ticket = {'id_ticket': prefix + id_ticket, 'user_installer': user_installer, 'id_status': 2}
                     list_ticket.append(dict_ticket)
 
         return list_ticket
@@ -82,6 +83,7 @@ class EmailParser:
         tables = soup.findAll('table', attrs={'class': 'MsoNormalTable'})
         for table in tables:
             is_table_ok = False
+            is_req = False
             rows = table.findAll('tr')
             for row in rows:
                 cell_span = row.findAll('span')
@@ -89,7 +91,8 @@ class EmailParser:
                     cell_text = cell_span[0].find(text=True)
                     if cell_text == "TICKET" or cell_text == "REQUERIMIENTO":
                         is_table_ok = True
+                        is_req = True if cell_text == "REQUERIMIENTO" else False
                         break
             if is_table_ok:
-                return self.get_list_tickets(rows, user_email)
+                return self.get_list_tickets(rows, user_email, is_req)
         return None
