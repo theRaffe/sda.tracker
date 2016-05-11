@@ -70,7 +70,8 @@ class EmailParser:
                                'crm': self.get_cell_value(rows, 'Mercado'),
                                'description': self.get_cell_value(rows, 'Descripcion'),
                                'id_ticket': 'T' + self.get_cell_value(rows, 'Defect ID'),
-                               'id_release': self.get_cell_value(rows, 'Release'), 'id_requirement': None,
+                               'id_release': self.get_cell_value(rows, 'Release'),
+                               'id_requirement': self.get_cell_value(rows, 'Requerimiento'),
                                'user_detect': self.get_cell_value(rows, 'Detectado por'),
                                'id_type_defect': self.get_cell_value(rows, 'Tipo Defecto'),
                                'user_assign': self.get_cell_value(rows, 'Asignado a')}
