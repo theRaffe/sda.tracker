@@ -17,12 +17,31 @@ class EmailParser:
             if len(cells) == 2 and cell_text == field_label:
                 # print ("cell_text: %s" % cell_text)
                 cell_value = cells[1].find(text=True) if len(cells) > 0 else ''
-                # arr_cell_span = cells[1].findAll('span')
-                # for cell_span in arr_cell_span:
-                #     cell_content = cell_span.find(text=True)
-                #     if cell_content is not None:
-                #         cell_value = ''.join((cell_value, cell_content.encode('ascii', 'ignore').decode('ascii')))
                 return cell_value
+        return '<valueNotFound>'
+
+    @staticmethod
+    def get_cell_description_value(rows, field_label):
+        for row in rows:
+            cells = row.findAll('td')
+            # cell_span = cells[0].findAll('span')
+            cell_text = cells[0].find(text=True) if len(cells) > 0 else ''
+            # print ("get_cell_value.cell_text: %s" % cell_text)
+            if len(cells) == 2 and cell_text == field_label:
+                # print ("cell_text: %s" % cell_text)
+                tag_desc_value = cells[1].findAll('div')
+                for tag_div in tag_desc_value:
+                    tags_span = tag_div.findAll('span')
+                    tag_span_ok = False
+                    for tag_span in tags_span:
+                        tag_span_text = tag_span.find(text=True)
+                        if 'Descripcion del Ticket:' in tag_span_text:
+                            tag_span_ok = True
+                            break
+
+                    if tag_span_ok:
+                        cell_value = tags_span[1].find(text=True) if len(tags_span) > 1 else ''
+                        return cell_value
         return '<valueNotFound>'
 
     @staticmethod
@@ -58,17 +77,11 @@ class EmailParser:
                 if cell_field_text == 'Ambiente':
                     is_table_ok = True
                     break
-                    # cell_span = row.findAll('span')
-                    # if len(cell_span) > 0:
-                    #     cell_text = cell_span[0].find(text=True)
-                    #     if cell_text == "Ambiente":
-                    #         is_table_ok = True
-                    #         break
 
             if is_table_ok:
                 dict_defect = {'id_defect': None, 'environment': self.get_cell_value(rows, 'Ambiente'),
                                'crm': self.get_cell_value(rows, 'Mercado'),
-                               'description': self.get_cell_value(rows, 'Descripcion'),
+                               'description': self.get_cell_description_value(rows, 'Descripcion'),
                                'id_ticket': 'T' + self.get_cell_value(rows, 'Defect ID'),
                                'id_release': self.get_cell_value(rows, 'Release'),
                                'id_requirement': self.get_cell_value(rows, 'Requerimiento'),
