@@ -102,7 +102,7 @@ class EmailParser:
             for row in rows:
                 cell_span = row.findAll('span')
                 if len(cell_span) > 0:
-                    cell_text = cell_span[0].find(text=True)
+                    cell_text = cell_span[0].find(text=True).upper()
                     if cell_text == "TICKET" or cell_text == "REQUERIMIENTO":
                         is_table_ok = True
                         is_req = True if cell_text == "REQUERIMIENTO" else False
